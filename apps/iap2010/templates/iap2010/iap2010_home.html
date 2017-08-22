@@ -1,0 +1,149 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+
+{% block head_title %}{% trans "iKnow" %}{% endblock %}
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}iap2010/css/iap2010.css" />
+{% endblock %}
+{% block body %}
+	<h2 class="small-headline">
+		MIT IAP 2010 <span style="color: red;">design competition</span>
+	</h2>
+	<h2 class="large-headline">
+		Knowledge Market Coding Challenge
+	</h2>
+	<div id="accordion">
+		<h3><a href="#">General Information</a></h3>
+		<div>
+			<img src="{{ STATIC_URL }}iap2010/images/market.png" />
+			<p>
+			First knowledge market coding challenge.  The goal is to produce the most useful new features for a knowledge marketplace. Example features include a question and answer exchange, an auction market, a prediction market, a virtual currency used for exchange, and indicators for the health of the knowledge economy. Links to design documents are provided below.
+			</p>
+		</div>
+		
+		<h3><a href="#">Prizes</a></h3>
+		<div>
+			<ul>
+				<li> 1st Place - $5000 </li>
+				<li> 2nd Place - $3000 </li>
+				<li> 3rd Place - $1000 </li>
+			</ul>
+		</div>
+		
+		<h3><a href="#">Important Dates</a></h3>
+		<div>
+			<ol>
+				<li> Registration: midnight January 11, 2010</li>
+				<li> 
+					Initial coding submission: midnight January 18, 2010 <br /> 
+					a.	This will consist of a URL where judges and other teams can access your code.  You may continue to work on your code after this time. <br />
+					b.	This begins the bug finding phase where you can publicly identify bugs in other teams' code.
+				</li>
+				<li>
+					Public presentation of features from your code: 13:00 January 22, 2010 <br />
+					a.	This phase is not required but is strongly recommended.  <br />
+					b.	Non-attendance is anticipated only for teams that are non-local.
+				</li>
+				<li>
+					Final coding submission: midnight January 25, 2010
+					a.	This includes a URL where judges can access your code. <br />
+					b.	All code should be frozen at this time. <br />
+					c.	Submission should include a digital writeup/guidebook describing what you have implemented (powerpoint, word or any format you choose).
+				</li>
+				<li>
+					Final decisions: February 8, 2010
+				</li>
+			</ol>
+		</div>
+
+		<h3><a href="#">Registration</a></h3>
+		<div>
+			<p>
+				To register, send an email to both 
+			</p>
+			<ul>
+				<li>Marshall Van Alstyne (marshall@mit.edu) </li>
+				<li>Dawei Shen(dawei@mit.edu) </li>
+			</ul>
+			<p>
+				by midnight Jan 11.  Put "KM Coding Challenge" in the subject line.  List the names and contact information for the registrants in the email body. Choose a name for your team and include this in the email body. The name will be used in further announcements. You do not need to register to begin but you must register to be eligible.
+			</p>
+		</div>
+		<h3><a href="#">Coding Guidelines</a></h3>
+		<div>
+			<p>
+				<a href="http://iknow.mit.edu/">Barter</a> is a prototypical system we are currently building to demonstrate
+				the features and potential applications of a knowledge market. It is still at its early development stage, with
+				a question and answer exchange implemented. The source code of Barter is openly available for you to get
+				started with the code competition. To acquire the latest source code, you need
+			</p>
+			<p class="quotes">
+				git clone git://dawei.xvm.mit.edu/socialmobility/knowledge.git
+			</p>
+			<p>
+				Barter is being implemented using Python under the Django framework. To expediate the development process, we 
+				also leverage a popular package called <a href="http://pinaxproject.com/">Pinax</a>. You will be able to review 
+				customized code under the directory
+			</p>
+			<p class="quotes">
+				knowledge/pylib/knowledge/knowledge_web/
+			</p>
+			<p>
+				Templates and media files are organized on a per-app basis, i.e. each app under the apps/ directory manages 
+				its own app-specific templates and media files separately. You are strongly recommended to follow the same
+				organization style, and refer exisiting apps to see how files are structured. While you develop your own 
+				world-changing features, you should set up your own database. sqlite3 is recommended because of its light weight
+				and convenience.
+			</p>
+			<p>
+				To be efficient, you should at least get yourself familiarized with Django tutorials, and some of its
+				advanced features. Meanwhile, it's helpful to be aware of what features are included as part of Pinax. You will
+				need to set up a Pinax environment, instructions can be found
+				<a href="http://pinaxproject.com/docs/0.7/install.html">here</a>. Remember that you need to activate the 
+				pinax environment before you can run <span style="color: blue;">python manage.py</span>. Adding some 
+				shortcuts and aliases can save your life enormously. We are using Django version 1.1.1, so you also need to
+				upgrade Django, which is included by Pinax, by using
+			</p>
+			<p class="quotes">
+				pip install -U Django==1.1.1
+			</p>
+			<p>
+				when you are under the pinax environment. 
+			</p>
+			<p>
+				There might be some bumps before you get familiar with the current source base. Feel free to email 
+				dawei@media.mit.edu if you have any questions or need assistance. 
+			</p>
+		</div>
+		<h3><a href="#">File Downloads</a></h3>
+		<div>
+			<p>
+				Below are several important documents related to knowledge markets and this competition
+			</p>
+			<ul>
+				<li>
+					Contest Announcement (<a href="{{ STATIC_URL }}iap2010/pdf/contest.pdf">pdf</a>)
+				</li>
+				<li>
+					Design Document (<a href="{{ STATIC_URL }}iap2010/pdf/design.pdf">pdf</a>)
+				</li>
+				<li>
+					Designing Knowledge Markets From the Outside In (<a href="{{ STATIC_URL }}iap2010/pdf/ikm.pdf">pdf</a>)
+				</li>
+				<li>
+					Source code of Barter (<a href="http://figaro.mit.edu:81/knowledge_web.zip">.zip</a>)
+				</li>
+			</ul>
+		</div>
+	</div>
+{% endblock body %}
+
+{% block extra_body %}
+	<script type="text/javascript">
+		$(function(){
+			$("#accordion").accordion({
+				autoHeight: false
+			});
+		});
+	</script>
+{% endblock %}

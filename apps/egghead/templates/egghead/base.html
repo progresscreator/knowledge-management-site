@@ -1,0 +1,16 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+
+{% block subnav %}
+	{% if user.is_authenticated %}
+		<ul>
+			<li><a href="{% url egghead_detail user %}">{% trans "Your profile" %}</a></li> 
+			<li><a href="{% url profile_list %}">{% trans "All eggheads" %}</a></li> 
+		</ul>
+	{% else %}
+		&nbsp;
+	{% endif %}
+{% endblock %}
+
+{% block body_class %}egghead{% endblock %}
+

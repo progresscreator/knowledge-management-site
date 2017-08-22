@@ -1,0 +1,25 @@
+{% load i18n %}
+{% blocktrans with question.question_title|safe as question_title and question.display_name as asker_name and comment.display_name as commentor_name %}
+The question
+
+	{{ question_title }}
+
+	asked by {{ asker_name }}
+
+	just received a comment from {{ commentor_name }}
+{% endblocktrans %}
+
+***************************************************************************
+{{ comment.details }}
+***************************************************************************
+
+{% trans "You could visit the link below to review the comment" %}. {% trans "Thanks for your participation" %}.
+	http://{{ current_site.domain }}/iknow/question/{{ question.id }}/
+
+{% blocktrans with current_site.name as site_name %}
+To change your settings on receiving notifications from {{ site_name }}, visit
+{% endblocktrans %}
+	http://{{ current_site.domain }}/barter/settings/
+{% blocktrans with current_site.name as site_name %}
+- {{ site_name }} Team
+{% endblocktrans %}

@@ -1,0 +1,11 @@
+{% load i18n %}
+{% if members %}
+	<h2>{% trans "Tribe Members" %}</h2>
+	<ol>
+		{% for member in members %}
+			<li> <a href="{% url egghead_detail member %}">{{ member.egghead.display_name }} </a></li>
+		{% endfor %}
+	</ol>
+{% else %}
+	{% trans "No members" %}
+{% endif %}

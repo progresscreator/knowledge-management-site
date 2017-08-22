@@ -1,0 +1,35 @@
+{% extends "dashboard/base.html" %}
+{% block head_title %}
+	Dashboard: Expertise Cloud
+{% endblock %}
+
+{% block db_body %}
+	<div class="ui-widget ui-widget-content ui-corner-all db-block">
+		<h1 class="db_title">
+			Expertise Cloud
+		</h1>
+		<div style="padding-left: 3px;">
+			<canvas datasrc="{{ STATIC_URL }}dashboard/js/expertise_alter_color.js" width="940" height="720"></canvas>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+	<div class="ui-widget ui-widget-content ui-corner-all db-block" style="padding: 15px; margin-top: 20px;">
+		<p style="font-size: 11px;">
+			<a href="{% url db_expertise %}">Trebuchet (default)</a> <br />
+			<a href="{% url db_expertise_slab_serif %}">Slab-serif</a> <br />
+			<a href="{% url db_expertise_verdana %}">Verdana</a> <br />
+			<a href="{% url db_expertise_arial %}">Arial</a> <br />
+			<a href="{% url db_expertise_alter_color %}">A different color scheme</a>
+		</p>
+	</div>
+{% endblock %}
+
+{% block extra_body %}
+	<script type="text/javascript">
+		var font_url = "{{ STATIC_URL }}core/js/trebuchet.svg";		
+		var json_expertise_url = "{% url db_json_expertise %}";
+		var min_wealth = {{ min_wealth }};
+		var max_wealth = {{ max_wealth }};
+	</script>
+	<script type="text/javascript" src="{{ STATIC_URL }}core/js/processing-0.6.packed.js"></script>
+{% endblock %}

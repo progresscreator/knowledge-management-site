@@ -1,0 +1,40 @@
+if ($("#answer-lock").text() == "Lock") {
+	$("#answer-lock").button( {
+		text: false,
+		icons: {
+			primary: "ui-icon-locked"
+		}
+	});
+} else {
+	$("#answer-lock").button( {
+		text: false,
+		icons: {
+			primary: "ui-icon-unlocked"
+		}
+	});
+}
+$("#answer-lock").click(function(){
+	$.post("{% url iknow_post_answerer_hide %}", {
+		"question_id": {{ question.id }}
+	}, function(data, textStatus) {
+		if (data == "0") {
+			var options;
+			if ($("#answer-lock").text() == 'Lock') {
+				options = {
+					label: 'Unlock',
+					icons: {
+						primary: 'ui-icon-unlocked'
+					}
+				};
+			} else {
+				options = {
+					label: 'Lock',
+					icons: {
+						primary: 'ui-icon-locked'
+					}
+				};
+			}
+			$("#answer-lock").button('option', options);
+		}
+	});
+});

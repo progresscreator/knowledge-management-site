@@ -1,0 +1,21 @@
+{% load i18n %}
+{% load thumbnail %}
+<div>
+	{{ answer.answer_text|urlize|linebreaks }}
+</div>
+<div style="padding-left: 100px; margin: 15px 0px;">
+	{% if answer.picture %}
+		<img src="{% thumbnail answer.picture 400x400 %}" />
+	{% endif %}
+</div>
+{% if answer.file %}
+	<div class="ui-widget ui-widget-content ui-corner-all"
+		style="padding-left:20px; margin: 20px 20px;">
+		<p style="font-size:11px; font-weight: bold;">
+			{% blocktrans with answer.display_name as display_name %}
+				{{ display_name }} attached a file:
+			{% endblocktrans %}
+			<a style="margin-left:20px;"class="answer-file" href="{{ answer.file.url }}">{% trans "Download" %}</a>
+		</p>
+	</div>
+{% endif %}

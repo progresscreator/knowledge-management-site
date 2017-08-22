@@ -1,0 +1,192 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-10-21 10:42-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: forms.py:9
+msgid "iKnow SMS"
+msgstr "iKnow SMS"
+
+#: forms.py:10
+msgid ""
+"Receive an SMS on your mobile phone when a new question enters the market"
+msgstr ""
+"Recevoir un SMS sur votre téléphone mobil quand une nouvelle question arrive "
+"sur le marché"
+
+#: forms.py:13
+msgid "Mobile No."
+msgstr "Numéro de Mobil"
+
+#: forms.py:14
+msgid "Mobile phone number in the format of 0123456789"
+msgstr "Numéro de Mobil dans le format 0123456789"
+
+#: forms.py:17
+msgid "iKnow Email"
+msgstr "E-mail enrégistré avec iKnow"
+
+#: forms.py:18
+msgid "Receive an email when a new question enters the market"
+msgstr "Recevoir un e-mail quand une nouvelle question arrive sur le marché"
+
+#: forms.py:21
+msgid "New feature updates"
+msgstr "Mises à jour de nouvelles fonctions"
+
+#: forms.py:22
+msgid "Receive updates on new features through emails"
+msgstr "Recevoir les mises à jour concernant de nouvelles fonctions par e-mail"
+
+#: models.py:21
+msgid "Public"
+msgstr "Publique"
+
+#: models.py:22
+msgid "Friends"
+msgstr "Les amis"
+
+#: models.py:23
+msgid "Groups"
+msgstr "Groupes"
+
+#: models.py:24
+msgid "Both friends and selected groups"
+msgstr "Les deux amis et groupes sélectionnés"
+
+#: models.py:25
+msgid "Targeted Users"
+msgstr "Les utilisateurs ciblés"
+
+#: models.py:28
+msgid "Document"
+msgstr "Document"
+
+#: models.py:29
+msgid "Document Request"
+msgstr "Demande de documents"
+
+#: models.py:30
+msgid "Question Amendment"
+msgstr "Modifier la question"
+
+#: models.py:31
+msgid "Question Comment"
+msgstr "Donnez votre avis sur la question"
+
+#: models.py:32
+msgid "Answer Comment"
+msgstr "Donnez votre avis sur la réponse"
+
+#: models.py:33
+msgid "Idea"
+msgstr "Idée"
+
+#: models.py:34
+msgid "Idea Comment"
+msgstr "Idea un commentaire"
+
+#: models.py:42
+msgid "Share anonymously?"
+msgstr "Partager de façon anonyme?"
+
+#: models.py:79
+msgid "An Egghead"
+msgstr "Un utilisateur"
+
+#: models.py:94
+msgid "Thumb up"
+msgstr "pouces en haut"
+
+#: models.py:95
+msgid "Thumb down"
+msgstr "pouces en bas"
+
+#: models.py:103
+#, python-format
+msgid "%(thumber_name)s thumbs up"
+msgstr "%(thumber_name)s pouces en haut"
+
+#: models.py:105
+#, python-format
+msgid "%(thumber_name)s thumbs down"
+msgstr "%(thumber_name)s pouces en bas"
+
+#: models.py:124
+#, python-format
+msgid "%(donater_name)s donates %(amount)d points"
+msgstr "%(donater_name)s donné %(amount)d points"
+
+#: models.py:147
+#, python-format
+msgid "%(user_name)s's settings"
+msgstr "%(user_name)s paramètres"
+
+#: models.py:153
+msgid "Bug fixes"
+msgstr "Une correction de bogue"
+
+#: models.py:154
+msgid "New features"
+msgstr "Nouvelles fonctionnalités"
+
+#: views.py:52
+msgid "A correct mobile phone number is required if 'iKnow SMS' is enabled"
+msgstr "Un bon numéro de téléphone mobil est requis si 'iKnow SMS' est activé"
+
+#: views.py:55
+msgid "The phone number you input is not recognized"
+msgstr "Le numéro de téléphone que vous avez entré n’est pas reconnu"
+
+#: views.py:91
+#, python-format
+msgid "[ %(site_name)s ] Bug fixed"
+msgstr "[ %(site_name)s ] Bogue Corrigée"
+
+#: views.py:93
+#, python-format
+msgid "[ %(site_name)s ] A new feature is available"
+msgstr "[ %(site_name)s ] Une nouvelle function est disponible"
+
+#: templates/core/barter_settings.html:4
+msgid "Edit personal settings"
+msgstr "Editer les paramètres personnels"
+
+#: templates/core/barter_settings.html:8
+msgid "Settings"
+msgstr "Paramètres"
+
+#: templates/core/barter_settings.html:15
+msgid "Error"
+msgstr "Erreur"
+
+#: templates/core/barter_settings.html:23
+msgid "Save Settings"
+msgstr "Sauvegarder les paramètres"
+
+#: templates/core/core_tag_experts.html:14
+#, python-format
+msgid ""
+"\n"
+"\tExperts on '%(tag_name)s' \n"
+msgstr ""
+"\n"
+"\tExperts en '%(tag_name)s' \n"
+
+#: templates/core/feature_form.html:24
+msgid "Save"
+msgstr "Sauvegarder"

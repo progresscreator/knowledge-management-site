@@ -1,0 +1,307 @@
+{% extends "iauction/base.html" %}
+{% load i18n %}
+{% load avatar_tags %}
+{% load thumbnail %}
+{% block head_title %}iBay - {{ product }}{% endblock %}
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}iknow/css/iknow_home.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}iauction/css/iauction.css" />
+{% endblock %}
+{% block body %}
+	<div class="span-24 last">
+		<h2 class="product-name"> {{ product.name }} </h2>
+	</div>
+	<div class="span-16">
+		<div style="margin-bottom: 15px;" class="ui-widget ui-widget-content ui-corner-all info-content">
+			<div style="float: left; width: 48%"> 
+				{% if product.picture %}
+					<img src="{% thumbnail product.picture 250x250 %}" />
+				{% else %}
+					<img src="{{ STATIC_URL }}iauction/images/gift_box.png" />
+				{% endif %}
+			</div>
+			<p style="float: left; width: 48%;"> {{ product.details }} </p>
+			<div class="clearfix"></div>
+			<div style="float:left;width:70%;">
+				<p style="text-align: right; color:#3090C7;"> 
+					{% blocktrans with product.start_time_string_l as start_time_string_l %}
+						Auction started at {{ start_time_string_l }}, 
+					{% endblocktrans %}
+					{% trans "starting price" %}:<strong>{{ product.start_price }}</strong> <br />
+					{% ifequal product.status "A" %}
+						{% blocktrans with product.end_time_string_l as end_time_string_l and product.time_left_string as time_left_string %}
+							Bids will be accepted until {{ end_time_string_l }} ({{ time_left_string }} left)
+						{% endblocktrans %}
+						<br />
+					{% endifequal %}
+					{% ifequal product.status "W" %}
+						{% trans "The product was withdrawn by the seller" %}<br />
+					{% endifequal %} 
+					{% if product.has_expired %}
+						{% blocktrans with product.end_time_string_l as end_time_string_l %}
+							Auction was closed at {{ end_time_string_l }}
+						{% endblocktrans %}
+						<br />
+					{% endif %}
+					{% trans "Visits" %}: <strong>{{ product.visits }}</strong>
+				</p>
+			</div>
+			<div style="float:left; width: 26%; padding-left:20px;">
+				<p> {% trans "Sold by" %}:<br /><strong>{{ product.seller_name }}</strong> </p>
+				{% avatar product.seller 40 %}
+			</div>
+			<div class="clearfix"></div>
+		</div>
+
+		<div class="ui-widget ui-widget-content ui-corner-all info-content">
+			{% ifequal product.status "A" %}
+				{% ifequal product.seller.id user.id %}
+					<p>
+						{% trans "You are the seller of this item. You can't bid on your own stuff" %}.
+						<br />
+						{% trans "The auction is still active and accepting bids" %}.
+					</p>
+					{% if product.is_withdrawable %}
+						<p>
+							{% trans "No bidder yet, thus you can withdraw your item as you wish" %}
+							<button id="withdraw-button"> {% trans "Withdraw" %}</button>
+						</p>
+					{% endif %}
+				{% else %}
+					<p>
+						{% trans "Interested? Place your bid here. Don't bid more than your available credit" %}
+						{{ user.egghead.bidding_credits }}.
+						{% ifequal product.current_leader.id user.id %}
+							<br />{% trans "But ... you are currently the highest bidder" %}.
+						{% endifequal %}
+					</p>
+					<div style="float: left; width: 30%; " class="price-tag">
+						<h4>{% trans "Current highest bid" %}</h4>
+						<div class="ui-widget ui-widget-content ui-corner-all bid-price">
+							{{ product.current_price }}
+						</div>
+					</div>
+					<div style="float: left; width: 22%;" class="price-tag">
+						<h4>{% trans "Your bid" %}</h4>
+						<input id="bid-amount" type="text" />
+					</div>
+					<div style="float: left; width: 45%;">
+						<input type='checkbox' id='bid-anonymous'
+							class='ui-button ui-corner-all ui-state-default' /> <label class="anony">{% trans "Check here if bid anonymously" %}</label><br />
+						<input type="submit" id="bid-submit"
+							class="ui-button ui-corner-all ui-state-default ibutton" value="{% trans "Place my bid" %}!" />
+					</div>
+					<div class="clearfix"></div>
+				{% endifequal %}
+			{% endifequal %}
+			{% ifequal product.status "W" %}
+				<p>
+					{% trans "This product was withdrawn by the seller. So it's no longer accepting bids." %}
+				</p>
+			{% endifequal %}
+			{% ifequal product.status "P" %}
+				<p>
+					{% trans "The auction has been closed" %}. {% trans "The highest bidder" %}: 
+					<a href="{% url iauction_booth product.success_bid.bidder %}">{{ product.success_bid.display_name }}</a>.
+					<br />
+					{% trans "The seller and the winner need to coordinate between themselves in getting the product delivered" %}.
+				</p>
+				{% if product.deal.cleared_by_seller %}
+					<div class="ui-widget ui-state-highlight ui-corner-all" 
+						style="float:left;width:52%;padding:0.5em 0.7em;"> 
+						<p><span class="ui-icon ui-icon-check" style="float: left; margin-right: .3em;"></span> 
+						<strong>{% trans "Alert" %}:</strong> {% trans "The seller has confirmed delivery" %}</p>
+					</div>
+					{% ifequal product.seller.id user.id %}
+						<div style="float:left; width: 40%; padding-top: 4px;">
+							<p style="padding-left: 20px; font-weight:bold;"> {% trans "You have confirmed delivery" %} </p>
+						</div>
+					{% endifequal %}
+				{% else %}
+					<div class="ui-widget ui-state-error ui-corner-all" 
+						style="float:left;width:52%;padding:0.5em 0.7em;"> 
+						<p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span> 
+						<strong>{% trans "Alert" %}:</strong> {% trans "The seller hasn't confirmed delivery" %} </p>
+					</div>
+					{% ifequal product.seller.id user.id %}
+						<div style="float:left: width: 40%; padding-top:4px;">
+							<p><button id="confirm-delivery" style="margin-left:20px;"> {% trans "Confirm delivery" %} </button></p>
+						</div>
+					{% endifequal %}
+				{% endif %}
+				<div class="clearfix"></div>
+				{% if product.deal.cleared_by_winner %}
+					<div class="ui-widget ui-state-highlight ui-corner-all" 
+						style="margin-top:10px; float:left;width:52%;padding:0.5em 0.7em;"> 
+						<p><span class="ui-icon ui-icon-check" style="float: left; margin-right: .3em;"></span> 
+						<strong>{% trans "Alert" %}:</strong> {% trans "The winner(buyer) has confirmed receipt" %} </p>
+					</div>
+					{% ifequal product.success_bid.bidder.id user.id %}
+						<div style="float:left; width: 40%; padding-top: 4px;">
+							<p style="padding-left: 20px; font-weight:bold;"> {% trans "You have confirmed receipt" %} </p>
+						</div>
+					{% endifequal %}
+				{% else %}
+					<div class="ui-widget ui-state-error ui-corner-all" 
+						style="margin-top: 10px; float:left;width:52%;padding: 0.5em 0.7em;"> 
+						<p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span> 
+						<strong>{% trans "Alert" %}:</strong> {% trans "The winner(buyer) hasn't confirmed receipt" %} </p>
+					</div>
+					{% ifequal product.success_bid.bidder.id user.id %}
+						<div style="float:left: width: 40%; padding-top:6px;">
+							<p><button id="confirm-receipt" style="margin-left:20px;"> {% trans "Confirm receipt" %} </button></p>
+						</div>
+					{% endifequal %}
+				{% endif %}
+				<div class="clearfix"></div>
+			{% endifequal %}
+			{% ifequal product.status "S" %}
+				<p>
+					{% blocktrans with product.success_bid.display_name as winner_name %}
+						The auction has been closed, and the award was won by {{ winner_name }}. 
+					{% endblocktrans %}
+					<br />
+					{% trans "The product has been delivered and confirmed by both parties" %}. <br />
+					{% blocktrans with product.success_bid.amount as amount and product.success_bid.display_name as buyer_name and product.seller_name as seller_name %}
+						{{ amount }} points have been transferred from {{ buyer_name }} to {{ seller_name }}.
+					{% endblocktrans %}
+				</p>
+			{% endifequal %}
+			{% ifequal product.status "U" %}
+				<p>
+					{% trans "The auction has been closed, and the award was unsold" %} :-(
+				</p>
+			{% endifequal %}
+		</div>
+	</div>
+	<div class="span-8 last">
+		<div class="ui-widget ui-corner-all info-block">
+			<div class="ui-widget-header ui-corner-top info-header">
+				{% trans "Bidding history" %}
+			</div>
+			<div class="ui-widget-content ui-corner-bottom info-content">
+				{% if bids %}
+					<p>
+						{% blocktrans count bids|length as bidcount %}
+							{{ bidcount }} bid in total
+						{% plural %}
+							{{ bidcount }} bids in total
+						{% endblocktrans %}
+					</p>
+					<ul> 
+						{% for bid in bids %}
+							<li> 
+								{% blocktrans with bid.amount as amount and bid.display_name as bidder_name and bid.time_string_s as time_string %}
+									{{ amount }} placed by {{ bidder_name }} at {{ time_string }}
+								{% endblocktrans %}
+							</li>
+						{% endfor %}
+					</ul>
+				{% else %}
+					<p>
+						{% trans "Ah oh, nobody has shown interests yet" %} :-(
+					</p>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+{% endblock %}
+{% block extra_body %}
+	<script type="text/javascript">
+		$(function(){
+			$("input:text").addClass("ui-corner-all")
+				.css({"background":"#357EC7","color": "white","font-size":"12px"}).val("");
+			$(".ui-button").hover(
+				function(){
+					$(this).removeClass("ui-state-default");
+					$(this).addClass("ui-state-highlight");
+				},
+				function(){
+					$(this).removeClass("ui-state-highlight");
+					$(this).addClass("ui-state-default");
+				}
+			);
+			$("button").button();
+
+			$("#withdraw-button").click (function() {
+				$.post("{% url iauction_post_withdraw %}", {
+					"product_id": {{ product.id }}
+				}, function(data) {
+					if (data == "0") {
+						alert("Product withdrawn successfully");
+					} else if (data == "1") {
+						alert("Failed because of existing bid(s)");
+					} else if (data == "2") {
+						alert("Failed because you are not the seller");
+					}
+					location.reload(true);
+				});
+			});
+			$("#confirm-delivery").click (function() {
+				$.post("{% url iauction_post_confirm_delivery %}", {
+					"product_id": {{ product.id }}
+				}, function(data) {
+					if (data == "0") {
+						alert("Product delivery confirmed successfully");
+					} else if (data == "1") { 
+						alert("Confirmation failed: the product is not at a pending state ");
+					} else if (data == "2") {
+						alert("Confirmation failed: you are not the seller");
+					}
+					location.reload(true);
+				});
+
+			});
+			$("#confirm-receipt").click (function() {
+				$.post("{% url iauction_post_confirm_receipt %}", {
+					"product_id": {{ product.id }}
+				}, function(data) {
+					if (data == "0") {
+						alert("Product receipt confirmed successfully");
+					} else if (data == "1"){ 
+						alert("Confirmation failed: the product is not at a pending state");
+					} else if (data == "2") {
+						alert("Confirmation failed: you are not the buyer");
+					}
+					location.reload(true);
+				});
+			});
+			var av_credit = {{ user.egghead.bidding_credits }};
+			var current_price = {{ product.current_price }};
+			$("#bid-submit").click(function() {
+				var amount = $.trim($("#bid-amount").val());
+				if (amount == "") {
+					alert("Please type a number first!");
+				}
+				else if (isNaN(amount)) {
+					alert(amount + " is not a valid number");
+				}
+				else {
+					var amount_int = parseInt(amount);
+					if (amount_int > av_credit) {
+						alert("Bidding failed: " + amount + " exceeds your available credit!");
+					}
+					else if (amount_int <= current_price) {
+						alert("Bidding failed: " + amount + " is not larger than the current price!");
+					}
+					else {
+						var anonymous = $("#bid-anonymous").is(":checked");
+						$.post("{% url iauction_post_bid %}", {
+							"product_id": {{ product.id }},	
+							"amount": amount_int,
+							"anonymous": anonymous
+						}, function(data) {
+							if (data == "0") {
+								alert("Bidding successful");
+								location.reload(true);
+							}
+							else {
+								alert("Bidding failed");
+							}
+						});
+					}
+				}
+			});
+		});
+	</script>
+{% endblock %}

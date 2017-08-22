@@ -1,0 +1,18 @@
+{% load i18n %}
+{% blocktrans with question.question_title|safe as question_title and current_site.name as site_name and question.time_string_l as time_string_l and question.points_offered as points_offered %}
+You asked the question
+
+	{{ question_title }}
+
+	on {{ site_name }} at {{ time_string_l }}, and {{ points_offered }} point(s) were offered as awards.
+{% endblocktrans %}
+{% blocktrans with question.expiration_string_l as expiration_string_l and question.deadline_string_l as deadline_string_l %}	
+	The question expired at {{ expiration_string_l }}. In order not to forfeit your question's points, please allocate
+	your points or extend the deadline before {{ deadline_string_l }} (2 days after the original expiration time).
+{% endblocktrans %}
+{% trans "You could visit the link below to perform your actions" %}. {% trans "Thanks for your participation" %}.
+	http://{{ current_site.domain }}/iknow/question/{{ question.id }}/
+
+{% blocktrans with current_site.name as site_name %}
+- {{ site_name }} Team
+{% endblocktrans %}

@@ -1,0 +1,17 @@
+{% load i18n %}
+{% blocktrans with bid.amount as amount and bid.product.name as product_name %}
+You placed {{ amount }} points in the iBay market for the item
+
+	{{ product_name }}
+{% endblocktrans %}
+{% blocktrans %}
+Unfortunately, somebody else offered a higher bid. The current leading bid is
+	{{ leading }}
+{% endblocktrans %}
+
+{% trans "You could visit to see the product and current bids" %}. {% trans "Thank you for your participation" %}. {% trans "Good luck" %}.
+	http://{{ current_site.domain }}{{ bid.product.get_absolute_url }}
+
+{% blocktrans with current_site.name as site_name %}
+- {{ site_name }} Team
+{% endblocktrans %}

@@ -1,0 +1,586 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-10-13 15:30-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: forms.py:8
+msgid "Midnight"
+msgstr "Midnight"
+
+#: forms.py:9
+msgid "6 AM"
+msgstr "6 heures"
+
+#: forms.py:10
+msgid "9 AM"
+msgstr "9 heures"
+
+#: forms.py:11
+msgid "12 PM"
+msgstr "12 heures"
+
+#: forms.py:12
+msgid "3 PM"
+msgstr "15 heures"
+
+#: forms.py:13
+msgid "6 PM"
+msgstr "18 heures"
+
+#: forms.py:14
+msgid "9 PM"
+msgstr "21 heures"
+
+#: forms.py:17
+msgid "The title of the requested document is required"
+msgstr "Le titre du document demandé est requis"
+
+#: forms.py:18
+msgid "Provide a title of the document you request"
+msgstr "Fournir un titre du document que vous demandez"
+
+#: forms.py:20
+msgid "Provide a bit more details about the document you request"
+msgstr ""
+"Fournir quelques détails de plus concernant le document que vous demandez"
+
+#: forms.py:22
+msgid "Please provide the starting price"
+msgstr "Veuillez fournir l’enchère initiale"
+
+#: forms.py:23
+msgid "How many points you are willing to offer"
+msgstr "Combien de points vous êtes prêt à offrir ?"
+
+#: forms.py:24
+msgid "When will your document request expire?"
+msgstr "Quand votre demande de document expirera-t-elle?"
+
+#: forms.py:26
+msgid "What time will your question expire exactly?"
+msgstr "A quelle heure exactement expirera votre question?"
+
+#: forms.py:28
+msgid "Request the document anonymously?"
+msgstr "Demander anonymement le document?"
+
+#: forms.py:30 forms.py:53
+msgid "Index your document with sufficient and accurate tags"
+msgstr "Indexer votre document avec suffisamment d’étiquettes précises"
+
+#: forms.py:43
+msgid "The title of your document is required"
+msgstr "Le titre de votre document est requis"
+
+#: forms.py:44
+msgid "Provide a title of your document"
+msgstr "Fournir un titre de votre document"
+
+#: forms.py:46
+msgid "Provide a bit more details about your document"
+msgstr "Fournir quelques détails supplémentaires concernant votre document"
+
+#: forms.py:48
+msgid "Provide a version number of your document (optional)"
+msgstr "Fournir un numéro de version de votre document (facultatif)"
+
+#: forms.py:50
+msgid "Specify the needed points"
+msgstr "Préciser les points nécessaires"
+
+#: forms.py:51
+msgid "Points charged when others download your document"
+msgstr "Points à faire payer quand d’autres téléchargent votre document"
+
+#: forms.py:55
+msgid "Provide a link pointing to your document"
+msgstr "Fournir un lien indiquant l’emplacement de votre document"
+
+#: forms.py:57
+msgid "Finally, please upload your document"
+msgstr "Enfin, veuillez mettre le document en ligne"
+
+#: models.py:141
+#, python-format
+msgid "Requesting document: %(doc_title)s"
+msgstr "Demandant document %(doc_title)s"
+
+#: models.py:187
+#, python-format
+msgid "%(downloader_name)s downloaded %(doc_title)s at %(time)s"
+msgstr "%(downloader_name)s téléchargé %(doc_title)s à %(time)s"
+
+#: models.py:206
+#, python-format
+msgid "%(rater_name)s gives %(doc_title)s a rating of %(rating)d at %(time)s"
+msgstr "%(rater_name)s donne %(doc_title)s une cote de %(rating)d à %(time)s"
+
+#: models.py:227
+#, python-format
+msgid "[ iDoc ] %(time)s: %(amount)s points frozen from %(username)s's account"
+msgstr ""
+"[ iDoc ] %(time)s: %(amount)s points congelés en provenance %(username)s "
+"compte"
+
+#: models.py:233
+#, python-format
+msgid "[ iDoc ] %(time)s: %(amount)d points unfrozen to %(username)s's account"
+msgstr "[ iDoc ] %(time)s: %(amount)d points non congelés %(username)s compte"
+
+#: models.py:239
+#, python-format
+msgid "Requesting a document: %(docrequest_title)s"
+msgstr "Demande d'un document: %(docrequest_title)s"
+
+#: models.py:241 models.py:264 models.py:275
+msgid "Unknown reason"
+msgstr "Raison inconnue"
+
+#: models.py:256
+#, python-format
+msgid "[ iDoc ] %(time)s: %(amount)d points awarded to %(receiver_name)s"
+msgstr "[ iDoc ] %(time)s: %(amount)d points attribués à %(receiver_name)s"
+
+#: models.py:262
+#, python-format
+msgid "Uploading a document: %(doc_title)s"
+msgstr "Le téléchargement d'un document: %(doc_title)s"
+
+#: models.py:266
+#, python-format
+msgid ""
+"[ iDoc ] %(time)s: %(amount)d points transfered from %(sender_name)s to "
+"%(receiver_name)s"
+msgstr ""
+"[ iDoc ] %(time)s: %(amount)d points transférés de %(sender_name)s à "
+"%(receiver_name)s"
+
+#: models.py:273
+#, python-format
+msgid "Downloading the document: %(doc_title)s"
+msgstr "Télécharger le document: %(doc_title)s"
+
+#: models.py:281 models.py:293
+msgid "World Bank"
+msgstr "La Banque mondiale"
+
+#: models.py:288 models.py:300
+msgid "Unknown"
+msgstr "Inconnu"
+
+#: models.py:304
+#, python-format
+msgid "Uploading a document: '%(doc_title)s'"
+msgstr "Le téléchargement d'un document: '%(doc_title)s'"
+
+#: models.py:306
+#, python-format
+msgid "Downloading the document: '%(doc_title)s'"
+msgstr "Télécharger le document: '%(doc_title)s'"
+
+#: models.py:308
+msgid "idoc transactions"
+msgstr "transactions idoc"
+
+#: views.py:208
+#, python-format
+msgid ""
+"You rated the document with %(rating)d stars on %(date)s. You can always "
+"update your rating."
+msgstr ""
+"Vous noté le document avec %(rating)d étoiles sur %(date)s. Vous pouvez "
+"toujours mettre à jour votre cote."
+
+#: views.py:213
+msgid "You have never rated this document. Why not provide one?"
+msgstr "Vous n'avez jamais évalué ce document. Pourquoi ne pas offrir une?"
+
+#: views.py:328 templates/idoc/idoc_docs.html:4
+#: templates/idoc/idoc_docs.html.py:22
+msgid "All documents"
+msgstr "Tous les documents"
+
+#: views.py:330
+msgid "IDocuments that you bookmarked"
+msgstr "IDocuments auxquels vous avez mis des signets"
+
+#: templates/idoc/base.html:9
+msgid "Home"
+msgstr "Accueil"
+
+#: templates/idoc/base.html:10 templates/idoc/idoc_docs.html:15
+#: templates/idoc/idoc_home.html:16
+msgid "Search"
+msgstr "Rechercher"
+
+#: templates/idoc/base.html:11
+msgid "All docs"
+msgstr "Tous les docs"
+
+#: templates/idoc/base.html:12
+msgid "Upload"
+msgstr "Télécharger vers le serveur"
+
+#: templates/idoc/base.html:14
+msgid "Request a document"
+msgstr "Demander un document"
+
+#: templates/idoc/idoc_ajax_docs.html:39 templates/idoc/idoc_docs.html:26
+#: templates/idoc/idoc_home.html:30 templates/idoc/idoc_search.html:28
+msgid "Title"
+msgstr "Titre"
+
+#: templates/idoc/idoc_ajax_docs.html:42 templates/idoc/idoc_docs.html:27
+#: templates/idoc/idoc_home.html:31 templates/idoc/idoc_search.html:29
+msgid "Uploader"
+msgstr "Outil de mise en ligne"
+
+#: templates/idoc/idoc_ajax_docs.html:45 templates/idoc/idoc_docs.html:29
+#: templates/idoc/idoc_home.html:33 templates/idoc/idoc_search.html:31
+msgid "Downloads"
+msgstr "Téléchargements"
+
+#: templates/idoc/idoc_ajax_docs.html:48 templates/idoc/idoc_docs.html:35
+msgid "Ratings"
+msgstr "Notes"
+
+#: templates/idoc/idoc_ajax_docs.html:89
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t\tpage %(page)s\n"
+"\t\t\t\t"
+msgstr ""
+"\n"
+"\t\t\t\t\tpage %(page)s\n"
+"\t\t\t\t"
+
+#: templates/idoc/idoc_ajax_docs.html:109
+msgid "Jump to"
+msgstr "Allez à"
+
+#: templates/idoc/idoc_ajax_docs.html:114
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t\t%(total_pages)s page in total\n"
+"\t\t\t\t"
+msgid_plural ""
+"\n"
+"\t\t\t\t\t%(total_pages)s pages in total\n"
+"\t\t\t\t"
+msgstr[0] ""
+"\n"
+"\t\t\t\t\t%(total_pages)s page au total\n"
+"\t\t\t\t"
+msgstr[1] ""
+"\n"
+"\t\t\t\t\t%(total_pages)s pages au total\n"
+"\t\t\t\t"
+
+#: templates/idoc/idoc_ajax_docs.html:123
+msgid "There are no documents meeting the criteria"
+msgstr "Il n'ya pas de documents répondant aux critères"
+
+#: templates/idoc/idoc_doc.html:4 templates/idoc/idoc_docs.html:4
+#: templates/idoc/idoc_home.html:4
+msgid "iDoc"
+msgstr "iDoc"
+
+#: templates/idoc/idoc_doc.html:19
+msgid "Edit"
+msgstr "Modifier"
+
+#: templates/idoc/idoc_doc.html:31
+msgid "Description"
+msgstr "Description"
+
+#: templates/idoc/idoc_doc.html:35
+msgid "Tags"
+msgstr "Tags"
+
+#: templates/idoc/idoc_doc.html:35
+msgid "None provided"
+msgstr "Aucune condition"
+
+#: templates/idoc/idoc_doc.html:41
+msgid "Download"
+msgstr "Télécharger"
+
+#: templates/idoc/idoc_doc.html:44
+msgid "Can't download - Not enough credits"
+msgstr "Impossible de télécharger - Pas assez de crédits"
+
+#: templates/idoc/idoc_doc.html:49
+msgid "Go to URL"
+msgstr "Aller à l'URL"
+
+#: templates/idoc/idoc_doc.html:54
+msgid "Created by"
+msgstr "Créé par"
+
+#: templates/idoc/idoc_doc.html:61
+msgid ""
+"\n"
+"\t\t\t\t\tvisit\n"
+"\t\t\t\t"
+msgid_plural ""
+"\n"
+"\t\t\t\t\tvisits\n"
+"\t\t\t\t"
+msgstr[0] ""
+"\n"
+"\t\t\t\t\tvisiter\n"
+"\t\t\t\t"
+msgstr[1] ""
+"\n"
+"\t\t\t\t\tvisites\n"
+"\t\t\t\t"
+
+#: templates/idoc/idoc_doc.html:67
+msgid ""
+"\n"
+"\t\t\t\t\tdownload\n"
+"\t\t\t\t"
+msgid_plural ""
+"\n"
+"\t\t\t\t\tdownloads\n"
+"\t\t\t\t"
+msgstr[0] ""
+"\n"
+"\t\t\t\t\ttélécharger\n"
+"\t\t\t\t"
+msgstr[1] ""
+"\n"
+"\t\t\t\t\ttéléchargements\n"
+"\t\t\t\t"
+
+#: templates/idoc/idoc_doc.html:77
+msgid "Average rating"
+msgstr "Note moyenne"
+
+#: templates/idoc/idoc_doc.html:98
+msgid "Free documents"
+msgstr "Documents gratuits"
+
+#: templates/idoc/idoc_doc.html:100
+msgid "Price"
+msgstr "Prix"
+
+#: templates/idoc/idoc_doc.html:104
+msgid "You can download the document"
+msgstr "Vous pouvez télécharger le document."
+
+#: templates/idoc/idoc_doc.html:106
+msgid "You do not have enough credits to download the document"
+msgstr "Vous n’avez pas assez de crédits pour télécharger le document."
+
+#: templates/idoc/idoc_doc.html:109
+msgid "You've downloaded it before, so you can redownload for free"
+msgstr ""
+"Vous l’avez déjà téléchargé, vous pouvez donc le télécharger une nouvelle "
+"fois gratuitement."
+
+#: templates/idoc/idoc_doc.html:113
+msgid "Available credits"
+msgstr "Crédits disponibles"
+
+#: templates/idoc/idoc_doc.html:120
+msgid "You uploaded this document"
+msgstr "Vous transféré ce document"
+
+#: templates/idoc/idoc_doc.html:126
+msgid "Relevant documents"
+msgstr "Documents pertinents"
+
+#: templates/idoc/idoc_doc.html:139
+msgid "No match found"
+msgstr "Rien ne correspond"
+
+#: templates/idoc/idoc_doc.html:145
+msgid "Recent Download history"
+msgstr "L'histoire récente de téléchargement"
+
+#: templates/idoc/idoc_doc.html:154
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t\t\t\t\t\t%(downloader_name)s paid %(amount)s\n"
+"\t\t\t\t\t\t\t\t"
+msgstr ""
+"\n"
+"\t\t\t\t\t\t\t\t\t%(downloader_name)s payés %(amount)s\n"
+"\t\t\t\t\t\t\t\t"
+
+#: templates/idoc/idoc_doc.html:162
+msgid "No user has downloaded this documents"
+msgstr "Aucun utilisateur n’a téléchargé ce document"
+
+#: templates/idoc/idoc_doc.html:169
+msgid "Recent Rating history"
+msgstr "Historique des notes moyennes récentes"
+
+#: templates/idoc/idoc_doc.html:180
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t\t\t\t\t\t%(rater_name)s rated %(rating)s\n"
+"\t\t\t\t\t\t\t\t"
+msgstr ""
+"\n"
+"\t\t\t\t\t\t\t\t\t%(rater_name)s nominale %(rating)s\n"
+"\t\t\t\t\t\t\t\t"
+
+#: templates/idoc/idoc_doc.html:188
+msgid "No user has rated this documents"
+msgstr "Aucun utilisateur n'a noté ce document"
+
+#: templates/idoc/idoc_docs.html:17 templates/idoc/idoc_share.html:5
+#: templates/idoc/idoc_upload.html:5
+msgid "Upload a Document"
+msgstr "Mettre en ligne un document"
+
+#: templates/idoc/idoc_docs.html:32 templates/idoc/idoc_home.html:36
+#: templates/idoc/idoc_search.html:34
+msgid "Fee"
+msgstr "Taxe"
+
+#: templates/idoc/idoc_docs.html:38 templates/idoc/idoc_search.html:40
+msgid "Upload time"
+msgstr "Temps de mise en ligne"
+
+#: templates/idoc/idoc_edit.html:4
+msgid "Edit a Document"
+msgstr "Modifier un document"
+
+#: templates/idoc/idoc_edit.html:15
+msgid "Edit the document"
+msgstr "Modifier le document"
+
+#: templates/idoc/idoc_edit.html:22 templates/idoc/idoc_upload.html:22
+msgid "Submit"
+msgstr "Soumettre"
+
+#: templates/idoc/idoc_edit.html:28
+msgid "You cannot edit a document that wasn't uploaded by you"
+msgstr ""
+"Vous ne pouvez pas éditer un document qui n’a pas été mis en ligne par vous-"
+"même"
+
+#: templates/idoc/idoc_edit.html:31
+msgid "Go back"
+msgstr "Retourner"
+
+#: templates/idoc/idoc_home.html:18
+msgid "Upload a Doc"
+msgstr "Mettre en ligne un document"
+
+#: templates/idoc/idoc_home.html:24
+msgid "Recent documents"
+msgstr "Documents récents"
+
+#: templates/idoc/idoc_home.html:39 templates/idoc/idoc_search.html:37
+msgid "Rating"
+msgstr "Note"
+
+#: templates/idoc/idoc_home.html:66
+msgid "Browse all documents"
+msgstr "Surfer sur tous les documents"
+
+#: templates/idoc/idoc_home.html:80
+msgid "Wealth"
+msgstr "Richesse"
+
+#: templates/idoc/idoc_home.html:81
+msgid "Available Credits"
+msgstr "Crédits disponibles"
+
+#: templates/idoc/idoc_home.html:82
+msgid "Level"
+msgstr "Niveau"
+
+#: templates/idoc/idoc_home.html:85
+msgid "My Dashboard"
+msgstr "Mon tableau de bord"
+
+#: templates/idoc/idoc_home.html:90
+msgid "Popular Tags"
+msgstr "Etiquettes populaires"
+
+#: templates/idoc/idoc_home.html:103
+msgid "Browse all tags"
+msgstr "Parcourir tous les tags"
+
+#: templates/idoc/idoc_home.html:109
+msgid "Top Eggheads"
+msgstr "Les meilleurs utilisateurs"
+
+#: templates/idoc/idoc_home.html:113
+msgid "By wealth"
+msgstr "Par richesse"
+
+#: templates/idoc/idoc_home.html:114
+msgid "By earning"
+msgstr "Par revenus"
+
+#: templates/idoc/idoc_home.html:119
+msgid "Browse all eggheads"
+msgstr "Parcourir tous les utilisateurs"
+
+#: templates/idoc/idoc_home.html:125
+msgid "Tribes Joined"
+msgstr "Tribes rejoint"
+
+#: templates/idoc/idoc_home.html:139
+msgid "You haven't joined any tribe yet"
+msgstr "Vous n'avez pas encore rejoint une tribu"
+
+#: templates/idoc/idoc_home.html:142
+msgid "Browse all tribes"
+msgstr "Voir toutes les tribus"
+
+#: templates/idoc/idoc_request.html:5
+msgid "Request a Document"
+msgstr "Demander un document"
+
+#: templates/idoc/idoc_search.html:4
+msgid "iDoc Search"
+msgstr "iDoc Recherche"
+
+#: templates/idoc/idoc_search.html:16
+msgid "Input keywords"
+msgstr "Entrer les mots-clés"
+
+#: templates/idoc/idoc_search.html:20
+msgid "Search documents"
+msgstr "Documents de recherche"
+
+#: templates/idoc/idoc_search.html:25
+msgid "Results"
+msgstr "Résultats"
+
+#: templates/idoc/idoc_search.html:67
+msgid "No matched results"
+msgstr "Aucun résultat correspondant"
+
+#: templates/idoc/idoc_share.html:35
+msgid "Upload &raquo;"
+msgstr "Envoyer &raquo;"
+
+#: templates/idoc/idoc_upload.html:15
+msgid "Upload a new document"
+msgstr "Mettre en ligne un nouveau document"

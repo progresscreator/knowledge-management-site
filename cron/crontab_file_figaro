@@ -1,0 +1,4 @@
+* * * * * /home/www/iknow.mit.edu/knowledge/pylib/knowledge/knowledge_web/cron/iknow.mit.edu/send_mail.sh
+* * * * * /home/www/iknow.mit.edu/knowledge/pylib/knowledge/knowledge_web/cron/iknow.mit.edu/emit_notices.sh
+0,20,40 * * * * /home/www/iknow.mit.edu/knowledge/pylib/knowledge/knowledge_web/cron/iknow.mit.edu/retry_deferred.sh
+0,20,40 * * * * /home/www/iknow.mit.edu/knowledge/pylib/knowledge/knowledge_web/cron/iknow.mit.edu/reindex_haystack.sh

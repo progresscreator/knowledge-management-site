@@ -1,0 +1,17 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+
+{% block body_class %}iauction{% endblock %}
+
+{% block subnav %}
+	{% if user.is_authenticated %}
+		<ul>
+			<li><a href="{% url iauction_home %}">{% trans "Home" %}</a></li> 
+			<li><a href="{% url iauction_sell %}">{% trans "Sell" %}?</a></li> 
+			<li><a href="{% url iauction_booth user %}">{% trans "Your booth" %}</a></li> 
+			<li><a href="{% url iauction_how %}">{% trans "How" %}?</a></li> 
+		</ul>
+	{% else %}
+		&nbsp;
+	{% endif %}
+{% endblock %}

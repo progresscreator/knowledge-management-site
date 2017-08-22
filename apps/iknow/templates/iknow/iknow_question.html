@@ -1,0 +1,817 @@
+{% extends "iknow/base.html" %}
+{% load avatar_tags %}
+{% load i18n %}
+{% load iknow_tags %}
+{% load thumbnail %}
+{% load uni_form %}
+{% block head_title %}{% trans "iKnow Question " %}{{ question.question_title }}{% endblock %}
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}iknow/css/iknow.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}iknow/css/iknow_home.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}core/css/jquery.rating.css" />
+{% endblock %}
+
+{% block body %}
+	<div class="idialog" id="tipping-dialog" title="{% trans "Tipping" %}">
+		<p id="tipping-msg"></p>
+		<label style="margin-left: 60px; color:#F87217; font-size: 12px;"> {% trans "Tips" %}: </label>		
+		<input stytagle="margin-left: 15px; width: 40px; color: #F87217; font-size: 12px;"id="tip-amount" type="text" />
+		<label style="margin-left: 15px; color:#F62817; font-size: 12px;" id="tip-error"></label>		
+		<div>
+			<label style="font-size:11.5px;">{% trans "Tipping comment" %}</label>
+			<textarea id="tipping-comment" style="width:385px; height:150px;"></textarea>
+		</div>
+	</div>
+	<div class="span-16">
+		<div style="padding-top: 10px;" class="ui-widget ui-widget-content ui-corner-all">
+			<h3 class="question-title"> 
+				{% question_icon question %}&nbsp;
+				{% trans "Question" %}: {{ question.question_title }} 
+				{% ifnotequal user.id question.asker.id %}
+					{% if is_answered %}
+						[ <span class="action"> {% trans "You have answered it" %} </span> ]
+					{% else %}
+						{% if question.answerable %}
+							[ <button id="ianswer">{% trans "iAnswer" %}</button> ]
+						{% endif %}
+					{% endif %}
+				{% else %}
+					{% if question.answerable %}
+						[ <button id="add-amendment">{% trans "Add an Amendment" %}</button> ]
+					{% endif %}
+				{% endifnotequal %}
+			</h3>
+			<div display="relative">
+				{% if not question.anonymous %}
+					<div class="display:inline;" style="padding-left: 20px; width: 10%; float:left;">
+						{% avatar question.asker 60 %}
+					</div>
+					<div class="question-text" style=" width: 80%; float: left;">
+				{% else %}
+					<div class="question-text" style=" width: 95%; float: left;">
+				{% endif %}
+					{{ question.question_text|urlize|linebreaks }}
+					{% for amendment in amendments %}
+						<div>
+							<p> <strong> 
+								{% blocktrans with forloop.counter as counter and amendment.time_string_s as time_string %}
+									Amendment {{ counter }} added at {{ time_string }}:
+								{% endblocktrans %}
+							</strong> </p>
+							{{ amendment.details|urlize|linebreaks }}
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+			<div class="clearfix"></div>
+			<h5> 
+				{% trans "Tags" %}: {{ question.tags }}  <br />
+			</h5>
+			<div>
+				<div style="float:left; padding-left: 20px; width: 24%;">
+					{% if is_my_favorite %}
+						<img title="{% trans "You've added this question as favorite" %}" src="{{ STATIC_URL }}iknow/images/addfav_32x32.png" />
+					{% else %}
+						<img id="addfav" title="{% trans "Add as favorite" %}" style="cursor: pointer"
+							src="{{ STATIC_URL }}iknow/images/addfav_green_32x32.png" />
+					{% endif %}
+					{% ifequal question.asker.id user.id %}
+						{% if question.hide_answers %}
+							<img id="lock" title="{% trans "Users can't review answers until the question expires. Click to unlock it" %}" style="cursor: pointer;" src="{{ STATIC_URL }}iknow/images/locked_32x32.png" />
+						{% else %}
+							<img id="lock" title="{% trans "Users are able to review answers before the question expires. Click to lock it" %}" style="cursor:pointer;" src="{{ STATIC_URL }}iknow/images/unlocked_32x32.png" />
+						{% endif %}
+					{% else %}
+						{% if question.hide_answers %}
+							<img id="lock" title="{% trans "Users can't review answers until the question expires" %}" src="{{ STATIC_URL }}iknow/images/locked_32x32.png" />
+						{% else %}
+							<img id="lock" title="{% trans "Users are able to review answers before the question expires" %}" src="{{ STATIC_URL }}iknow/images/unlocked_32x32.png" />
+						{% endif %}
+					{% endifequal %}
+					<img title="{% trans "Add a comment" %}" style="cursor: pointer;" id="leave-question-comment" src="{{ STATIC_URL }}iknow/images/comment_32x32.png" />
+
+                <!-- Tip Module Refix -- TIPINACTIVE 
+                {% ifnotequal question.asker.id user.id %}
+                <span class="demo1" id="demo1_yellow" style="margin-top: -5px; padding: 2px;">
+                    <img height="38px" width="38px" src="{{ STATIC_URL }}iknow/images/tip.png" />
+                </span>
+
+                <img class="tipauthor" width="0px" height="0px" src="" />
+                <img class="tippost" width="0px" height="0px" src="" />
+                <div class="contextMenu" id="myMenu1">
+                    <ul>
+                         <li id="tip_auth"><img src="{{ STATIC_URL }}iknow/images/coin_13x13.png" /> Tip Author</li>
+
+                         <li id="tip_pos"><img src="{{ STATIC_URL }}iknow/images/question_16x16.png" /> Tip Question</li>
+
+                    </ul>
+                 </div>
+                {% endifnotequal %}
+                -->
+
+				</div>
+				<div style="float:left; width: 14%;">
+					&nbsp;
+				</div>
+				<p class="question-info">
+					{% trans "Asked by" %} <strong>
+					{% if question.anonymous %}
+						{{ question.display_name }} 
+					{% else %}
+						<a href="{% url iknow_dashboard question.asker %}">{{ question.display_name }}</a>
+					{% endif %}</strong> at {{ question.time_string_l }} <br />
+					{% if question.rewarding %}{% trans "Expire(d) at" %} {{ question.expiration_string_l }} {% endif %}
+					( <strong>{{ question.time_left_string }}
+					{% if question.answerable and question.rewarding %} {% trans "left" %}{% endif %}</strong>)
+					<br />
+					{% trans "Points offered" %}: <strong>{{ question.points_offered }}</strong>
+					<img src="{{ STATIC_URL }}iknow/images/coin_13x13.png" />
+					&nbsp;&nbsp; <strong>{{ question.visits }}</strong> {% trans "visit(s)" %}
+					&nbsp;&nbsp; <strong>{{ question.answer_count }} </strong> {% trans "answer(s)" %}
+				</p>
+			</div>
+			<div class="clearfix"></div>
+			{% if question_comments %}
+				<div style="margin: 5px 20px; font-size: 12px;">
+					{{ question_comments|length }} {% trans "comment(s)" %} (<a id="show-comments" href="">{% trans "Show" %}</a>)
+				</div>
+				<div id="question-comments" style="margin:5px 25px;">
+				</div>
+			{% endif %}
+		</div>
+
+		<div id="question-comment-form" class="ui-corner-all" style="display:none;padding-bottom:15px;border: 2px solid #6698FF;">
+			<h5>{% trans "Leave a comment" %}</h5>
+			<textarea style="margin-left:20px;width:570px; height:50px;"id="textarea-question-comment"></textarea>
+			<br />
+			<input id="question-comment-submit" style="margin-left:20px;" type="submit" value="{% trans "Submit" %}" />
+			<input id="question-comment-cancel" style="margin-left:10px;" type="submit" value="{% trans "Cancel" %}"/>
+			<input type='checkbox' id="question-comment-anonymous"
+				class='ui-button ui-corner-all ui-state-default' />
+			{% trans "Anonymous" %}?
+		</div>
+
+		<div id="amendment_form" class="ui-corner-all" style="display:none;padding-bottom:15px;border: 2px solid #6698FF;">
+			<h5>{% trans "Add an Amendment" %}</h5>
+			<textarea style="margin-left:20px;width:570px; height:50px;"id="amendment"></textarea>
+			<br />
+			<input id="amendment-submit" style="margin-left:20px;" type="submit" value="{% trans "Submit" %}" />
+			<input id="amendment-cancel" style="margin-left:10px;" type="submit" value="{% trans "Cancel" %}" />
+		</div>
+
+		<div id="answer_form" class="ui-corner-all" style="display:none;">
+			<form enctype="multipart/form-data" class="uniForm" id="submit_form" method="post" 
+					action="{% url iknow_answer question.id %}">
+				<fieldset class="inlineLabels">
+					{{ answer_form|as_uni_form }}
+					<div  class="form_block">
+						<input class="ibutton" type="submit" value="{% trans "Submit" %}" />
+						<input class="ibutton" type="submit" id="answer-cancel" value="{% trans "Cancel" %}" />
+					</div>
+				</fieldset>
+			</form>
+		</div>
+
+		<div id="answers">
+			{% if answers %}
+				<h4 class="answer"> 
+				{% blocktrans count question.answer_count as answer_count %}
+					{{ answer_count }} Answer
+				{% plural %}
+					{{ answer_count }} Answers
+				{% endblocktrans %}
+				</h4>
+				{% for answer in answers %}
+					<div class="answer-block">
+						<div class="answer-info">
+							<h5 class="answer"> 
+								{% trans "Replied by" %}
+									{% if answer.anonymous %}
+										<span id="answerer_{{ answer.id}}">
+											{{ answer.display_name }}
+										</span>
+									{% else %}
+										<a href="{% url egghead_detail answer.answerer %}">
+											<span id="answerer_{{ answer.id}}">
+												{{ answer.display_name }}
+											</span>
+										</a>
+										{% avatar answer.answerer 20 %}
+									{% endif %}
+								at {{ answer.time_string_l }} 
+								{% if answer.edit_time_stamp %}
+									<br />{% trans "Last edited at" %}: {{ answer.edit_time_string_l }}
+								{% endif %}
+								{% ifnotequal answer.received_tipping_times 0 %}
+									<br />
+									<span style="padding-left:20px; color: #43C6DB;">
+									{% blocktrans count answer.received_tipping_times as received_tipping_times %}
+										Tipped once
+									{% plural %}
+										Tipped {{ received_tipping_times }} times
+									{% endblocktrans %}
+									<img src="{{ STATIC_URL }}iknow/images/coin_13x13.png" />
+									{% blocktrans with answer.received_tipping_total as received_tipping_total %}
+										{{ received_tipping_total }} in total
+									{% endblocktrans %}
+									</span>
+								{% endifnotequal %}
+							</h5>
+							{% ifequal answer.answerer.id user.id %}
+								<div>
+									<span id="answerer-toolbar" class="ui-widget-header ui-corner-all"
+										style="padding:10px 4px;">
+										<button id="edit-answer">{% trans "Edit" %}</button>
+										{% if answer.hidden %}
+											<button id="answer-lock">{% trans "Lock" %} </button>
+										{% else %}
+											<button id="answer-lock">{% trans "Unlock" %} </button>
+										{% endif %}
+									</span>
+								</div>
+							{% endifequal %}
+							{% if answer.protected %}
+								{% ifequal question.asker.id user.id %}
+									{% include "iknow/iknow_answer_full.html" %}
+								{% else %}
+									{% ifequal answer.answerer.id user.id %}
+										{% include "iknow/iknow_answer_full.html" %}
+									{% else %}
+										<div>
+											{{ answer.answer_text|truncatewords:5 }} ...
+										</div>
+									{% endifequal %}
+								{% endifequal %}
+								<div class="ui-widget ui-state-highlight ui-corner-all" 
+									style="padding:0.3em 0.5em; margin-bottom:15px; font-size:11px;"> 
+									<p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span> 
+									{% trans "The full answer is hidden to other users until the question expires" %}.</p>
+								</div>
+							{% else %}
+								{% include "iknow/iknow_answer_full.html" %}
+							{% endif %}
+
+							{% ifequal question.asker.id user.id %}
+								<div class="rating">
+									{% if question.points_allocatable %}
+										<p title="{{ answer.id }}">
+											<input class="auto-submit-star" type="radio" name="{{ answer.id }}" value="1" 
+												{% ifequal answer.rating_by_asker 1 %} checked="checked" {% endifequal %} />
+											<input class="auto-submit-star" type="radio" name="{{ answer.id }}" value="2" 
+												{% ifequal answer.rating_by_asker 2 %} checked="checked" {% endifequal %} />
+											<input class="auto-submit-star" type="radio" name="{{ answer.id }}" value="3" 
+												{% ifequal answer.rating_by_asker 3 %} checked="checked" {% endifequal %} />
+											<input class="auto-submit-star" type="radio" name="{{ answer.id }}" value="4" 
+												{% ifequal answer.rating_by_asker 4 %} checked="checked" {% endifequal %} />
+											<input class="auto-submit-star" type="radio" name="{{ answer.id }}" value="5" 
+												{% ifequal answer.rating_by_asker 5 %} checked="checked" {% endifequal %} />
+											<br />
+											{% ifequal answer.rating_by_asker -1 %}{% trans "Never rated" %}{% endifequal %}
+										</p>
+										{% if question.rewarding %}
+											<p>
+												<label>{% trans "Allocate points" %}</label>
+												<input id="ap_{{ answer.id }}" class="allocate-points" type="text" />
+												<label id="lap_{{ answer.id }}" class="al-hint"></label>
+											</p>
+										{% endif %}
+										<div class="clearfix"></div>
+									{% else %}
+										<p>
+											<input class="star" type="radio" name="{{ answer.id }}" value="1" disabled="disabled"
+												{% ifequal answer.rating_by_asker 1 %} checked="checked" {% endifequal %} />
+											<input class="star" type="radio" name="{{ answer.id }}" value="2" disabled="disabled"
+												{% ifequal answer.rating_by_asker 2 %} checked="checked" {% endifequal %} />
+											<input class="star" type="radio" name="{{ answer.id }}" value="3" disabled="disabled"
+												{% ifequal answer.rating_by_asker 3 %} checked="checked" {% endifequal %} />
+											<input class="star" type="radio" name="{{ answer.id }}" value="4" disabled="disabled"
+												{% ifequal answer.rating_by_asker 4 %} checked="checked" {% endifequal %} />
+											<input class="star" type="radio" name="{{ answer.id }}" value="5" disabled="disabled"
+												{% ifequal answer.rating_by_asker 5 %} checked="checked" {% endifequal %} />
+											<br />
+											{% ifequal answer.rating_by_asker -1 %}{% trans "Never rated" %}{% endifequal %}
+										</p>
+										{% ifnotequal answer.points_received 0 %}
+											<p> {% trans "Award received" %}: {{ answer.points_received }}
+												<img src="{{ STATIC_URL }}iknow/images/coin_13x13.png" />
+											</p>
+										{% endifnotequal %}
+									{% endif %}
+								</div>
+							{% else %}
+								<div class="rating">
+									<p>
+										<input class="star" type="radio" name="{{ answer.id }}" value="1" disabled="disabled"
+											{% ifequal answer.rating_by_asker 1 %} checked="checked" {% endifequal %} />
+										<input class="star" type="radio" name="{{ answer.id }}" value="2" disabled="disabled"
+											{% ifequal answer.rating_by_asker 2 %} checked="checked" {% endifequal %} />
+										<input class="star" type="radio" name="{{ answer.id }}" value="3" disabled="disabled"
+											{% ifequal answer.rating_by_asker 3 %} checked="checked" {% endifequal %} />
+										<input class="star" type="radio" name="{{ answer.id }}" value="4" disabled="disabled"
+											{% ifequal answer.rating_by_asker 4 %} checked="checked" {% endifequal %} />
+										<input class="star" type="radio" name="{{ answer.id }}" value="5" disabled="disabled"
+											{% ifequal answer.rating_by_asker 5 %} checked="checked" {% endifequal %} />
+										<br />
+										{% ifequal answer.rating_by_asker -1 %}{% trans "Never rated" %}{% endifequal %}
+									</p>
+									{% ifnotequal answer.points_received 0 %}
+										<p> {% trans "Award received" %}: {{ answer.points_received }}
+											<img src="{{ STATIC_URL }}iknow/images/coin_13x13.png" />
+										</p>
+									{% endifnotequal %}
+								</div>
+							{% endifequal %}
+						</div>
+						<div class="answer-widget">
+							<div class="vote-area">
+								<div id="thumbs{{ answer.id }}" class="thumbs ui-corner-all">	
+									{{ answer.thumbs }} 
+								</div> 
+								<div class="votes">
+									<img class="thumbup" name="{{ answer.id }}" src="{{ STATIC_URL }}/iknow/images/thumbup_blue_28x28.png" />
+									<img class="thumbdown" name="{{ answer.id }}" src="{{ STATIC_URL }}/iknow/images/thumbdown_blue_28x28.png" />
+								</div>
+								{% ifnotequal answer.answerer.id user.id %}
+									<div class="tipping">
+										<img class="tip" name="{{ answer.id }}" src="{{ STATIC_URL }}/iknow/images/tip.png" />
+									</div>
+								{% endifnotequal %}
+							</div>
+						</div>
+						<div class="clearfix"></div>
+						<div>
+							<p class="comment_{{ answer.id }}">
+								<span> 
+									{% blocktrans count answer.comment_count as comment_count %}
+										{{ comment_count }} comment
+									{% plural %}
+										{tip.png{ comment_count }} comments
+									{% endblocktrans %}
+								</span>
+								{% ifnotequal answer.comment_count 0 %}
+									(<a class="comment_show" name="comment_{{ answer.id }}" href="">{% trans "Show" %}</a>)
+								{% endifnotequal %}
+								<span style="float: right;"> 
+									<a class="comment_answer" name="comment_{{ answer.id }}" href="">{% trans "Post a comment" %}</a>
+								</span>
+							</p>
+							<div style="display:none;" id="commentarea_{{ answer.id }}">
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			{% else %}
+				<h4 class="answer"> {% trans "No one has answered this question" %} </h4>
+			{% endif %}
+		</div>
+		</div>
+		<div class="span-8 last">
+			{% ifequal user.id question.asker.id %} 
+				<div id="asker-panel" class="ui-widget ui-widget-content ui-corner-all ui-state-highlight">
+					<h3>{% trans "You are the asker of this question" %}</h3>
+					{% if question.answerable %}
+						<p> 
+							{% ifequal question.status "A" %}
+								{% trans "This question is active and accepting answers" %}
+							{% endifequal %}
+							{% ifequal question.status "E" %}
+								{% blocktrans with question.deadline_string_l as deadline_string_l %}
+									This question has been extended and accepting answers. You have to take actions before {{ deadline_string_l }}
+								{% endblocktrans %}
+							{% endifequal %}
+						</p>
+						{% if question.rewarding %}
+							{% if question.answer_count %}
+								<p>
+									{% trans "You can allocate reward points among answers you favor, and click on the 'solved' button after you feel satisfied." %}
+									<br/>
+									<strong>{% trans "Reminder" %}:</strong> 
+									{% trans "you will receive 1/4 of offered points back if you allocate points on time" %}.
+								</p>
+								<input type="submit" class="ui-button ui-corner-all ui-state-default 
+										solved-button" value="{% trans "Solved" %}!" />
+							{% else %}
+								<p>
+									{% trans "You haven't received any answers yet" %}
+								</p>
+								{% ifequal question.status "E" %}
+									<input type="submit" class="ui-button ui-corner-all ui-state-default moneyback-button" 
+										value="{% trans "I want my money back" %}" />
+								{% endifequal %}
+							{% endif %}
+						{% else %}
+							<p>
+								{% trans "Your question is non-rewarding. It keeps accepting new answers for a week, you can rate or vote on given answers" %} 
+							</p>
+						{% endif %}
+					{% else %}
+						{% ifequal question.status "S" %}
+							<p> {% trans "This question has been solved and closed by you" %}.</p>
+						{% endifequal %}
+						{% ifequal question.status "P" %}
+							<p> 
+								{% blocktrans with question.deadline_string_l as deadline_string_l %}
+									Action required! Your question has expired, please take actions before {{ deadline_string_l }}
+								{% endblocktrans %}
+								<br />
+								{% trans "if answers given by far are not satisfactory, you can extend it by 7 days from the original expiration time, but just once" %}.
+							</p>
+							{% if question.answer_count %}
+								<input type="submit" class="ui-button ui-corner-all ui-state-default solved-button" value="{% trans "Solved" %}!" />
+							{% else %}
+								<p>{% trans "You haven't received any answers yet" %}</p>
+								<input type="submit" class="ui-button ui-corner-all ui-state-default moneyback-button" value="{% trans "I want my money back" %}" />
+							{% endif %}
+							<input type="submit" class="ui-button ui-corner-all ui-state-default extend-button" value="{% trans "Extend 7 days" %}!" />
+						{% endifequal %}
+						{% ifequal question.status "F" %}
+							<p> 
+								{% blocktrans %}
+									You haven't acted on the question before the designated deadline, your points were forfeited and distributed by the system. 
+									The question is considered as unsolved.
+								{% endblocktrans %}
+								{% ifequal question.answer_count 0 %}
+									<br />
+									{% trans "Since you haven't received any answers. Your points have been returned to you" %}.
+								{% endifequal %}
+							</p>
+						{% endifequal %}
+					{% endif %}
+				</div>
+			{% endifequal %}
+			<div class="ui-widget ui-widget-content ui-corner-all info-content" id="suggested">
+				<h4>
+					{% trans "Related questions you might be interested in" %}:
+				</h4>
+				{% if results %}
+					<ul>
+						{% for result in results %}
+							{% ifnotequal result.object.id question.id %}
+								<li><a href="{{ result.object.get_absolute_url }}">{{ result.object.question_title }}
+								</a></li>
+							{% endifnotequal %}
+						{% endfor %}
+					</ul>
+				{% else %}
+					<p> {% trans "No match found" %} :-( </p>
+				{% endif %}
+			</div>
+		</div>
+
+
+
+{% endblock %}
+
+{% block extra_body %}
+	<script type="text/javascript" src="{{ STATIC_URL }}core/js/jquery.rating.pack.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}core/js/jquery.tools.min.js"> </script>
+<script>
+ $('span.demo1').contextMenu('myMenu1', {
+
+      bindings: {
+
+        'tip_auth': function(t) {
+    
+            $("img.tipauthor").triggerHandler("click");
+
+        },
+
+        'tip_pos': function(t) {
+
+          $("img.tippost").triggerHandler("click");
+
+        },
+
+      }
+
+    });
+</script>
+	<script type="text/javascript">
+
+        $(function(){
+
+			$("button, input:submit").button().css({"font-size":"10px"});
+			$("a.answer-file").button();
+			$("a.comment_show").click(function(e){
+				var answer_id = this.name.split("_")[1];
+				if ($("#commentarea_" + answer_id).is(':visible')) {
+					$("#commentarea_" + answer_id).hide("slow");
+					$(this).text("{% trans "Show" %}");
+				}
+				else {
+					if ($("#answercomments_" + answer_id).length)  {
+						$("#commentarea_" + answer_id).show("slow");
+						$(this).text("{% trans "Hide" %}");
+					}
+					else{
+						var anchor = $(this);
+						$.getJSON("{% url iknow_json_answer_comments %}", { "answer_id": answer_id }, function(data){
+							if (data == "1") {
+								alert("Error occured when getting the list of comments");
+								return;
+							}
+							$("#commentarea_" + answer_id).append("<div style='padding-left:40px;' id='answercomments_" + answer_id + "'></div>");
+							$.each(data, function(i, item){
+								$("#answercomments_" + answer_id).append(comment_html(item));
+							});
+							$("#commentarea_" + answer_id).show("slow");
+							anchor.text("{% trans "Hide" %}");
+						});
+					}
+				}
+				e.preventDefault();	
+			});
+			$("a.comment_answer").click(function(e){
+				var answer_id = this.name.split("_")[1];
+				if ($("#commentbox_" + answer_id).is(':visible')) {
+					$("#commentbox_" + answer_id).hide("slow");
+				}
+				else {
+					if ($("#commentbox_" + answer_id).length)  {
+						$("#commentbox_" + answer_id).show("slow");
+					}
+					else{
+						var comment_box = "<div id='commentbox_" + answer_id + "' style='padding-left:20px;'>\
+								<textarea name='commentbox_" + answer_id + "'\
+								class='ui-corner-all' style='padding: 10px; height: 120px;\
+								font-size: 12px; color: #7D1B7E; border-color: #43BFC7;'></textarea>\
+								<br />\
+								<input type='submit' name='commentbox_" + answer_id + "'\
+									class='ui-button ui-corner-all ui-state-default comment-post' value='Post' />\
+								<input type='submit' name='commentbox_" + answer_id + "'\
+									class='ui-button ui-corner-all ui-state-default comment-cancel' value='Cancel' />\
+								<input type='checkbox' id='anonymous_a_" + answer_id + "'\
+									class='ui-button ui-corner-all ui-state-default comment-anonymous' />\
+								Anonymous?\
+							</div> \
+						";
+						$("p." + this.name).after(comment_box);
+						$("input.comment-post").button().click(function() {
+							var comment_text = $("textarea[name='" + this.name + "']").val();
+							var answer_id = this.name.split("_")[1];
+							var anonymous = $("#anonymous_a_" + answer_id).is(":checked");
+							$.post("{% url iknow_comment %}", {
+								"answer_id": answer_id,
+								"ctype": "A",
+								"anonymous": anonymous,
+								"comment": comment_text
+							}, function(data, textStatus) {
+								if (data == "8") {
+									alert("Comment successfully!\n 2 points were credited to your account");
+									location.reload(true);
+								}
+								else if (data == "0") {
+									alert("Comment successfully!");
+									location.reload(true);
+								}
+								else {
+									alert("rating error");
+								}
+							});
+						}).css({"font-size":"11px"});
+						$("input.comment-cancel").button().click(function() {
+							$("textarea[name='" + this.name + "']").val("");
+							$("#" + this.name).hide("slow");	
+						}).css({"font-size":"11px"});
+					}
+				}
+				e.preventDefault();	
+			});
+			$("input.solved-button").click(function() {
+				var result = count_total();
+				if (result == "nan") {
+					alert("Please re-enter allocated points");
+				}
+				else {
+					var offered = parseInt({{ question.points_offered }});
+					if (offered == result) {
+						var data = post_al_data();
+						if (data == "nan") {
+							alert("There are errors in allocated points");
+						}
+						else {
+							$.post("{% url iknow_question_al question.id %}", data, function(data) {
+								if (data.split("_")[0] == "0") {
+									alert("Thank you! " + data.split("_")[1] + " points were refunded to your account");
+									location.reload(true);
+								}
+								else {
+									alert("Some data entries are incorrect");
+								}
+							});
+						}
+					}
+					else {
+						alert("Offered and allocated do NOT match");
+					}
+				}
+			});
+			$("input.extend-button").click(function() {
+				$.post("{% url iknow_question_extend question.id %}", {}, function(data) {
+					if (data == "0") {
+						location.reload(true);
+					}
+					else {
+						alert("Some data entries are incorrect");
+					}
+				});
+			});
+			$("input.moneyback-button").click(function() {
+				$.post("{% url iknow_question_moneyback question.id %}", {}, function(data) {
+					if (data == "0") {
+						location.reload(true);
+					}
+					else {
+						alert("Some data entries are incorrect");
+					}
+				});
+			});
+			$(".auto-submit-star").rating({
+				callback: function(value, link){
+					if (isNaN(value)) {return; }
+					var answer_id = this.name;
+					$.post("{% url iknow_answerer_rating %}", {
+						"answer_id": answer_id,
+						"value": value
+					}, function(data, textStatus) {
+						if (data == "1" ) {
+							alert("rating error");
+						} else if (data == "0") {
+							alert("Your rating has been recorded, thank you!");
+							location.reload(true);
+						}
+					});
+				}
+			});
+			$("#addfav").hover(
+				function() {
+					$(this).attr("src", "{{ STATIC_URL }}/iknow/images/addfav_32x32.png")
+				},
+				function(){
+					$(this).attr("src", "{{ STATIC_URL }}/iknow/images/addfav_green_32x32.png")
+				}
+			).click(function() {
+				$.post("{% url iknow_post_add_favorite %}", {
+					"question_id": {{ question.id }}
+				}, function(data, textStatus) {
+					if (data == "0") {
+						alert("Question added as favorite successfully");
+						location.reload(true);
+					}
+					else {
+						alert("Error occured when you added the question as favorite");
+					}
+				});
+			});
+			var manage_id = -1;
+			$("img.thumbup").hover(
+				function() {
+					$(this).attr("src", "{{ STATIC_URL }}/iknow/images/thumbup_green_28x28.png")
+				},
+				function(){
+					$(this).attr("src", "{{ STATIC_URL }}/iknow/images/thumbup_blue_28x28.png")
+				}
+			).click(function() {
+				manage_id = this.name;
+				$.post("{% url iknow_thumbs %}", {
+					"ttype": "A",
+					"id": this.name,
+					"up_or_down":"U"
+				}, function(data, textStatus) {
+					if (data == "0") {
+						var k = parseInt($("#thumbs" + manage_id).text());
+						$("#thumbs" + manage_id).text(k + 1);
+					} else if (data == "8") {
+						var k = parseInt($("#thumbs" + manage_id).text());
+						$("#thumbs" + manage_id).text(k + 1);
+						alert("Thank you for your thumb, 2 points went to your account");
+					}
+					else if (data == "1") {
+						alert("You have voted on it, you can't do it again");
+					}
+					else if (data == "2") {
+						alert("You can not vote for yourself");
+					}
+					else if (data == "3") {
+						alert("{% trans "Server error - incorrect parameters posted" %}");
+					}
+				});
+			});
+
+			$("img.thumbdown").hover(
+				function() {
+					$(this).attr("src", "{{ STATIC_URL }}/iknow/images/thumbdown_red_28x28.png")
+				},
+				function(){
+					$(this).attr("src", "{{ STATIC_URL }}/iknow/images/thumbdown_blue_28x28.png")
+				}
+			).click(function() {
+				manage_id = this.name;
+				$.post("{% url iknow_thumbs %}", {
+					"ttype": "A",
+					"id": this.name,
+					"up_or_down":"D"
+				}, function(data, textStatus) {
+					if (data == "0") {
+						var k = parseInt($("#thumbs" + manage_id).text());
+						$("#thumbs" + manage_id).text(k - 1);
+					} else if (data == "8") {
+						var k = parseInt($("#thumbs" + manage_id).text());
+						$("#thumbs" + manage_id).text(k - 1);
+						alert("Thank you for your thumb, 2 points went to your account");
+					}
+					else if (data == "1") {
+						alert("You have voted on it, you can't do it again");
+					}
+					else if (data == "2") {
+						alert("You can not vote for yourself");
+					}
+					else if (data == "3") {
+						alert("{% trans "Server error - incorrect parameters posted" %}");
+					}
+				});
+			});
+			$("input:text").addClass("ui-corner-all")
+				.css({"font-size":"12px","padding":"5px", "font-family":"Courier"});
+			$("input:file").addClass("ui-corner-all")
+				.css({"font-size":"12px","padding":"5px", "font-family":"Courier"});
+			$("textarea").addClass("ui-corner-all")
+				.css({"font-size":"12px","padding":"5px", "color": "#2B3856", "font-weight": "bold",
+				"font-family":"Courier, Rockwell, 'Courier New', 'Serif'", "height":"280px"});
+			$("input.allocate-points").mouseover(function(){
+				var result = count_total();
+				if (result == "nan") {
+					$(this).attr("title", "Errors in point inputs");
+				}
+				else {
+					var points_left = parseInt({{ question.points_offered }}) - result;
+					$(this).attr("title", "Points left: " + points_left);
+				}
+			});
+			$("input.allocate-points").focus(function(){
+				$("#l" + this.id).text(this.title);
+				$("#l" + this.id).fadeIn();
+			}).blur(function() {
+				$("#l" + this.id).fadeOut();
+			}).keyup(function() {
+				var result = count_total();
+				if (result == "nan") {
+					$(this).attr("title", "Errors in point inputs");
+				}
+				else {
+					var points_left = parseInt({{ question.points_offered }}) - result;
+					$(this).attr("title", "Points left: " + points_left);
+				}
+				$("#l" + this.id).text(this.title);
+			});
+			{% include "iknow/jsparts/iknow_answer_js.html" %}
+			{% include "iknow/jsparts/iknow_amendment_js.html" %}
+			{% include "iknow/jsparts/iknow_asker_hide_answers_js.html" %}
+			{% include "iknow/jsparts/iknow_answerer_hide_answers_js.html" %}
+			{% include "iknow/jsparts/iknow_comment_question_js.html" %}
+			{% include "iknow/jsparts/iknow_tipping_answer_js.html" %}
+            {% include "iknow/jsparts/iknow_tipping_author_js.html" %}
+            {% include "iknow/jsparts/iknow_tipping_post_js.html" %}
+		});
+		function count_total() {
+			var total_points = 0;
+			$("input.allocate-points").each(function(i) {
+				if ($.trim($(this).val()) != "") {
+					if (isNaN($(this).val())) {
+						return "nan";
+					}
+					else {
+						var points = parseInt($(this).val());
+						total_points += points;
+					}
+				}
+			});
+			return total_points;
+		}
+		function post_al_data() {
+			var data = new Object();
+			$("input.allocate-points").each(function(i) {
+				if ($.trim($(this).val()) != "") {
+					if (isNaN($(this).val())) {
+						return "nan";
+					}
+					else {
+						data[this.id] = $(this).val();
+					}
+				}
+			});
+			return data;
+		}
+		function comment_html(item) {
+			ahtml = "<div style='border-bottom:1px dotted #348017;'>";
+			ahtml += "<p style='color: #C24641;'>"
+			ahtml += "<strong>" + item.name + "</strong> at " + item.time + "<br />"
+			ahtml += item.details + "</p>";
+			ahtml += "</div>";
+			return ahtml;
+		}
+
+
+	</script>
+{% endblock %}
+

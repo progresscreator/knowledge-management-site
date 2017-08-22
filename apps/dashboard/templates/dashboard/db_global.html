@@ -1,0 +1,198 @@
+{% extends "dashboard/base.html" %}
+{% load i18n %}
+{% load avatar_tags %}
+{% block head_title %}
+	{% trans "Dashboard" %}: {% trans "Global Economy" %}
+{% endblock %}
+
+{% block db_body %}
+
+	<div class="span-24" style="margin-bottom: 20px;">
+		<div class="span-12">
+			<div class="ui-widget ui-widget-content ui-corner-all db-block" >
+				<h1 class="db_title">
+					{% trans "Distribution of Wealth" %}
+				</h1>
+				<div id="dist_wealth"> </div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+		<div class="span-12 last">
+			<div class="ui-widget ui-widget-content ui-corner-all db-block" >
+				<h1 class="db_title">
+					{% trans "Distribution of Earnings" %}
+				</h1>
+				<div id="dist_earnings"> </div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+
+	<div class="span-24" style="margin-bottom:20px;">
+		<div class="span-8">
+			<div class="ui-widget ui-widget-content ui-corner-all db-block">
+				<h1 class="db_title">
+					{% trans "Transaction by markets" %}
+				</h1>
+				<div id="market_pie"></div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+		<div class="span-16 last">
+			<div class="ui-widget ui-widget-content ui-corner-all db-block">
+				<h1 class="db_title">
+					{% trans "Transaction by type" %}
+				</h1>
+				<div id="type_pie"></div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+	<div class="span-24 last">
+		<div class="ui-widget ui-widget-content ui-corner-all db-block" 
+			style="padding-bottom: 20px; padding-left: 10px; padding-right: 10px;">
+			<div class="clearfix">
+				<h1 class="db_title">
+					{% trans "Questions and Answers" %}
+				</h1>
+				<div id="qa_vis" style="width: 920px; height: 240px;"></div>
+			</div>
+			<div class="clearfix">
+		</div>
+	</div>
+
+	<div class="span-24 last" style="margin-top: 20px;">
+		<div class="ui-widget ui-widget-content ui-corner-all db-block" 
+			style="padding-bottom: 20px; padding-left: 10px; padding-right: 10px;">
+			<div class="clearfix">
+				<h1 class="db_title">
+					{% trans "Price Index of Q&A" %}
+				</h1>
+				<div id="qa_price_vis"></div>
+			</div>
+			<div class="clearfix">
+		</div>
+	</div>
+
+	<div class="span-24 last" style="margin-top: 20px;">
+		<div class="ui-widget ui-widget-content ui-corner-all db-block" 
+			style="padding-bottom: 20px; padding-left: 10px; padding-right: 10px;">
+			<div class="clearfix">
+				<h1 class="db_title">
+					{% trans "Transactions" %}
+				</h1>
+				<div id="transactions_vis" style="width: 920px; height: 240px;"></div>
+			</div>
+			<div class="clearfix">
+		</div>
+	</div>
+{% endblock %}
+
+{% block db_extra_body %}
+	<script type="text/javascript">
+
+		// Load the Visualization API and the piechart package.
+		google.load('visualization', '1', {'packages':['columnchart', 'annotatedtimeline', 'linechart']});
+		
+		// Set a callback to run when the Google Visualization API is loaded.
+		google.setOnLoadCallback(drawChart);
+											
+		function drawChart() {
+			// Create our data table.
+			var query_qa_vis = new google.visualization.Query("{% url vis_json_qa_vis %}");
+			query_qa_vis.send(handleQueryResponse_qa_vis);
+			var query_qa_price_vis = new google.visualization.Query("{% url vis_json_qa_price_vis %}");
+			query_qa_price_vis.send(handleQueryResponse_qa_price_vis);
+			var query_transactions_vis = new google.visualization.Query("{% url vis_json_transactions_vis %}");
+			query_transactions_vis.send(handleQueryResponse_transactions_vis);
+			var query_dist_wealth = new google.visualization.Query("{% url vis_json_dist_wealth %}");
+			query_dist_wealth.send(handleQueryResponse_dist_wealth);
+			var query_dist_earnings = new google.visualization.Query("{% url vis_json_dist_earnings %}");
+			query_dist_earnings.send(handleQueryResponse_dist_earnings);
+			var query_market_pie = new google.visualization.Query("{% url vis_json_market_pie %}");
+			query_market_pie.send(handleQueryResponse_market_pie);
+			var query_type_pie = new google.visualization.Query("{% url vis_json_type_pie %}");
+			query_type_pie.send(handleQueryResponse_type_pie);
+		}
+		function handleQueryResponse_qa_vis(response) {
+			if (response.isError()) {
+				alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+				return;
+			}
+			var data = response.getDataTable();
+			var chart = new google.visualization.AnnotatedTimeLine(document.getElementById('qa_vis'));
+			chart.draw(data, {displayAnnotations: true});
+		}
+		function handleQueryResponse_qa_price_vis(response) {
+			if (response.isError()) {
+				alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+				return;
+			}
+			var data = response.getDataTable();
+			var chart = new google.visualization.LineChart(document.getElementById('qa_price_vis'));
+			chart.draw(data, {width: 920, height: 240, legend: 'bottom', colors:["#C68E17", "#4AA02C"],
+				title: 'Price Index'});
+		}
+		function handleQueryResponse_transactions_vis(response) {
+			if (response.isError()) {
+				alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+				return;
+			}
+			var data = response.getDataTable();
+			var chart = new google.visualization.AnnotatedTimeLine(document.getElementById('transactions_vis'));
+			chart.draw(data, {displayAnnotations: true});
+		}
+		function handleQueryResponse_dist_wealth(response) {
+			if (response.isError()) {
+				alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+				return;
+			}
+			var data = response.getDataTable();
+			var chart = new google.visualization.ColumnChart(document.getElementById('dist_wealth'));
+			chart.draw(data, {width: 440, height: 240, is3D: true, 
+				title: '{% trans "Wealth distribution" %}',
+				backgroundColor: '#FCFEFD',
+				legend:'none', axisFontSize:11, titleFontSize:10,
+				titleY: "# of eggheads", 
+				titleX: '{% trans "Wealth" %}'});
+		}
+		function handleQueryResponse_dist_earnings(response) {
+			if (response.isError()) {
+				alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+				return;
+			}
+			var data = response.getDataTable();
+			var chart = new google.visualization.ColumnChart(document.getElementById('dist_earnings'));
+			chart.draw(data, {width: 440, height: 240, is3D: true, 
+				title: '{% trans "Earnings distribution" %}',
+				backgroundColor: '#FCFEFD',
+				legend:'none', axisFontSize:11, titleFontSize:10,
+				titleY: "# of eggheads", 
+				titleX: '{% trans "Earning" %}'});
+		}
+		function handleQueryResponse_market_pie(response) {
+			if (response.isError()) {
+				alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+				return;
+			}
+			var data = response.getDataTable();
+			var chart = new google.visualization.PieChart(document.getElementById('market_pie'));
+			chart.draw(data, {width: 280, height: 230, is3D: true, title: '{% trans "Transactions by market" %}',
+					titleFontSize: 12, titleColor: '#25383C', backgroundColor:'#FCFEFD',
+					legendBackgroundColor: '#FCFEFD'
+			});
+		}
+		function handleQueryResponse_type_pie(response) {
+			if (response.isError()) {
+				alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+				return;
+			}
+			var data = response.getDataTable();
+			var chart = new google.visualization.PieChart(document.getElementById('type_pie'));
+			chart.draw(data, {width: 580, height: 230, is3D: true, title: '{% trans "Transactions by type" %}',
+					titleFontSize: 12, titleColor: '#25383C', backgroundColor:'#FCFEFD',
+					legendBackgroundColor: '#FCFEFD'
+			});
+		}
+	</script>
+{% endblock %}

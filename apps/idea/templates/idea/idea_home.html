@@ -1,0 +1,161 @@
+{% extends "idea/base.html" %}
+{% load i18n %}
+{% load avatar_tags %}
+{% load thumbnail %}
+{% load idea_tags %}
+
+{% block head_title %}{% trans "iDea" %}{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}iknow/css/iknow_home.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}idea/css/idea.css" />
+{% endblock %}
+
+{% block body %}
+	<div class="span-18">
+		<div class="ui-widget ui-corner-all info-block">
+			<div class="ui-widget-header ui-corner-top info-header">
+				{% trans "New cool ideas" %}
+			</div>
+			<div class="ui-widget-content ui-corner-bottom info-content">
+				{% if new_ideas %}
+					{% for idea in new_ideas %}
+						{% idea_coolidea idea %}
+					{% endfor %}
+
+					<a id="browse-more" style="margin-top: 15px; margin-right: 20px;float: right;"
+						href="{% url idea_coolideas %}">{% trans "Browse more" %} &raquo;</a></li></ul>
+					<div class="clearfix"></div>
+
+				{% else %}
+					<p>
+						{% trans "No one has submitted any new cool ideas yet." %}
+					</p>
+				{% endif %}
+			</div>
+		</div>
+
+		<div style="margin-bottom:10px;" id="tabs">
+			<ul>
+				<li><a href="#tabs-1">{% trans "Top 5 ideas by thumbs" %}</a></li>
+				<li><a href="#tabs-2">{% trans "Top 5 ideas by rating" %}</a></li>
+			</ul>
+			<div class="info-content" id="tabs-1">
+				{% if top5_thumbs %}
+					{% for idea in top5_thumbs %}
+						{% idea_coolidea idea %}
+					{% endfor %}
+				{% else %}
+					<p>
+						{% trans "Well, top 5 doesn't seem to be ready yet." %}
+					</p>
+				{% endif %}
+			</div>
+			<div class="info-content" id="tabs-2">
+				{% if top5_rating %}
+					{% for idea in top5_rating %}
+						{% idea_coolidea idea %}
+					{% endfor %}
+				{% else %}
+					<p>
+						{% trans "Well, top 5 doesn't seem to be ready yet." %}
+					</p>
+				{% endif %}
+			</div>
+		</div>
+		<div class="ui-widget ui-corner-all info-block">
+			<div class="ui-widget-header ui-corner-top info-header">
+				{% trans "Cool ideas that you have submitted" %}
+			</div>
+			<div class="ui-widget-content ui-corner-bottom info-content">
+				{% if my_ideas %}
+					{% for idea in my_ideas %}
+						{% idea_coolidea idea %}
+					{% endfor %}
+				{% else %}
+					<p>
+						{% trans "You haven't submitted any new cool idea yet." %}
+					</p>
+				{% endif %}
+			</div>
+		</div>
+
+		<div class="ui-widget ui-corner-all info-block">
+			<div class="ui-widget-header ui-corner-top info-header">
+				{% trans "Cool ideas that list you as a collaborator" %}
+			</div>
+			<div class="ui-widget-content ui-corner-bottom info-content">
+				{% if col_ideas %}
+					{% for idea in col_ideas %}
+						{% idea_coolidea idea %}
+					{% endfor %}
+				{% else %}
+					<p>
+						{% trans "No idea lists you as a collaborator." %}
+					</p>
+				{% endif %}
+			</div>
+		</div>
+
+	</div>
+	<div class="span-6 last">
+		<div style="margin-bottom: 20px;" class="ui-widget ui-widget-content ui-corner-all info-content">
+			<p>
+				{% blocktrans %}
+				iDea is a marketplace where innovative spirits get inspired and innovation gets created, evaluated and promoted.
+				{% endblocktrans %}
+			</p>
+
+				<input type="submit" class="ui-button ui-corner-all ui-state-default ibutton" 
+					id="id_submit" value="{% trans "Submit a cool idea" %} &raquo;" />
+		</div>
+		<div style="margin-bottom: 20px;" class="ui-widget ui-widget-content ui-corner-all info-content">
+			<form enctype="multipart/form-data" action="{% url idea_search %}" method="get">
+				<input type="text" id="id_idea_search" name="q" />
+				<input type="submit" id="id_idea_search_button" 
+					class="ui-button ui-corner-all ui-state-default ibutton"
+						value="{% trans "Search ideas" %} &raquo;" />
+			</form>
+		</div>
+
+		<div class="ui-widget ui-corner-all info-block">
+			<div class="ui-widget-header ui-corner-top info-header">
+				{{ user.egghead.display_name }}
+			</div>
+			<div class="ui-widget-content ui-corner-bottom info-content">
+				<div style="float: left; width:30%">
+					{% avatar user 50 %}
+				</div>
+				<p style="float: left: width: 68%">
+					{% trans "Wealth" %}: {{ user.egghead.wealth_notes }} <br />
+					{% trans "Available Credits" %}: {{ user.egghead.available_credits }}<br />
+					{% trans "Level" %}: {{ user.egghead.band_name }}
+				</p>
+				<input type="submit" class="ui-button ui-corner-all ui-state-default ibutton" 
+					id="id_dash_board" value="{% trans "My Dashboard" %} &raquo;" />
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block extra_body %}
+	<script type="text/javascript">
+		$(function(){
+			$("input:text").addClass("ui-corner-all")
+				.css({"font-size":"12px","padding":"5px", "color": "#2B3856", "font-weight": "bold",
+				"font-family":"Courier, Rockwell, 'Courier New', 'Serif'"})
+				.val("");
+			$("input:submit").button();
+			$("#browse-more").button().css({"font-size":"10px"});
+			$("#id_dash_board").click(function(e) {
+				e.preventDefault();
+				window.location="{% url db_home user.username %}";
+			});
+			$("#id_submit").click(function(e) {
+				e.preventDefault();
+				window.location="{% url idea_coolidea_submit %}";
+			});
+			$("#tabs").tabs();
+		});
+	</script>
+{% endblock %}

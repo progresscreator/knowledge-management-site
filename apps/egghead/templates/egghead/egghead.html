@@ -1,0 +1,32 @@
+{% extends "egghead/base.html" %}
+{% load i18n %}
+{% load uni_form %}
+{% block head_title %}{% trans "Edit your egghead profile" %}{% endblock %}
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}egghead/css/egghead.css" />
+{% endblock %}
+{% block body %}
+	<div class="span-24">
+		<h3> Edit the profile of {{ user.egghead.display_name }} </h3>
+
+		<form enctype="multipart/form-data" class="uniForm" id="submit_form" method="post" 
+				action="">
+			<fieldset class="inlineLabels">
+				{{ form|as_uni_form }}
+				<div  class="form_block">
+					<input class="ibutton" type="submit" value="Save {{ user.egghead.display_name }}" />
+				</div>
+			</fieldset>
+		</form>
+	</div>
+{% endblock %}
+
+{% block extra_body %}
+	<script type="text/javascript">
+		$(function(){
+			{% include "core/core_form_js.html" %}
+			$("input:submit").button().css({"font-size":"10px", "padding":"5px 8px"});
+			$("textarea").css({"height":"100px"});
+		});
+	</script>
+{% endblock %}

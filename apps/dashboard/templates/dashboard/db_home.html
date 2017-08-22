@@ -1,0 +1,223 @@
+{% extends "dashboard/base.html" %}
+{% load i18n %}
+{% load avatar_tags %}
+{% block head_title %}
+	{% blocktrans with duser.egghead.display_name as egghead_name %}
+		Dashboard of {{ egghead_name }}
+	{% endblocktrans %}
+{% endblock %}
+
+{% block db_body %}
+	<div class="span-24">
+		<div class="span-10">
+			<div class="ui-widget ui-widget-content ui-corner-all db-block">
+				<h1 class="db_title">
+					{% blocktrans with egghead.get_ranking_by_wealth as ranking %}
+					Your wealth gauge (Rank: {{ ranking }} out of {{ total_user }})
+					{% endblocktrans %}
+				</h1>
+				<div id="gauge_wealth"></div>
+				<div id="gauge_ranking"></div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+		<div class="span-14 last">
+			<div class="ui-widget ui-widget-content ui-corner-all db-block">
+				<h1 class="db_title">
+					{% trans "Overview of your income/expenses" %}
+				</h1>
+				<div id="inout_pie"></div>
+				<div id="income_pie"></div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+	<div class="span-24" style="margin-top: 10px;">
+		<div class="span-19">
+			<div class="ui-widget ui-widget-content ui-corner-all db-block">
+				<h1 class="db_title">
+					{% trans "Performance review" %}
+				</h1>
+				<div id="answer_rating"> </div>
+				<div id="answer_thumbs"> </div>
+				<div id="answer_award"> </div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+		<div class="span-5 last">
+			<div class="ui-widget ui-widget-content ui-corner-all db-block">
+				<h1 class="db_title">
+					{% trans "Expertise tags" %}
+				</h1>
+				<div id="expertise-tags">
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+	<div class="span-24" style="margin-top: 10px;">
+		<div class="ui-widget ui-widget-content ui-corner-all db-block" 
+			style="padding-bottom: 20px; padding-left: 10px; padding-right: 10px;">
+			<div class="clearfix">
+				<h1 class="db_title" style="float:left">
+					{% trans "Time Series: Activities" %}
+				</h1>
+				<div id="ts_selection">
+					<select id="ts_select" name="ts">
+						<option selected="selected" value="qa">{% trans "Question" %} &#38; {% trans "Answer" %}</option>
+						<option value="flow">{% trans "Points flow" %}</option>
+					</select>
+				</div>
+			</div>
+			<div id="qa_vis" style="width:920px; height: 260px;"></div>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block db_extra_body %}
+	<script type="text/javascript" src="http://visapi-gadgets.googlecode.com/svn/trunk/termcloud/tc.js"></script>
+	<script type="text/javascript">
+
+		// Load the Visualization API and the piechart package.
+		google.load('visualization', '1', {'packages':['annotatedtimeline','piechart', 'gauge', 'columnchart']});
+		
+		// Set a callback to run when the Google Visualization API is loaded.
+		google.setOnLoadCallback(drawChart);
+		var gauge_size = 160;
+											
+		function drawChart() {
+			// Create our data table.
+			var query_income = new google.visualization.Query("{% url vis_json_income_pie %}");
+			var query_inout = new google.visualization.Query("{% url vis_json_inout_pie %}");
+			var query_expertise = new google.visualization.Query("{% url vis_json_tag_cloud_user duser %}");
+			var query_rating = new google.visualization.Query("{% url vis_json_answer_rating duser %}");
+			var query_thumbs = new google.visualization.Query("{% url vis_json_answer_thumbs duser %}");
+			var query_award = new google.visualization.Query("{% url vis_json_answer_award duser %}");
+			var query_ts_vis = new google.visualization.Query("{% url vis_json_time_series duser %}");
+			query_income.send(handleQueryResponse_income);
+			query_inout.send(handleQueryResponse_inout);
+			query_expertise.send(handleQueryResponse_expertise);
+			query_rating.send(handleQueryResponse_rating);
+			query_thumbs.send(handleQueryResponse_thumbs);
+			query_award.send(handleQueryResponse_award);
+			query_ts_vis.send(handleQueryResponse_ts_vis);
+			
+			var data = new google.visualization.DataTable();
+			data.addColumn('string', 'Label');
+			data.addColumn('number', 'Value');
+			data.addRows(1);
+			data.setValue(0, 0, 'Wealth');
+			data.setValue(0, 1, {{ egghead.wealth_notes }});
+			var chart = new google.visualization.Gauge(document.getElementById('gauge_wealth'));
+			var max_wealth = {{ max_wealth }};
+			var options = {width: gauge_size, height: gauge_size, max: max_wealth, redFrom: 0,
+							redTo: max_wealth/8, yellowTo: max_wealth/4, yellowFrom: max_wealth/8,
+							greenFrom: max_wealth*7/8, greenTo: max_wealth};
+			chart.draw(data, options);
+
+			var data = new google.visualization.DataTable();
+			data.addColumn('string', 'Label');
+			data.addColumn('number', 'Value');
+			data.addRows(1);
+			data.setValue(0, 0, 'Percentile');
+			data.setValue(0, 1, {{ egghead.get_percentage|floatformat:2 }});
+			var chart = new google.visualization.Gauge(document.getElementById('gauge_ranking'));
+			var options = {width: gauge_size, height: gauge_size, max: 1.0, redFrom: 0,
+							redTo: 0.125, yellowTo: 0.125, yellowFrom: 0.25, greenFrom: 0.875, greenTo: 1  };
+			chart.draw(data, options);
+		}
+		function handleQueryResponse_ts_vis(response) {
+			if (response.isError()) {
+				alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+				return;
+			}
+			var data = response.getDataTable();
+			var chart = new google.visualization.AnnotatedTimeLine(document.getElementById('qa_vis'));
+			chart.draw(data, {displayAnnotations: true,
+				colors:['#3090C7','#348781','#4CC417','#F62217'],
+			});
+			chart.hideDataColumns([2, 3]);
+			$("#ts_select").change(function(){
+				if (this.value == "qa") {
+					chart.hideDataColumns([2, 3]);
+					chart.showDataColumns([0, 1]);
+				}
+				else if (this.value == "flow") {
+					chart.hideDataColumns([0, 1]);
+					chart.showDataColumns([2, 3]);
+				}
+			});
+		}
+		function handleQueryResponse_income(response) {
+			if (response.isError()) {
+				alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+				return;
+			}
+			var data = response.getDataTable();
+			var chart = new google.visualization.PieChart(document.getElementById('income_pie'));
+			chart.draw(data, {width: 250, height: 160, is3D: true, title: '{% trans "Distribution of Income" %}',
+					titleFontSize: 12, titleColor: '#25383C', backgroundColor:'#FCFEFD',
+					colors:[{color:'#3090C7', darker:'#357EC7'}, '#6C2DC7', '#52D017'],
+					legendBackgroundColor: '#FCFEFD'
+			});
+		}
+		function handleQueryResponse_inout(response) {
+			if (response.isError()) {
+				alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+				return;
+			}
+			var data = response.getDataTable();
+			var chart = new google.visualization.PieChart(document.getElementById('inout_pie'));
+			chart.draw(data, {width: 240, height: 160, is3D: true, title: '{% trans "Inflow Vs. Outflow" %}',
+					titleFontSize: 12, titleColor: '#25383C', colors:[{color:'#4CC417', darker:'#348017'},'#F62217'],
+					backgroundColor: '#FCFEFD', legendBackgroundColor: '#FCFEFD'
+				});
+		}
+		function handleQueryResponse_expertise(response) {
+			if (response.isError()) {
+				alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+				return;
+			}
+			var data = response.getDataTable();
+			var outputDiv = document.getElementById('expertise-tags');
+			var tc = new TermCloud(outputDiv);
+			tc.draw(data, null);
+		}
+		function handleQueryResponse_rating(response) {
+			if (response.isError()) {
+				alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+				return;
+			}
+			var data = response.getDataTable();
+			var chart = new google.visualization.ColumnChart(document.getElementById('answer_rating'));
+			chart.draw(data, {width: 240, height: 160, is3D: true, 
+				title: '{% trans "Ratings received by answers" %} (Avg: {{ egghead.average_answer_rating }})',
+				backgroundColor: '#FCFEFD',
+				legend:'none', axisFontSize:11, titleFontSize:10, titleY: "# of questions", titleX: '{% trans "Ratings" %}(1~5)'});
+		}
+		function handleQueryResponse_thumbs(response) {
+			if (response.isError()) {
+				alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+				return;
+			}
+			var data = response.getDataTable();
+			var chart = new google.visualization.ColumnChart(document.getElementById('answer_thumbs'));
+			chart.draw(data, {width: 240, height: 160, is3D: true, 
+				title: '{% trans "Thumbs received by answers" %} (Avg: {{ egghead.average_answer_thumbs }})',
+				backgroundColor: '#FCFEFD',
+				legend:'none', axisFontSize:11, titleFontSize:10,titleY: "# of questions", titleX: '{% trans "Thumbs" %}'});
+		}
+		function handleQueryResponse_award(response) {
+			if (response.isError()) {
+				alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+				return;
+			}
+			var data = response.getDataTable();
+			var chart = new google.visualization.ColumnChart(document.getElementById('answer_award'));
+			chart.draw(data, {width: 240, height: 160, is3D: true, title: '{% trans "Awards received by answers" %}',
+				backgroundColor: '#FCFEFD',
+				legend:'none', titleFontSize:10, axisFontSize:8, titleY: "# of questions"});
+		}
+	</script>
+{% endblock %}

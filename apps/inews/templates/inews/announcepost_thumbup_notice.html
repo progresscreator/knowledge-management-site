@@ -1,0 +1,160 @@
+{% extends "inews/base.html" %}
+{% load avatar_tags %}
+{% load thumbnail %}
+{% load inews_tags %}
+
+{% block head_title %}iNews Post: {{ announcepost.title }} {% endblock %}
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}iknow/css/iknow.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}iknow/css/iknow_home.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}inews/css/inews.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}inews/css/inews_extra.css" />
+{% endblock %}
+
+{% block body %}
+
+	
+	<div class="span-16">
+		<div style="margin-bottom: 15px;" class="ui-widget ui-widget-content ui-corner-all info-content announcepost">
+			<h1 class="announcepost-title">
+				{{ announcepost.title }}
+			</h1>
+				<div class="votes" style="margin-left:21px; margin-bottom: -1px;">
+				<a href="{% url inews_thumbup announcepost.id %}"><img class="voteup" name="{{ announcepost.id }}" src="{{ STATIC_URL }}inews/images/small_thumbup.png" /></a>
+			
+			</div>
+			<div style="float: left; width: 15%px;"> 
+				<div class="ui-widget ui-widget-content ui-corner-all designidea-thumbs" style = "margin-left:10px;">	
+					<p id="votes">{{ announcepost.thumbs }} </p>
+				</div> 
+				<div class="votes" style="margin-left:21px; margin-top:-6px;">
+					<a href="{% url inews_thumbdown announcepost.id %}"><img class="votedown" name="{{ announcepost.id }}" src="{{ STATIC_URL }}inews/images/small_thumbdown.png" /></a>
+				</div>
+			</div>
+
+
+			<div style="float: left; width: 82%; margin-left: 20px; margin-top: -15px;"> 
+				<p>
+					{{ announcepost.details|urlize|linebreaks }} 
+				</p>
+				{% if announcepost.tags|length %}
+				<p>
+					<strong>Tags:</strong> {{ announcepost.tags }} 
+				</p>
+				{% endif %}
+				<p style="text-align: right; color:#3090C7; margin-top: 30px;"> 
+					Submitted by {{ announcepost.display_name }}  at {{ announcepost.time_string_l }} <br />
+					{% if announcepost.budget %}
+						Total Value:
+						<img src="{{ STATIC_URL }}iknow/images/coin_13x13.png" /> 
+						{{ announcepost.budget }} <br />
+					{% else %}
+						No initial value was added. <br />
+					{% endif %}
+					{% ifequal announcepost.status "A" %}
+						This iNews Post is active
+					{% else %}
+						This iNews Post is inactive
+					{% endifequal %}
+				</p>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+
+
+	<div class="span-8 last">
+		<div class="ui-widget ui-corner-all info-block">
+			<div class="ui-widget-header ui-corner-top info-header">
+				Post Stats
+			</div>
+			<div class="ui-widget-content info-content">
+				<div style="float:left; width: 40%; margin-left: 25px;">
+					<p>
+						<strong>Total Value: </strong>
+					</p>
+					<p style="font-size: 26px; font-weight: bold;margin-left: 15px; color: #F87431;">
+						{{ announcepost.budget }}
+					</p>
+				</div>
+				
+				<div style="float:right; width: 40%; margin-left: -40px;">
+					<p>
+						<strong>Next Vote Cost: </strong>
+					</p>
+					<p style="font-size: 26px; font-weight: bold;margin-left: 15px; color: #F87431;">
+						{% inews_thumb_price announcepost user %}
+					</p>
+				</div>
+				
+				<div class="clearfix"></div>
+				<p>
+					<strong>Status: </strong>
+					{% if not my_votes %}
+						You haven't voted yet!
+					{% else %}
+						<strong> You voted! </strong>
+					{% endif %}
+				</p>
+			</div>
+		</div>
+		<div class="ui-widget ui-corner-all info-block">
+			<div class="ui-widget-header ui-corner-top info-header">
+				Voting History
+			</div>
+			<div class="ui-widget-content ui-corner-bottom info-content">
+				{% if thumbs %}
+					<ul>
+						{% for thumb in thumbs %}
+							<li>
+								<div style="margin-top: 5px; margin-bottom: 5px;">
+								{% ifequal thumb.up_or_down "U" %}
+									{{ thumb.display_name }} voted 
+									<img class="voteup" name="{{ announcepost.id }}" src="{{ STATIC_URL }}iknow/images/arrow_up_tiny.png" /></a>
+								{% else %}
+									{{ thumb.display_name }} voted
+									<img class="votedown" name="{{ announcepost.id }}" src="{{ STATIC_URL }}iknow/images/arrow_down_tiny.png" /></a>
+								{% endifequal %} at {{ thumb.time_string_s }}
+								</div>
+							</li>
+						{% endfor %}
+					</ul>
+				{% else %}
+					<p> No one has shown opinions yet.  </p>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block extra_body %}
+	<script type="text/javascript">
+		$(function(){
+			$("img.thumbup").hover(
+				function() {
+					$(this).attr("src", "{{ STATIC_URL }}/iknow/images/thumbup_green_28x28.png")
+				},
+				function(){
+					$(this).attr("src", "{{ STATIC_URL }}/iknow/images/thumbup_blue_28x28.png")
+				}
+			).click(function() {
+				$.post("{% url idesign_post_thumbs %}", {
+					"id": {{ designidea.id }},
+					"up_or_down":"U"
+				}, function(data, textStatus) {
+					if (data == "0") {
+						var k = parseInt($("#thumbs").text());
+						$("#thumbs").text(k + 1);
+					}
+					else if (data == "1") {
+						alert("You have voted on it, you can't do it again");
+					}
+					else if (data == "2") {
+						alert("You can not vote for yourself");
+					}
+				});
+			});
+		});
+	</script>
+{% endblock %}

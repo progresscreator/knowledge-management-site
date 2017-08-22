@@ -1,0 +1,57 @@
+{% load i18n %}
+<style type="text/css">
+	table.table-booth-products  {
+		width: 100%;
+		table-layout: fixed;
+		border-collapse:collapse;
+		font-size: 11px;
+	}
+	table.table-booth-products td {
+		overflow: hidden;
+		white-space: nowrap;
+	}
+	table.table-booth-products td.name, table.table-booth-products th.name { width:45%; }
+	table.table-booth-products td.bids, table.table-booth-products th.bids { text-align:center;width:6%; }
+	table.table-booth-products td.topbid, table.table-booth-products th.topbid { text-align:center;width:8%; }
+	table.table-booth-products td.topbidder, table.table-booth-products th.topbidder { text-align:center;width:12%; }
+	table.table-booth-products td.time_started, table.table-booth-products th.time_started { text-align:center;width:12%; }
+	table.table-booth-products td.time_left, table.table-booth-products th.time_left { text-align:center;width:12%; }
+	table.table-booth-products td.name a, table.table-booth-products td.topbidder a{
+		text-decoration: none;
+		color:#e17009;
+	}
+</style>
+{% if products_page.object_list %}
+	<table class="table-booth-products">
+		<tr>
+			<th class="name">{% trans "Name" %}</th>
+			<th class="bids">#{% trans "bids" %}</th>
+			<th class="topbid">{% trans "Top bid" %}</th>
+			<th class="topbidder">{% trans "Leader" %}</th>
+			<th class="time_started">{% trans "Time started" %}</th>
+			<th class="time_left">{% trans "Time left" %}</th>
+		</tr>
+		{% for product in products_page.object_list %}
+			<tr>
+				<td class="name"> 
+					<a href="{{ product.get_absolute_url }}">{{ product.name }}</a>
+				</td>
+				<td class="bids">{{ product.total_bids }} </td>
+				<td class="topbid">{{ product.current_price }}</td>
+				<td class="topbidder">
+					{% if product.current_leader %}
+						<a href="{% url iauction_booth product.current_leader %}">
+							{{ product.current_leader.egghead.display_name }}
+						</a>
+					{% else %}
+						N/A
+					{% endif %}
+				</td>
+				<td class="time_started">{{ product.start_time_string_s }}</td>
+				<td class="time_left"> {{ product.time_left_string }} </td>
+			</tr>
+		{% endfor %}
+	</table>
+{% else %}
+	<p> {% trans "No products sold in this category" %}. </p>
+{% endif %}

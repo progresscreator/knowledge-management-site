@@ -1,0 +1,323 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-10-21 10:51-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: forms.py:6 templates/egghead/egghead_detail.html:39
+msgid "First name"
+msgstr "Prénom"
+
+#: forms.py:7 templates/egghead/egghead_detail.html:42
+msgid "Last name"
+msgstr "Nom de famille"
+
+#: forms.py:8 templates/egghead/egghead_detail.html:45
+msgid "Email"
+msgstr "Email"
+
+#: forms.py:10
+msgid "Google chat"
+msgstr "Google chat"
+
+#: forms.py:11 templates/egghead/egghead_detail.html:71
+msgid "Facebook ID"
+msgstr "Facebook"
+
+#: forms.py:12 templates/egghead/egghead_detail.html:77
+msgid "Twitter"
+msgstr "Twitter"
+
+#: forms.py:14 templates/egghead/egghead_detail.html:49
+msgid "Title"
+msgstr "Titre"
+
+#: forms.py:15 templates/egghead/egghead_detail.html:54
+msgid "Affiliation"
+msgstr "Affiliation"
+
+#: forms.py:16 templates/egghead/egghead_detail.html:59
+msgid "Program/Year"
+msgstr "Programme / Année"
+
+#: forms.py:18 templates/egghead/egghead_detail.html:84
+msgid "Location"
+msgstr "Lieu"
+
+#: forms.py:19
+msgid "Website"
+msgstr "Website"
+
+#: forms.py:21
+msgid "Expertise tags"
+msgstr "Expertise tags"
+
+#: forms.py:22 templates/egghead/egghead_detail.html:101
+msgid "Prior experiences"
+msgstr "Les expériences passées"
+
+#: forms.py:23
+msgid "Geographic interest"
+msgstr "Intérêt géographique"
+
+#: forms.py:24 templates/egghead/egghead_detail.html:111
+msgid "Sector interests"
+msgstr "Les intérêts du secteur"
+
+#: forms.py:26
+msgid "About yourself"
+msgstr "À propos de vous"
+
+#: models.py:160 models.py:170
+msgid "N/A: No answers yet"
+msgstr "N/A: Aucune réponse encore"
+
+#: views.py:155 views.py:240 views.py:274
+#, python-format
+msgid "Successfully logged in as %(username)s."
+msgstr "Connecté avec succès comme %(username)s."
+
+#: views.py:228 views.py:262
+msgid "You must use an email address from accepted universities"
+msgstr "Vous devez utiliser un e-mail à partir d'une université a accepté"
+
+#: templates/egghead/base.html:7
+msgid "Your profile"
+msgstr "Vos profils"
+
+#: templates/egghead/base.html:8
+msgid "All eggheads"
+msgstr "Tous les utilisateurs"
+
+#: templates/egghead/bu2010spring.html:6
+#: templates/egghead/french_signup.html:5
+#: templates/egghead/mit_bu_signup.html:5
+msgid "Signup"
+msgstr "Rejoignez-nous"
+
+#: templates/egghead/bu2010spring.html:10
+#: templates/egghead/french_signup.html:10
+#: templates/egghead/french_signup.html:36
+#: templates/egghead/mit_bu_signup.html:10
+#: templates/egghead/mit_bu_signup.html:36
+msgid "Sign Up"
+msgstr "Rejoignez-nous"
+
+#: templates/egghead/bu2010spring.html:14
+#: templates/egghead/french_signup.html:14
+#: templates/egghead/mit_bu_signup.html:14
+msgid "You are already logged in."
+msgstr "Vous êtes déjà connecté"
+
+#: templates/egghead/bu2010spring.html:17
+#: templates/egghead/french_signup.html:19
+#: templates/egghead/mit_bu_signup.html:19
+msgid "Already have an account?"
+msgstr "Avez-vous déjà un compte?"
+
+#: templates/egghead/bu2010spring.html:18
+#: templates/egghead/french_signup.html:20
+#: templates/egghead/mit_bu_signup.html:20
+msgid "Log In"
+msgstr "Connectez-vouz"
+
+#: templates/egghead/bu2010spring.html:56
+msgid "Sign Up &raquo;"
+msgstr "Rejoignez-nous &raquo;"
+
+#: templates/egghead/bu2010spring.html:63
+#: templates/egghead/french_signup.html:43
+#: templates/egghead/mit_bu_signup.html:43
+#, python-format
+msgid ""
+"By clicking \"Sign Up\", you are indicating that you have read and agree to "
+"the <a href=\"%(terms_url)s\">Terms of Use</a> and <a href=\"%(privacy_url)s"
+"\">Privacy Policy</a>."
+msgstr ""
+"En cliquant sur \"Rejoignez-nous\", vous indiquez que vous avez lu et "
+"accepté les <a href=\"%(terms_url)s\">Conditions d'utilisation</a> et la <a "
+"href=\"%(privacy_url)s\">Politique de confidentialité</a>."
+
+#: templates/egghead/bu2010spring.html:65
+#: templates/egghead/french_signup.html:45
+#: templates/egghead/mit_bu_signup.html:45
+#, python-format
+msgid ""
+"If you have any trouble creating your account, contact us at <a href="
+"\"mailto:%(CONTACT_EMAIL)s\">%(CONTACT_EMAIL)s</a>."
+msgstr ""
+"Si vous avez des difficultés pour créer votre compte, contactez-nous au <a "
+"href=\"mailto:%(CONTACT_EMAIL)s\">%(CONTACT_EMAIL)s</a>."
+
+#: templates/egghead/egghead.html:4
+msgid "Edit your egghead profile"
+msgstr "Editer votre profil utilisateur"
+
+#: templates/egghead/egghead_ajax_tribe_members.html:3
+msgid "Tribe Members"
+msgstr "Membres de la tribu"
+
+#: templates/egghead/egghead_ajax_tribe_members.html:10
+msgid "No members"
+msgstr "Aucun membre"
+
+#: templates/egghead/egghead_detail.html:5
+#, python-format
+msgid ""
+"\n"
+"\t\t%(egghead_name)s's egghead profile \n"
+"\t"
+msgstr ""
+"\n"
+"\t\tProfil utilisateur de %(egghead_name)s \n"
+"\t"
+
+#: templates/egghead/egghead_detail.html:18
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t\t%(egghead_name)s's profile\n"
+"\t\t\t\t"
+msgstr ""
+"\n"
+"\t\t\t\t\tProfil de %(egghead_name)s \n"
+"\t\t\t\t"
+
+#: templates/egghead/egghead_detail.html:26
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t\t\t\t\t%(egghead_name)s's avatar\n"
+"\t\t\t\t\t\t\t"
+msgstr ""
+"\n"
+"\t\t\t\t\t\t\t\tAvatar de %(egghead_name)s \n"
+"\t\t\t\t\t\t\t"
+
+#: templates/egghead/egghead_detail.html:33
+msgid "Manage Avatars"
+msgstr "Gérer les Avatars"
+
+#: templates/egghead/egghead_detail.html:40
+#: templates/egghead/egghead_detail.html:43
+msgid "missing"
+msgstr "manquant"
+
+#: templates/egghead/egghead_detail.html:46
+#: templates/egghead/egghead_detail.html:117
+#: templates/egghead/egghead_detail.html:148
+msgid "not provided"
+msgstr "non fourni"
+
+#: templates/egghead/egghead_detail.html:65
+msgid "Google talk"
+msgstr "Google Talk"
+
+#: templates/egghead/egghead_detail.html:90
+msgid "Web"
+msgstr "Web"
+
+#: templates/egghead/egghead_detail.html:95
+msgid "Expertise"
+msgstr "Expertise"
+
+#: templates/egghead/egghead_detail.html:106
+msgid "Geographic interests"
+msgstr "Intérêts géographique"
+
+#: templates/egghead/egghead_detail.html:116
+msgid "Short Bio"
+msgstr "Courte biographie"
+
+#: templates/egghead/egghead_detail.html:123
+msgid "Edit"
+msgstr "Modifier"
+
+#: templates/egghead/egghead_detail.html:128
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t\t\tTo see %(egghead_name)s's iKnow dashboard, \n"
+"\t\t\t\t\t"
+msgstr ""
+"\n"
+"\t\t\t\t\t\tPour voir le tableau de bord de %(egghead_name)s \n"
+"\t\t\t\t\t"
+
+#: templates/egghead/egghead_detail.html:131
+msgid "Click here"
+msgstr "Cliquer ici"
+
+#: templates/egghead/egghead_detail.html:140
+msgid "Settings"
+msgstr "Paramètres"
+
+#: templates/egghead/egghead_detail.html:144
+msgid "Receive SMS notifications when new questions enter iKnow"
+msgstr ""
+"Recevoir des notifications SMS quand de nouvelles questions entrent dans "
+"iKnow"
+
+#: templates/egghead/egghead_detail.html:145
+#: templates/egghead/egghead_detail.html:151
+#: templates/egghead/egghead_detail.html:154
+msgid "Yes"
+msgstr "Oui"
+
+#: templates/egghead/egghead_detail.html:145
+#: templates/egghead/egghead_detail.html:151
+#: templates/egghead/egghead_detail.html:154
+msgid "No"
+msgstr "Non"
+
+#: templates/egghead/egghead_detail.html:147
+msgid "Mobile phone number"
+msgstr "Numéro de telephone mobil"
+
+#: templates/egghead/egghead_detail.html:150
+msgid "Receive Email notifications when new questions enter iKnow"
+msgstr ""
+"Recevoir des notifications E-mail quand de nouvelles questions entrent dans "
+"iKnow"
+
+#: templates/egghead/egghead_detail.html:153
+msgid "Receive Email notifications when new features are available"
+msgstr ""
+"Recevoir des notifications E-mail quand de nouvelles fonctions sont "
+"disponibles"
+
+#: templates/egghead/egghead_detail.html:159
+msgid "Edit settings"
+msgstr "Editer les Paramètres"
+
+#: templates/egghead/french_signup.html:11
+#: templates/egghead/mit_bu_signup.html:11
+#, python-format
+msgid " Welcome to join %(SITE_NAME)s! "
+msgstr "Vous êtes invités à se joindre %(SITE_NAME)s! "
+
+#: templates/egghead/french_signup.html:17
+#: templates/egghead/mit_bu_signup.html:17
+msgid ""
+"This signup page is currently open to invited students only. You need an "
+"email address from invited univerisities to sign up"
+msgstr ""
+"Cette page d'inscription est actuellement ouverte aux étudiants invités. "
+"Vous avez besoin d'uneadresse e-mail d'une école invitée à s'inscrire"
+
+#: templates/egghead/mit_bu_signup.html:10
+msgid "Students from accepted universities Only"
+msgstr "Les étudiants des universités acceptées que"

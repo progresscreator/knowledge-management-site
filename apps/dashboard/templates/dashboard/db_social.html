@@ -1,0 +1,48 @@
+{% extends "dashboard/base.html" %}
+{% load i18n %}
+{% block head_title %}
+	{% trans "Dashboard" %}: 
+	{% blocktrans with cuser.egghead.display_name as egghead_name %}
+		{{ egghead_name }}'s knowledge network
+	{% endblocktrans %}
+{% endblock %}
+
+{% block db_body %}
+	<div class="ui-widget ui-widget-content ui-corner-all db-block">
+		<h1 class="db_title">
+			{% blocktrans with cuser.egghead.display_name as egghead_name %}
+				{{ egghead_name }}'s knowledge network
+			{% endblocktrans %}
+		</h1>
+		<div>
+			<canvas datasrc="{{ STATIC_URL }}dashboard/js/social.js" width="940" height="820"></canvas>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+	<!--
+	<div class="ui-widget ui-widget-content ui-corner-all db-block" style="padding: 15px; margin-top: 20px;">
+		<p style="font-size: 11px;">
+			<a href="{% url db_social cuser %}">Trebuchet (default)</a> <br />
+			<a href="{% url db_social_slab_serif cuser %}">Slab-serif</a> <br />
+			<a href="{% url db_social_verdana cuser %}">Verdana</a> <br />
+			<a href="{% url db_social_arial cuser %}">Arial</a> <br />
+			<a href="{% url db_social_alter_color cuser %}">An alternate color scheme</a>
+		</p>
+	</div>
+	-->
+{% endblock %}
+
+{% block extra_body %}
+	<script type="text/javascript">
+		// var font_url = "{{ STATIC_URL }}core/js/Champagne_Limousines.svg";		
+		// var font_url = "{{ STATIC_URL }}core/js/courier.svg";
+		var font_url = "{{ STATIC_URL }}core/js/trebuchet.svg";
+		var my_icon_url = "{{ my_icon_url }}";
+		var my_name = "{% if cuser.get_full_name %} {{ cuser.get_full_name }} {% else %} {{ cuser.username }} {% endif %}";
+		var json_network_url = "{% url db_social_json_network cuser%}";
+		var min_wealth = {{ min_wealth }};
+		var max_wealth = {{ max_wealth }};
+		var my_wealth = {{ cuser.egghead.wealth_notes }};
+	</script>
+	<script type="text/javascript" src="{{ STATIC_URL }}core/js/processing-0.7.1.min.js"></script>
+{% endblock %}

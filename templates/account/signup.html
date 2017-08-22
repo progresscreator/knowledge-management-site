@@ -1,0 +1,65 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+{% load uni_form %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+
+{% block body %}
+	<div class="span-24 last apage">
+		<h1>{% trans "Sign Up" %}</h1>
+		<h2> Welcome to join {{ SITE_NAME }}! </h2>
+		
+		{% if user.is_authenticated %}
+			<p>{% trans "You are already logged in." %}</p>
+		{% else %}
+			<p>{% trans "Already have an account?" %} <a href="{% url egghead_login %}">{% trans "Log In" %}</a>!</p>
+			<form class="signup uniForm" id="signup_form" method="post" action="{% url acct_signup %}">
+				<fieldset class="inlineLabels">
+					{{ form|as_uni_form }}
+					<div  class="form_block">
+						<input type="submit" class="ui-button ui-corner-all ui-state-default ibutton"
+							value="{% trans "Sign Up &raquo;" %}" />
+					</div>
+				</fieldset>
+			</form>
+			
+			{% url terms as terms_url %}
+			{% url privacy as privacy_url %}
+			<p>{% blocktrans %}By clicking "Sign Up", you are indicating that you have read and agree to the <a href="{{ terms_url }}">Terms of Use</a> and <a href="{{ privacy_url }}">Privacy Policy</a>.{% endblocktrans %}</p>
+			
+			<p>{% blocktrans %}If you have any trouble creating your account, contact us at <a href="mailto:{{ CONTACT_EMAIL }}">{{ CONTACT_EMAIL }}</a>.{% endblocktrans %}</p>
+			
+			{# @@@ currently OpenID signup is not supported via signup codes #}
+			{% if not code %}
+				<p>If you have OpenID, <a href="{% url egghead_login %}">log in</a> using that to begin using this site with OpenID right away.</p>
+			{% endif %}
+		{% endif %}
+	</div>
+{% endblock %}
+
+{% block extra_body %}
+    {% load jquery_validation %}
+    {% include_validation %}
+    <script type="text/javascript">
+        $(function(){
+			$("input:text").addClass("ui-corner-all")
+				.css({"font-size":"12px","padding":"5px", "color": "#2B3856", "font-weight": "bold",
+				"font-family":"Courier, Rockwell, 'Courier New', 'Serif'"});
+			$("input:password").addClass("ui-corner-all")
+				.css({"font-size":"12px","padding":"5px", "font-family":"Courier"});
+			$(".ui-button").hover(
+				function(){
+					$(this).removeClass("ui-state-default");
+					$(this).addClass("ui-state-highlight");
+				},
+				function(){
+					$(this).removeClass("ui-state-highlight");
+					$(this).addClass("ui-state-default");
+				}
+			);
+            $('#signup_form').validate('{% url signup_form_validate %}', {type: 'table', fields: ['username'], dom: $('#id_username'), event: 'change'});
+            $("#id_username").focus();
+        });
+    </script>
+{% endblock %}

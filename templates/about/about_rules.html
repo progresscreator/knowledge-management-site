@@ -1,0 +1,82 @@
+{% extends "about/about_base.html" %}
+
+{% load i18n %}
+{% load ifsetting_tag %}
+
+{% block head_title %}{% trans "Rules" %}{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/rules.css" />
+{% endblock %}
+
+{% block body %}
+	<div class="span-24 last apage">
+		<div class="span-24 last">
+			<h1> Market rules on {{ SITE_NAME }} </h1>
+			<h3>{% trans "How to get points?" %}</h3>
+			<table>
+				<caption>
+					How to earn points	
+				</caption>
+				<thead>
+					<tr class="odd">
+						<th scope="col" abbr="Actions"> Actions </th>
+						<th scope="col" abbr="Points"> +Points </th>
+						<th scope="col" abbr="Details"> Specification </th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th scope="row" class="column1"> New account </th>
+						<td> + 2000
+							<img src="{{ STATIC_URL }}iknow/images/coin_13x13.png" />
+						</td>
+						<td> Starting balance when a user first joins {{ SITE_NAME }}</td>
+					</tr>
+					<tr class="odd">
+						<th scope="row" class="column1"> Log in </th>
+						<td> + 3
+							<img src="{{ STATIC_URL }}iknow/images/coin_13x13.png" />
+						</td>
+						<td> Receive 3 points each day for logging in at least once</td>
+					</tr>
+					<tr>
+						<th scope="row" class="column1"> Thumb up/down </th>
+						<td> + 1
+							<img src="{{ STATIC_URL }}iknow/images/coin_13x13.png" />
+						</td>
+						<td> Receive 2 points for thumbing up or down on an answer </td>
+					</tr>
+					<tr class="odd">
+						<th scope="row" class="column1"> Comment on an answer </th>
+						<td> + 2
+							<img src="{{ STATIC_URL }}iknow/images/coin_13x13.png" />
+						</td>
+						<td> Receive 2 points for commenting on an answer </td>
+					</tr>
+					<tr>
+						<th scope="row" class="column1"> Allocate points</th>
+						<td> + 25% 
+							<img src="{{ STATIC_URL }}iknow/images/coin_13x13.png" />
+						</td>
+						<td> Receive 25% points back for allocating points on time on asked questions</td>
+					</tr>
+					<tr class="odd">
+						<th scope="row" class="column1"> Upload a document </th>
+						<td> + 5
+							<img src="{{ STATIC_URL }}iknow/images/coin_13x13.png" />
+						</td>
+						<td> Receive 5 points for uploading an original document </td>
+					</tr>
+					<tr>
+						<th scope="row" class="column1"> Propose a design idea</th>
+						<td> + 3
+							<img src="{{ STATIC_URL }}iknow/images/coin_13x13.png" />
+						</td>
+						<td> Receive 3 points for proposing a design idea in iDesign </td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+{% endblock %}

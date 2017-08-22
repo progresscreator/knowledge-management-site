@@ -1,0 +1,145 @@
+{% extends "iknow/base.html" %}
+
+{% load i18n %}
+{% load uni_form %}
+{% block head_title %}{% trans "Ask a Question" %}{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}iknow/css/iknow.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}iknow/css/iknow_home.css" />
+{% endblock %}
+
+{% block body %}
+	<div class="span-16"><div class="ui-widget ui-widget-content ui-corner-all info-content">
+		<h3> {{ user.first_name }}, {% trans "you got a question?" %} </h3>
+		<p style="margin-bottom: 20px;"> 
+			<label class="ask-label">{% trans "Available Credit" %}: </label>
+			<span class="ask-value">
+				<img src="{{ STATIC_URL }}iknow/images/coin_13x13.png" />
+				{{ av_credits }}
+			</span>
+			<br />
+			<label class="ask-label">{% trans "Average Price of Questions on Market" %}:</label>
+			<span class="ask-value">
+				<img src="{{ STATIC_URL }}iknow/images/coin_13x13.png" />
+				{{ av_price }}
+			</span>
+		</p>
+		<p style="margin: 10px 20px;">
+			<strong>{% trans "Rebate Reminder" %}:</strong>
+			{% trans "You will receive 1/4 of your offered points back if you allocate your points among answerers on time" %}.
+		</p>
+		{% if not user.questions_asked.count %}
+			<p style="margin: 10px 20px;">
+				<strong>{% trans "This is your first question" %}:</strong>
+				{% trans "You will receive 25 points after raising your first question" %}.
+			</p>
+		{% endif %}
+		<div class="clearfix"></div>
+		{% if form_error %}
+			<div class="error">
+				<ul> 
+					{% for error in form_error %}
+						<li> {{ error }} </li>
+					{% endfor %}
+				</ul>
+			</div>
+		{% endif %}
+
+		<form enctype="multipart/form-data" class="uniForm" id="submit_form" method="post" 
+				action="{% url iknow_ask %}">
+			<fieldset class="inlineLabels">
+				{{ form|as_uni_form }}
+				<div  class="form_block">
+					<input class="ibutton" type="submit" value="Submit" />
+				</div>
+			</fieldset>
+		</form>
+		<!--	
+		<form enctype="multipart/form-data" action="" method="post" class="question">
+			{{ form.as_p }}
+			{% if tribes %}
+				<p>
+					You are a member of some tribes, how would you like to share your question?
+				</p>
+				{% for tribe in tribes %}
+					<p>
+						<label> {{ tribe.name }}: </label>
+						Share exclusively <input type="checkbox" name="tribeshare_{{ tribe.id }}" 
+							title="If checked, this question is invisible to the public, but open to this tribe" />
+						&nbsp;&nbsp;
+						Notify the tribe by email <input type="checkbox" name="tribeemail_{{ tribe.id }}" 
+							title="If checked, an email will be sent to all tribe members after you post it" />
+					</p>
+				{% endfor %}
+			{% endif %}
+			<input type="submit" class="ui-button ui-corner-all ui-state-default iknow-button" value="iASK!" />
+		</form>
+		-->
+	</div></div>
+	<div  class="span-8 last">
+		<div id="suggested">
+		</div>
+	</div>
+{% endblock %}
+
+{% block extra_body %}
+	<script type="text/javascript">
+		$(function(){
+			{% include "core/core_form_js.html" %}
+			$("input:submit").button();
+			$("#id_end_date").datepicker({minDate:0});
+			$("#id_title").keyup(function(e) {
+				if ($.trim(this.value) != "") {
+					$("#suggested").load("{% url iknow_ajax_suggested_questions %}", {keyword: this.value});
+				}
+				else {
+					$("#suggested").html("");
+				}
+			});
+			$("#id_question_title").blur(function(e) {
+				if ($.trim(this.value) != "") {
+					$("#suggested").load("{% url iknow_ajax_suggested_questions %}", {keyword: this.value});
+				}
+				else {
+					$("#suggested").html("");
+				}
+			});
+			function split(val) {
+				return val.split(/,\s*/);
+			}
+			function extractLast(term) {
+				return split(term).pop();
+			}
+			$("#id_tags").autocomplete({
+				source: function(request, response) {
+						$.getJSON("{% url barter_json_tags %}", {
+							term: extractLast(request.term)
+						}, response);
+				},
+				search: function() {
+						// custom minLength
+						var term = extractLast(this.value);
+						if (term.length < 2) {
+							return false;
+						}
+				},
+				focus: function() {
+						// prevent value inserted on focus
+						return false;
+				},
+				select: function(event, ui) {
+					var terms = split( this.value );
+					// remove the current input
+					terms.pop();
+					// add the selected item
+					terms.push( ui.item.value );
+					// add placeholder to get the comma-and-space at the end
+					terms.push("");
+					this.value = terms.join(", ");
+					return false;
+				}
+			});
+		});
+	</script>
+{% endblock %}

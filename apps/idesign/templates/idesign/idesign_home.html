@@ -1,0 +1,126 @@
+{% extends "idesign/base.html" %}
+{% load i18n %}
+{% load avatar_tags %}
+{% load thumbnail %}
+{% load idesign_tags %}
+
+{% block head_title %}iDesign{% endblock %}
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}iknow/css/iknow_home.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}idesign/css/idesign.css" />
+{% endblock %}
+
+{% block body %}
+	<div class="span-18">
+		<div class="ui-widget ui-corner-all info-block">
+			<div class="ui-widget-header ui-corner-top info-header">
+				{% trans "New design ideas" %}
+			</div>
+			<div class="ui-widget-content ui-corner-bottom info-content">
+				{% if new_ideas %}
+					{% for idea in new_ideas %}
+						{% idesign_idea idea %}
+					{% endfor %}
+					<a id="browse-more" style="margin-top: 15px; margin-right: 20px;float: right;"
+						href="{% url idesign_designideas %}">{% trans "Browse more" %} &raquo;</a></li></ul>
+					<div class="clearfix"></div>
+				{% else %}
+					<p>
+						{% trans "No one has submitted any new design idea yet" %}.
+					</p>
+				{% endif %}
+			</div>
+		</div>
+		<div style="margin-bottom:10px;" id="tabs">
+			<ul>
+				<li><a href="#tabs-1">Top 5 ideas by award</a></li>
+				<li><a href="#tabs-2">Top 5 ideas by thumbs</a></li>
+			</ul>
+			<div class="info-content" id="tabs-1">
+				{% if top5_points %}
+					{% for idea in top5_points %}
+						{% idesign_idea idea %}
+					{% endfor %}
+				{% else %}
+					<p>
+						{% trans "Well, top 5 doesn't seem to be ready yet" %}.
+					</p>
+				{% endif %}
+			</div>
+			<div class="info-content" id="tabs-2">
+				{% if top5_thumbs %}
+					{% for idea in top5_thumbs %}
+						{% idesign_idea idea %}
+					{% endfor %}
+				{% else %}
+					<p>
+						{% trans "Well, top 5 doesn't seem to be ready yet" %}.
+					</p>
+				{% endif %}
+			</div>
+		</div>
+		<div class="ui-widget ui-corner-all info-block">
+			<div class="ui-widget-header ui-corner-top info-header">
+				{% trans "Design ideas that you have submitted" %}
+			</div>
+			<div class="ui-widget-content ui-corner-bottom info-content">
+				{% if my_ideas %}
+					{% for idea in my_ideas %}
+						{% idesign_idea idea %}
+					{% endfor %}
+				{% else %}
+					<p>
+						{% trans "You haven't submitted any new design idea yet" %}.
+					</p>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+	<div class="span-6 last">
+		<div style="margin-bottom: 20px;" class="ui-widget ui-widget-content ui-corner-all info-content">
+			<p>
+			{% trans "iDesign is a suggestion box.  Use it to propose new features or request bug fixes.  You can also add points to suggestions to change their priorities." %}
+			</p>
+
+				<input type="submit" class="ui-button ui-corner-all ui-state-default ibutton" 
+					id="id_submit" value="{% trans "Submit a design idea" %} &raquo;" />
+		</div>
+
+		<div class="ui-widget ui-corner-all info-block">
+			<div class="ui-widget-header ui-corner-top info-header">
+				{{ user.egghead.display_name }}
+			</div>
+			<div class="ui-widget-content ui-corner-bottom info-content">
+				<div style="float: left; width:30%">
+					{% avatar user 50 %}
+				</div>
+				<p style="float: left: width: 68%">
+					{% trans "Wealth" %}: {{ user.egghead.wealth_notes }} <br />
+					{% trans "Available Credits" %}: {{ user.egghead.available_credits }}<br />
+					{% trans "Level" %}: {{ user.egghead.band_name }}
+				</p>
+				<input type="submit" class="ui-button ui-corner-all ui-state-default ibutton" 
+					id="id_dash_board" value="{% trans "My Dashboard" %} &raquo;" />
+			</div>
+		</div>
+	</div>
+{% endblock %}
+{% block extra_body %}
+	<script type="text/javascript">
+		$(function(){
+			$("input:text").addClass("ui-corner-all")
+				.css({"font-size":"12px","padding":"5px", "font-family":"Courier"}).val("");
+			$("input:submit").button();
+			$("#browse-more").button().css({"font-size":"10px"});
+			$("#id_dash_board").click(function(e) {
+				e.preventDefault();
+				window.location="{% url db_home user.username %}";
+			});
+			$("#id_submit").click(function(e) {
+				e.preventDefault();
+				window.location="{% url idesign_submit %}";
+			});
+			$("#tabs").tabs();
+		});
+	</script>
+{% endblock %}

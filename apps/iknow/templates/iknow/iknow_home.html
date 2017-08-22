@@ -1,0 +1,241 @@
+{% extends "iknow/base.html" %}
+{% load iknow_tags %}
+{% load i18n %}
+{% load avatar_tags %}
+
+{% block head_title %}{% trans "iKnow" %}{% endblock %}
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}iknow/css/iknow.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}iknow/css/iknow_home.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}iknow/css/tabs-home.css" />
+{% endblock %}
+
+{% block body %}
+<div class="span-18">
+	<div class="ui-widget ui-corner-all info-block">
+			<div class="ui-widget-header ui-corner-top info-header">
+				{% trans "Your active questions" %}
+			</div>
+			<div class="ui-widget-content ui-corner-bottom info-content">
+				{% if my_questions %}
+					<table class="base-table table-my-questions">
+						<tr>
+							<th class="title">{% trans "Title" %}</th>
+							<th class="award">
+								<img src="{{ STATIC_URL }}iknow/images/rewards.png" title="{% trans "reward" %}" />
+							</th>
+							<th class="answers">
+								<img src="{{ STATIC_URL }}iknow/images/replies.png" title="{% trans "answers received" %}" />
+							</th>
+							<th class="time">
+								<img src="{{ STATIC_URL }}iknow/images/timer.png" title="{% trans "time left" %}"/>
+							</th>
+						</tr>
+
+						{% for question in my_questions %}
+							<tr>
+								<td class="title"> 
+									{% question_icon question %}&nbsp;
+									<a href="{% url iknow_question question.id %}">{{ question.question_title }}</a>
+								</td>
+								<td class="award"> 
+									<img src="{{ STATIC_URL }}iknow/images/coin_13x13.png" />
+									{{ question.points_offered }}
+								</td>
+								<td class="answers"> {{ question.answer_count }} </td>
+								<td class="time"> {{ question.time_left_string }} </td>
+							</tr>
+						{% endfor %}
+					</table>
+				{% else %}
+					<p> {% trans "You don't have active questions now" %} </p>
+				{% endif %}
+			</div>
+		</div>
+
+
+
+		<div id="tabs">
+			<ul>
+				<li><a href="{% url iknow_ajax_questions "h_active" %}"><span>{% trans "Active" %}</span></a></li>
+				<li><a href="{% url iknow_ajax_questions "h_solved" %}">{% trans "Solved" %}</a></li>
+				<li><a href="{% url iknow_ajax_questions "h_unanswered" %}">{% trans "Unanswered" %}</a></li>
+				<li><a href="{% url iknow_ajax_questions "h_most_offered" %}">{% trans "Most rewarding" %}</a></li>
+			</ul>
+		</div>
+
+	</div> <!-- End span-18 -->
+
+	<div class="span-6 last">
+		<div class="ui-widget ui-corner-all info-block">
+			<div class="ui-widget-header ui-corner-top info-header">
+				{{ user.egghead.display_name }}
+			</div>
+			<div class="ui-widget-content ui-corner-bottom info-content">
+				<div style="float: left; width:30%">
+					{% avatar user 50 %}
+				</div>
+				<p style="float: left; width: 68%">
+					{% trans "Wealth" %}: <strong>{{ egghead.wealth_notes }} </strong><br />
+					{% trans "Available Credits" %}: <strong>{{ egghead.available_credits }}</strong><br />
+					{% trans "Level" %}: <strong>{{ egghead.band_name }}</strong> <br />
+					{% trans "Questions" %}: <strong>{{ user.questions_asked.count }} </strong><br />
+					{% trans "Answers" %}: <strong>{{ user.answers_answered.count }}</strong>
+				</p>
+				<input type="submit" class="ui-button ui-corner-all ui-state-default ibutton" 
+					id="id_dash_board" value="{% trans "My Dashboard" %} &raquo;" />
+			</div>
+		</div>
+		{% if not user.questions_asked.count %}
+			<div class="ui-widget ui-corner-all ui-state-highlight info-block">
+				<div class="ui-widget-header ui-corner-top info-header ui-state-highlight">
+					{% trans "Ask your first question" %}
+				</div>
+				<div class="ui-widget-content ui-corner-bottom info-content">
+					<p>
+						{% trans "You've never asked a question before. Ask your first question now and get 25 points!" %}
+					</p>
+					<input type="submit" class="ui-button ui-corner-all ui-state-default ibutton" 
+						id="id_ask_first" value="{% trans "Ask now" %} &raquo;" />
+				</div>
+			</div>
+		{% endif %}
+		<div class="ui-widget ui-corner-all info-block">
+			<div class="ui-widget-header ui-corner-top info-header">
+				{% trans "Popular Tags" %}
+			</div>
+			<div class="ui-widget-content ui-corner-bottom info-content">
+				<ol>
+					{% for obj in top_tags %}
+						<li><a href="{% url iknow_tag obj.id %}">
+							{{ obj.name }}
+							</a>
+							({{ obj.count }})
+						</li>
+					{% endfor %}
+				</ol>
+				<input type="submit" class="ui-button ui-corner-all ui-state-default ibutton" 
+					id="id_all_tags" value="{% trans "Browse all tags" %} &raquo;" />
+			</div>
+		</div>
+
+		<div class="ui-widget ui-corner-all info-block">
+			<div class="ui-widget-header ui-corner-top info-header">
+				{% trans "Top Eggheads" %}
+			</div>
+			<div class="ui-widget-content ui-corner-bottom info-content">
+				<p style="text-align: right;padding-right: 20px;">
+					<a id="select_wealth" href="">{% trans "By wealth" %}</a>	|
+					<a id="select_earning" href="">{% trans "By earning" %}</a>
+				</p>
+				<div id="egghead-rank">
+				</div>
+				<input type="submit" class="ui-button ui-corner-all ui-state-default ibutton" 
+					id="id_all_eggheads" value="{% trans "Browse all eggheads" %} &raquo;" />
+			</div>
+		</div>
+
+		<div class="ui-widget ui-corner-all info-block">
+			<div class="ui-widget-header ui-corner-top info-header">
+				{% trans "Tribes Joined" %}
+			</div>
+			<div class="ui-widget-content ui-corner-bottom info-content">
+				{% if tribes %}
+					<ol>
+						{% for tribe in tribes %}
+							<li>
+								<a href="{% url tribe_detail tribe.slug %}">
+									{{ tribe.name }}
+								</a>
+							</li>
+						{% endfor %}
+					</ol>
+				{% else %}
+					<p> {% trans "You haven't joined any tribe yet" %} ~</p>
+				{% endif %}
+				<input type="submit" class="ui-button ui-corner-all ui-state-default ibutton" 
+					id="id_all_tribes" value="{% trans "Browse all tribes" %} &raquo;" />
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block extra_body %}
+	<script type="text/javascript">
+		var top_egghead_wealth = "\
+				<ol>\
+					{% for obj in top_eggheads %}\
+						<li><a href='{% url iknow_dashboard obj.user.username %}'>\
+							{{ obj.display_name }}\
+						</a>({{ obj.wealth_notes }})</li>\
+					{% endfor %}\
+				</ol>\
+				";
+		var top_egghead_earning = "\
+				<ol>\
+					{% for obj in top_eggheads_earning %}\
+						<li><a href='{% url iknow_dashboard obj.user.username %}'>\
+							{% if obj.user.get_full_name %} {{ obj.user.get_full_name }} {% else %} {{ obj.user.username }} {% endif %}\
+						</a>({{ obj.earning_total }})</li>\
+					{% endfor %}\
+				</ol>\
+				";
+		function select_rank_wealth() {
+			$("#select_wealth").css({"text-decoration": "none", "color": "#206BA4"});
+			$("#select_earning").css({"text-decoration": "underline", "color": "#555555"});
+			$("#egghead-rank").html(top_egghead_wealth);
+		}
+		function select_rank_earning() {
+			$("#select_earning").css({"text-decoration": "none", "color":"#555555"});
+			$("#select_wealth").css({"text-decoration": "underline", "color":"#206BA4"});
+			$("#egghead-rank").html(top_egghead_earning);
+		}
+		$(function(){
+			select_rank_wealth();
+			$("#tabs").tabs({
+				ajaxOptions: {
+					error: function(xhr, status, index, anchor) {
+					$(anchor.hash).html("Couldn't load this tab. We'll try to fix this as soon as possible. If this wouldn't be a demo.");
+					}
+				}
+			});
+			$(".ibutton, .home-button").button();
+			$("#select_wealth").click(function(e){
+				select_rank_wealth();
+				e.preventDefault();
+			});
+			$("#select_earning").click(function(e){
+				select_rank_earning();
+				e.preventDefault();
+			});
+			$("input:text").addClass("ui-corner-all")
+				.css({"font-size":"12px","padding":"5px", "color": "#2B3856", "font-weight": "bold",
+				"font-family":"Courier, Rockwell, 'Courier New', 'Serif'"})
+				.val("");
+			$("#id_addquestion_button").click(function(e) {
+				e.preventDefault();
+				window.location="{% url iknow_ask %}";
+			});
+			$("#id_ask_first").click(function(e) {
+				e.preventDefault();
+				window.location="{% url iknow_ask %}";
+			});
+			$("#id_dash_board").click(function(e) {
+				e.preventDefault();
+				window.location="{% url iknow_dashboard user.username %}";
+			});
+			$("#id_all_eggheads").click(function(e) {
+				e.preventDefault();
+				window.location="{% url profile_list %}";
+			});
+			$("#id_all_tags").click(function(e) {
+				e.preventDefault();
+				window.location="{% url db_tags %}";
+			});
+			$("#id_all_tribes").click(function(e) {
+				e.preventDefault();
+				window.location="{% url your_tribes %}";
+			});
+		});
+	</script>
+{% endblock %}

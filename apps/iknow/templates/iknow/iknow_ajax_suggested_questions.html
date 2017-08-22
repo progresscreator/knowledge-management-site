@@ -1,0 +1,14 @@
+{% load i18n %}
+{% if results %}
+	<div class="ui-widget ui-widget-content ui-corner-all info-content">
+		<h4>
+			{% trans "Your question might have been answered" %}:
+		</h4>
+		<ul>
+			{% for result in results %}
+				<li><a href="{{ result.object.get_absolute_url }}">{{ result.object.question_title }}
+				</a></li>
+			{% endfor %}
+		</ul>
+	</div>
+{% endif %}

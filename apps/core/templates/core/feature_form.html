@@ -1,0 +1,48 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+{% load uni_form %}
+{% block head_title %}
+	{% ifequal type "add" %}
+		Add a new feature
+	{% else %}
+		Edit feature
+	{% endifequal %}
+{% endblock %}
+
+{% block body %}
+	<div class="apage span-24 last">
+		{% ifequal type "add" %}
+			<h1> Add a new feature </h1>
+		{% else %}
+			<h1> Edit feature </h1>
+		{% endifequal %}
+		<form class="login uniForm" method="POST" action="">
+			<fieldset class="inlineLabels">
+				{{ form|as_uni_form }}
+				<div class="form_block">
+					<input type="submit" class="ui-button ui-corner-all ui-state-default ibutton"
+						value="{% trans "Save" %}" />
+				</div>
+			</fieldset>
+		</form>
+	</div>
+{% endblock %}
+
+{% block extra_body %}
+<script>
+	$("input:text").addClass("ui-corner-all")
+		.css({"font-size":"12px","padding":"5px", "font-family":"Courier"});
+	$("input:password").addClass("ui-corner-all")
+		.css({"font-size":"12px","padding":"5px", "font-family":"Courier"});
+	$(".ui-button").hover(
+		function(){
+			$(this).removeClass("ui-state-default");
+			$(this).addClass("ui-state-highlight");
+		},
+		function(){
+			$(this).removeClass("ui-state-highlight");
+			$(this).addClass("ui-state-default");
+		}
+	);
+</script>
+{% endblock %}

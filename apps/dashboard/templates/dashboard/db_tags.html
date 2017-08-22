@@ -1,0 +1,34 @@
+{% extends "dashboard/base.html" %}
+{% load i18n %}
+{% block head_title %}
+	{% trans "Dashboard" %}: {% trans "Popular Tags" %}
+{% endblock %}
+
+{% block db_body %}
+	<h1 class="db_title"> {% trans "Popular Tags" %} </h1>
+	<div id="tags_vis" class="ui-corner-all ui-widget ui-widget-content">
+	</div>
+	<div class="clearfix"></div>
+{% endblock %}
+
+{% block db_extra_body %}
+	<script type="text/javascript" src="http://visapi-gadgets.googlecode.com/svn/trunk/termcloud/tc.js"></script>
+	<script type="text/javascript">
+		google.load("visualization", "1");
+		google.setOnLoadCallback(draw);
+		function draw() {
+			var query = new google.visualization.Query("{% url vis_json_tag_cloud %}");
+			query.send(handleQueryResponse);
+		}
+		function handleQueryResponse(response) {
+			if (response.isError()) {
+				alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+				return;
+			}
+			var data = response.getDataTable();
+			var outputDiv = document.getElementById('tags_vis');
+			var tc = new TermCloud(outputDiv);
+			tc.draw(data, null);
+		}
+	</script>
+{% endblock %}

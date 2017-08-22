@@ -1,0 +1,5 @@
+{{ object.asker.username }}
+{{ object.asker.get_full_name }}
+{{ object.question_title }}
+{{ object.question_text }}
+{{ object.tags }}

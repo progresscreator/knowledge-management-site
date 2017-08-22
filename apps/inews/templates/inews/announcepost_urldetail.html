@@ -1,0 +1,284 @@
+{% extends "inews/base.html" %}
+{% load avatar_tags %}
+{% load thumbnail %}
+{% load inews_tags %}
+
+{% block head_title %}iNews URL Post: {{ announcepost.title }} {% endblock %}
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}iknow/css/iknow.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}iknow/css/iknow_home.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}inews/css/inews.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}inews/css/inews_extra.css" />
+
+<!-- Vote Alert Files -->
+<script src="{{ STATIC_URL }}inews/jq/jquery.js" type="text/javascript"></script>
+<script src="{{ STATIC_URL }}inews/jq/jquery.ui.draggable.js" type="text/javascript"></script>
+<script src="{{ STATIC_URL }}inews/jq/jquery.alerts.js" type="text/javascript"></script>
+<link href="{{ STATIC_URL }}inews/css/jquery.alerts.css" rel="stylesheet" type="text/css" media="screen" />
+
+
+<!-- Vote Alert Script --> 
+{% ifequal announcepost.status "A" %}
+<script type="text/javascript">
+
+    $(document).ready( function() {
+
+        $("#voteup_confirm").click( function() {
+            $.post("{% url inews_thumb_check %}", {
+                "id": {{ announcepost.id }},
+	        }, function(data, textStatus) {
+
+	            if (data == "2") alert("You can not vote for yourself");
+	            else if (data == "1"){
+	                msgstr = 'Your next vote will cost {% inews_thumb_price announcepost user %} points.';
+	                if ( {% inews_thumb_price announcepost user %} == 0)
+	                    msgstr = 'Your first vote is free.';
+                    jConfirm(msgstr, 'Vote Confirmation', function(r) {
+			            if(r)
+			            window.location.href = "{% url inews_thumbup announcepost.id %}";
+					});
+			    }
+			});
+		});
+
+
+        $("#votedown_confirm").click( function() {
+            $.post("{% url inews_thumb_check %}", {
+                "id": {{ announcepost.id }},
+	        }, function(data, textStatus) {
+
+	            if (data == "2") alert("You can not vote for yourself");
+	            else if (data == "1"){
+	                msgstr = 'Your next vote will cost {% inews_thumb_price announcepost user %} points.';
+	                if ( {% inews_thumb_price announcepost user %} == 0)
+	                    msgstr = 'Your first vote is free.';
+                    jConfirm(msgstr, 'Vote Confirmation', function(r) {
+			            if(r)
+			            window.location.href = "{% url inews_thumbdown announcepost.id %}";
+					});
+			    }
+			});
+		});
+
+    });
+
+	function roll_over(img_name, img_src){
+        document[img_name].src = img_src;
+	}
+		
+</script>
+{% endifequal %}
+ 
+{% endblock %}
+
+{% block body %}
+
+	<div class="idialog" id="tipping-dialog" title="Tipping">
+		<p id="tipping-msg"></p>
+		<label style="margin-left: 60px; color:#F87217; font-size: 12px;">Tips: </label>		
+		<input stytagle="margin-left: 15px; width: 40px; color: #F87217; font-size: 12px;"id="tip-amount" type="text" />
+		<label style="margin-left: 15px; color:#F62817; font-size: 12px;" id="tip-error"></label>		
+		<div>
+			<label style="font-size:11.5px;">Tipping comment</label>
+			<textarea id="tipping-comment" style="width:385px; height:150px;"></textarea>
+		</div>
+	</div>
+	
+	<div class="span-20">
+		<div style="margin-bottom: 15px;" class="ui-widget ui-widget-content ui-corner-all info-content announcepost">
+			<h1 class="announcepost-title">
+				{{ announcepost.title }}
+			</h1>
+
+
+			<div style="float: left; width: 75%; margin-left: -5px; margin-top: 10px;"> 
+				
+				<iframe src ="{{ announcepost.url }}" width="136%" height="500">
+ 					 <p>Your browser does not support iframes.</p>
+				</iframe>
+				{% if announcepost.tags|length %}
+				<p>
+					<strong style="color:#3090C7;">Tags:</strong> 		{{ announcepost.tags }} 
+				</p>
+				{% endif %}
+				{% if announcepost.url %}
+				<p>
+					<strong style="color:#3090C7;">Source:</strong> {{ announcepost.url }}
+				</p>
+				{% endif %}
+
+				<p style="text-align: right; color:#3090C7; margin-top: 15px; margin-right: -170px;"> 
+					{% if announcepost.budget %}
+						Total Value:
+						<img src="{{ STATIC_URL }}iknow/images/coin_13x13.png" /> 
+						{{ announcepost.budget }} <br />
+						Points Per View:
+						<img src="{{ STATIC_URL }}iknow/images/06_16x16.png" /> 
+						{{ announcepost.points_per_view }} <br />
+					{% else %}
+						This budget has been expended. <br />
+					{% endif %}
+					{% ifequal announcepost.status "A" %}
+						This iNews Post is active - 
+					{% else %}
+						This iNews Post is inactive - 
+					{% endifequal %}
+					Submitted by {{ announcepost.display_name }}  at {{ announcepost.time_string_l }}
+				</p>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+
+
+	<div class="span-4 last">
+		<div class="ui-widget ui-corner-all info-block">
+			<div class="ui-widget-header ui-corner-top info-header">
+				Post Stats
+			</div>
+			<div class="ui-widget-content info-content">
+				<div style="float:left; width: 40%; margin-left: 5px;">
+					<p>
+						<strong style="color:#3090C7;">Total Budget: </strong>
+					</p>
+					<p style="font-size: 26px; font-weight: bold; margin-left: 5px; margin-top: -5px; color: #F87431;">
+						{{ announcepost.budget }}
+					</p>
+				</div>
+				
+				<div style="float:right; width: 40%; margin-left: -40px;">
+					<p>
+						<strong style="color:#3090C7;">Vote Cost: </strong>
+					</p>
+					<p style="font-size: 26px; font-weight: bold; margin-left: -2px; margin-top: -5px; color: #F87431;">
+						{% inews_thumb_price announcepost user %}
+					</p>
+				</div>
+
+                <!-- Tip Module Refix -- TIPINACTIVE 
+                {% ifnotequal announcepost.creator.id user.id %}
+                <img class="tipauthor" width="0px" height="0px" src="" />
+                <img class="tippost" width="0px" height="0px" src="" />
+
+                <div class="contextMenu" id="myMenu1">
+                    <ul>
+                         <li id="tip_auth"><img src="{{ STATIC_URL }}iknow/images/coin_13x13.png" /> Tip Author</li>
+
+                         <li id="tip_pos"><img src="{{ STATIC_URL }}iknow/images/06_16x16.png" /> Tip Article</li>
+
+                    </ul>
+                 </div>
+                   
+               <span class="demo1" id="demo1_yellow" style="float:right;border: 0px solid #888; margin-right: 33px; padding: 5px;"> 
+                     <img src="{{ STATIC_URL }}iknow/images/tip.png" />
+               </span> 
+                {% endifnotequal %}
+                -->
+				
+				<div class="clearfix"></div>
+				<p>
+				{% ifnotequal announcepost.creator.id user.id %}
+					<strong>Status: </strong>
+					{% if not my_votes %}
+						You haven't voted yet!
+					{% else %}
+						<strong> You voted {{ my_vote_count }} times. </strong>
+					{% endif %}
+				{% endifnotequal %}
+				</p>
+			</div>
+		</div>
+
+		<div class="ui-widget ui-corner-all info-block">
+			<div class="ui-widget-header ui-corner-top info-header">
+				Voting Module
+			</div>
+			<div class="ui-widget-content ui-corner-bottom info-content">
+
+<center>
+<div class="votes" style="margin-left:3px; margin-bottom: -1px;">
+
+					<a onmouseover="roll_over('upicon', '{{ STATIC_URL }}inews/images/small_greenup.png')" onmouseout="roll_over('upicon', '{{ STATIC_URL }}inews/images/small_blueup.png')">
+
+					<img id="voteup_confirm" type="button" class="voteup" name="upicon" src="{{ STATIC_URL }}inews/images/small_blueup.png" />
+					</a>
+				</div>
+<div class="ui-widget ui-widget-content ui-corner-all designidea-thumbs" style = "margin-left:10px;">	
+					<p id="votes">{{ announcepost.thumbs }} </p>
+				</div> 
+<div class="votes" style="margin-left:3px; margin-top:-6px;">
+
+<a onmouseover="roll_over('downicon', '{{ STATIC_URL }}inews/images/small_reddown.png')"
+onmouseout="roll_over('downicon', '{{ STATIC_URL }}inews/images/small_bluedown.png')">
+				<img id="votedown_confirm" type="button" class="votedown" name="downicon" src="{{ STATIC_URL }}inews/images/small_bluedown.png" /> </a>
+
+				</div>
+</center>
+
+            <br />
+            <table>
+				<thead>
+						<th><center>Recent Voting</center></th>
+				</thead>
+			</table>
+
+				{% if thumbs %}
+					<ul>
+						{% for thumb in thumbs %}
+							<li>
+								<div style="margin-top: 5px; margin-bottom: 5px;">
+								{% ifequal thumb.up_or_down "U" %}
+									{{ thumb.display_name }} voted 
+									<img class="voteup" name="{{ announcepost.id }}" src="{{ STATIC_URL }}iknow/images/arrow_up_tiny.png" /></a>
+								{% else %}
+									{{ thumb.display_name }} voted
+									<img class="votedown" name="{{ announcepost.id }}" src="{{ STATIC_URL }}iknow/images/arrow_down_tiny.png" /></a>
+								{% endifequal %} at {{ thumb.time_string_s }}
+								</div>
+							</li>
+						{% endfor %}
+					</ul>
+				{% else %}
+					<p> No one has shown opinions yet.  </p>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block extra_body %}
+
+<script>
+ $('span.demo1').contextMenu('myMenu1', {
+
+      bindings: {
+
+        'tip_auth': function(t) {
+
+          $("img.tipauthor").triggerHandler("click");
+
+        },
+
+        'tip_pos': function(t) {
+
+          $("img.tippost").triggerHandler("click");
+
+        },
+
+      }
+
+    });
+</script>
+
+<script>
+
+        $(function(){
+            {% include "inews/jsparts/inews_tipping_author_js.html" %}
+            {% include "inews/jsparts/inews_tipping_post_js.html" %}
+		});
+
+
+</script>
+
+{% endblock %}

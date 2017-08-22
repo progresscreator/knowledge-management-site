@@ -1,0 +1,640 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-10-13 15:30-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: forms.py:8
+msgid "Midnight"
+msgstr "Полночь"
+
+#: forms.py:9
+msgid "6 AM"
+msgstr "6 утра"
+
+#: forms.py:10
+msgid "9 AM"
+msgstr "9 утра"
+
+#: forms.py:11
+msgid "12 PM"
+msgstr "Полдень"
+
+#: forms.py:12
+msgid "3 PM"
+msgstr "3 часа дня"
+
+#: forms.py:13
+msgid "6 PM"
+msgstr "6 часов вечера"
+
+#: forms.py:14
+msgid "9 PM"
+msgstr "9 часов вечера"
+
+#: forms.py:18
+msgid "The product name is required"
+msgstr ""
+
+#: forms.py:19
+msgid "Name of the product you want to sell on iBay"
+msgstr "Наименование продукта который вы хотели бы продать на iBay"
+
+#: forms.py:21
+msgid "Attach a nice description to attract others"
+msgstr "Прикрепить описание для привлечения внимания"
+
+#: forms.py:23
+msgid "Please provide the starting price"
+msgstr "Пожалуйста определите стартовую цену"
+
+#: forms.py:24
+msgid "Set the starting bid for your product wisely"
+msgstr "Постарайтесь реалистично установить начальную цену"
+
+#: forms.py:25
+msgid "When will the auction end?"
+msgstr "Когда закончится аукцион?"
+
+#: forms.py:27
+msgid "What time will the auction end exactly?"
+msgstr "Определите точное время окончания аукциона"
+
+#: forms.py:29
+msgid "Attract more eye balls with a sexy picture"
+msgstr ""
+
+#: models.py:16
+msgid "Real Product"
+msgstr "Реальный продукт"
+
+#: models.py:17
+msgid "Virtual Award"
+msgstr "Виртуальные награды"
+
+#: models.py:20
+msgid "Active"
+msgstr "Активный"
+
+#: models.py:21 templates/iauction/iauction_booth.html:24
+msgid "Withdrawn"
+msgstr "Изъятый"
+
+#: models.py:22
+msgid "Expired and Pending"
+msgstr "Истекший и ожидающий рассмотрения"
+
+#: models.py:23
+msgid "Expired and Sold"
+msgstr "Истекший и проданый"
+
+#: models.py:24
+msgid "Expired and Unwanted"
+msgstr "Истекший и невостребованный"
+
+#: models.py:25
+msgid "Expired and Failed"
+msgstr "Истекший и неудавшийся"
+
+#: models.py:118
+#, python-format
+msgid "%(count)d day"
+msgid_plural "%(count)d days"
+msgstr[0] "%(count)d день"
+msgstr[1] "%(count)d дни"
+
+#: models.py:119 models.py:124
+#, python-format
+msgid "%(count)d hr"
+msgid_plural "%(count)d hrs"
+msgstr[0] "%(count)d час"
+msgstr[1] "%(count)d часы"
+
+#: models.py:125 models.py:128
+#, python-format
+msgid "%(count)d min"
+msgid_plural "%(count)d mins"
+msgstr[0] "%(count)d мининута"
+msgstr[1] "%(count)d минут"
+
+#: models.py:130
+msgid "Expired"
+msgstr "Просроченный"
+
+#: models.py:148
+msgid "An Egghead"
+msgstr "Эрудит"
+
+#: models.py:153
+#, python-format
+msgid "%(bidder_name)s bids %(amount)d points on '%(product)s' at %(time)s"
+msgstr "%(bidder_name)s заявки %(amount)d баллов '%(product)s' в %(time)s"
+
+
+#: models.py:162 models.py:182 templates/iauction/iauction_booth.html:21
+msgid "Pending"
+msgstr "На рассмотрении"
+
+#: models.py:163
+msgid "Successful"
+msgstr "Упешный"
+
+#: models.py:164
+msgid "Failed"
+msgstr "Неудавшийся"
+
+#: models.py:184
+msgid "Transaction succesful"
+msgstr "Транзакция проведена успешно"
+
+#: models.py:186
+msgid "Transaction failed"
+msgstr "Транзакция не удалась"
+
+#: models.py:212
+#, python-format
+msgid "Deal: %(buyer)s spent %(amount)d on %(product)s at %(time)s"
+msgstr "Сделка %(buyer)s истратил %(amount)d на %(product)s at %(time)s  "
+
+#: models.py:224
+#, python-format
+msgid ""
+"[ iBay ] %(time)s: %(amount)d points frozen from %(user_name)s's account for "
+"bidding on the product '%(product_name)s'"
+msgstr ""
+"[ iBay ] %(time)s: %(amount)d баллов заморожены на счету %(user_name)s's для "
+"ставки на'%(product_name)s'"
+
+#: models.py:231
+#, python-format
+msgid ""
+"[ iBay ] %(time)s: %(amount)d баллов разморожены со счета %(user_name)s's account for "
+"bidding on the product '%(product_name)s'"
+msgstr ""
+"[ iBay ] %(time)s: %(amount)d points unfrozen to %(user_name)s's account for для "
+"ставки на'%(product_name)s'"
+
+#: views.py:136
+msgid "You got outbid"
+msgstr "Вашу ставку обошли"
+
+#: templates/iauction/base.html:9
+msgid "Home"
+msgstr "Основная"
+
+#: templates/iauction/base.html:10
+msgid "Sell"
+msgstr "Продавть"
+
+#: templates/iauction/base.html:11
+msgid "Your booth"
+msgstr "Ваша кабина"
+
+#: templates/iauction/base.html:12 templates/iauction/iauction_how.html:3
+msgid "How"
+msgstr "Как"
+
+#: templates/iauction/iauction_ajax_booth_products.html:27
+msgid "Name"
+msgstr "Имя"
+
+#: templates/iauction/iauction_ajax_booth_products.html:28
+msgid "bids"
+msgstr "ставки"
+
+#: templates/iauction/iauction_ajax_booth_products.html:29
+msgid "Top bid"
+msgstr "Наивысшие ставки"
+
+#: templates/iauction/iauction_ajax_booth_products.html:30
+msgid "Leader"
+msgstr "Лидер"
+
+#: templates/iauction/iauction_ajax_booth_products.html:31
+msgid "Time started"
+msgstr "Начало старта"
+
+#: templates/iauction/iauction_ajax_booth_products.html:32
+#: templates/iauction/iauction_home.html:24
+msgid "Time left"
+msgstr "Осталось времени"
+
+#: templates/iauction/iauction_ajax_booth_products.html:56
+msgid "No products sold in this category"
+msgstr "Ни одного продукта ни продано в данной категирии"
+
+#: templates/iauction/iauction_booth.html:13
+#, python-format
+msgid ""
+"\n"
+"\t\t\t%(seller_name)s's little booth\n"
+"\t\t"
+msgstr ""
+"\n"
+"\t\t\t%(seller_name)s's кабина\n"
+"\t\t"
+
+#: templates/iauction/iauction_booth.html:20
+msgid "Selling now"
+msgstr "Продается сейчас"
+
+#: templates/iauction/iauction_booth.html:22
+msgid "Unwanted"
+msgstr "Невостребованный"
+
+#: templates/iauction/iauction_booth.html:23
+msgid "Sold"
+msgstr "Продан"
+
+#: templates/iauction/iauction_home.html:15
+msgid "Auctions in which you have participated"
+msgstr "Аукционы в которых вы участвовали"
+
+#: templates/iauction/iauction_home.html:21
+#: templates/iauction/iauction_home.html:100
+msgid "Award"
+msgstr "Награды"
+
+#: templates/iauction/iauction_home.html:22
+msgid "Current Bid"
+msgstr "Текущие сделки"
+
+#: templates/iauction/iauction_home.html:23
+#: templates/iauction/iauction_home.html:102
+msgid "Status"
+msgstr "Статус"
+
+#: templates/iauction/iauction_home.html:34
+msgid "Leading"
+msgstr "Лидирует"
+
+#: templates/iauction/iauction_home.html:36
+msgid "Outbid"
+msgstr "Переигранные ставки"
+
+#: templates/iauction/iauction_home.html:45
+msgid "There are no open auctions that you have participated in"
+msgstr "В данный момент вы не участвуете ни в одно открытом аукционе"
+
+#: templates/iauction/iauction_home.html:52
+msgid "Recent open auctions"
+msgstr "Последние открытые аукционы"
+
+#: templates/iauction/iauction_home.html:73
+#: templates/iauction/iauction_product.html:79
+msgid "Current highest bid"
+msgstr "Сама высокая ставка на данный момент"
+
+#: templates/iauction/iauction_home.html:78
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t\t\t\t\t\t%(time_left_string)s left\n"
+"\t\t\t\t\t\t\t\t"
+msgstr ""
+"\n"
+"\t\t\t\t\t\t\t\t\t%(time_left_string)s осталось времени\n"
+"\t\t\t\t\t\t\t\t"
+
+
+#: templates/iauction/iauction_home.html:87
+msgid ""
+"Sorry, there are no awards that accept bids now, come back and check later. "
+"We have plenty of surprises!"
+msgstr ""
+"Извините, на данный момент ставки не принимаются, вернитесь позже. "
+"Вы может быть приятно удивлены!"
+
+#: templates/iauction/iauction_home.html:94
+msgid "Awards you won"
+msgstr "Награды которые вы выиграли"
+
+#: templates/iauction/iauction_home.html:101
+msgid "Winning Bid"
+msgstr "Выигрышные ставки"
+
+#: templates/iauction/iauction_home.html:103
+msgid "Winning time"
+msgstr "Победное время"
+
+#: templates/iauction/iauction_home.html:118
+msgid "You haven't won anything yet"
+msgstr "Вы еще ничего не выиграли"
+
+#: templates/iauction/iauction_home.html:127
+msgid ""
+"iBay is a marketplace where you can map your points to something physical "
+"and awesome, and vice versa"
+msgstr ""
+"iBay это место где вы можете обменять свои очки на что-то существенное и наоборот "
+
+
+#: templates/iauction/iauction_home.html:140
+msgid "Wealth"
+msgstr "Богатство"
+
+#: templates/iauction/iauction_home.html:141
+msgid "Available Credits"
+msgstr "Доступный кредит"
+
+#: templates/iauction/iauction_home.html:142
+msgid "Level"
+msgstr "Уровень"
+
+#: templates/iauction/iauction_home.html:145
+msgid "iBay Credits"
+msgstr "Кредиты iBay"
+
+#: templates/iauction/iauction_home.html:146
+msgid "Why"
+msgstr "Почему"
+
+#: templates/iauction/iauction_home.html:149
+msgid "My Dashboard"
+msgstr "Панель управления"
+
+#: templates/iauction/iauction_how.html:11
+msgid "How to calculate my iBay credits"
+msgstr "Как посчитать мои кредиты на iBay"
+
+#: templates/iauction/iauction_how.html:15
+msgid ""
+"\n"
+"\t\t\t\t\t\tYou can use your 'earned' and 'unearned' points for any activity "
+"on Barter, such as asking a question or tipping. \n"
+"\t\t\t\t\t\tBut, you can only use the points you have 'earned' to bid on "
+"iBay.\n"
+"\t\t\t\t\t"
+msgstr ""
+"\n"
+"\t\t\t\t\t\tВы можете использовать заработанные и не заработанные окчи для любых действий "
+"в Бартере, вы можете задать вопрос или вознаградить за информацию. \n"
+"\t\t\t\t\t\tНо, на iBay вы можете использовать только те очки которые вы заработали делая ставки"
+"\t\t\t\t\t"
+
+#: templates/iauction/iauction_how.html:21
+msgid "Your total income"
+msgstr "Ваш общий доход"
+
+#: templates/iauction/iauction_how.html:22
+msgid "Points frozen for your previous bids"
+msgstr "Очки замороженные для предыдущей ставки"
+
+#: templates/iauction/iauction_how.html:23
+msgid "Your total available credits"
+msgstr "Общей объем доступного кредита"
+
+#: templates/iauction/iauction_how.html:24
+msgid "Your iBay available credits"
+msgstr "Ваш кредит доступный на iBay"
+
+#: templates/iauction/iauction_product.html:27
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t\t\tAuction started at %(start_time_string_l)s, \n"
+"\t\t\t\t\t"
+msgstr ""
+"\n"
+"\t\t\t\t\t\tАукцион начат в %(start_time_string_l)s, \n"
+"\t\t\t\t\t"
+
+#: templates/iauction/iauction_product.html:30
+msgid "starting price"
+msgstr "стартовая цена"
+
+#: templates/iauction/iauction_product.html:32
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t\t\t\tBids will be accepted until %(end_time_string_l)s "
+"(%(time_left_string)s left)\n"
+"\t\t\t\t\t\t"
+msgstr ""
+"\n"
+"\t\t\t\t\t\t\tЗаявки будут приниматься до %(end_time_string_l)s "
+"(%(time_left_string)s left)\n"
+"\t\t\t\t\t\t"
+
+#: templates/iauction/iauction_product.html:38
+msgid "The product was withdrawn by the seller"
+msgstr "Продукт был изъят продавьцом"
+
+#: templates/iauction/iauction_product.html:41
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t\t\t\tAuction was closed at %(end_time_string_l)s\n"
+"\t\t\t\t\t\t"
+msgstr ""
+"\n"
+"\t\t\t\t\t\t\tАукцион закрыт в %(end_time_string_l)s\n"
+"\t\t\t\t\t\t"
+
+#: templates/iauction/iauction_product.html:46
+msgid "Visits"
+msgstr "Посещений"
+
+#: templates/iauction/iauction_product.html:50
+msgid "Sold by"
+msgstr "Продано кем"
+
+#: templates/iauction/iauction_product.html:60
+msgid "You are the seller of this item. You can't bid on your own stuff"
+msgstr "Вы продавец этого продукта. Вы не можете делать ставки на свой товар"
+
+#: templates/iauction/iauction_product.html:62
+msgid "The auction is still active and accepting bids"
+msgstr "Аукцион работает и принимает ставки"
+
+#: templates/iauction/iauction_product.html:66
+msgid "No bidder yet, thus you can withdraw your item as you wish"
+msgstr "Заявок нет, поэтому вы можете изъять свой продукт при желании"
+
+#: templates/iauction/iauction_product.html:67
+msgid "Withdraw"
+msgstr "Изъяеть"
+
+#: templates/iauction/iauction_product.html:72
+msgid ""
+"Interested? Place your bid here. Don't bid more than your available credit"
+msgstr ""
+"Вам интересно? Вы можете сделать свои ставки. Не делайте ставки больше своего кредита"
+
+#: templates/iauction/iauction_product.html:75
+msgid "But ... you are currently the highest bidder"
+msgstr "Но… ваша ставка уже самая выская"
+
+#: templates/iauction/iauction_product.html:85
+msgid "Your bid"
+msgstr "Ваша заявка"
+
+#: templates/iauction/iauction_product.html:90
+msgid "Check here if bid anonymously"
+msgstr "Разместить заявку анонимно "
+
+#: templates/iauction/iauction_product.html:92
+msgid "Place my bid"
+msgstr "Разместить мою заявку"
+
+#: templates/iauction/iauction_product.html:99
+msgid ""
+"This product was withdrawn by the seller. So it's no longer accepting bids."
+msgstr ""
+"Продукт был отозван продавцом. Заявки больше не принимаются."
+
+#: templates/iauction/iauction_product.html:104
+msgid "The auction has been closed"
+msgstr "Аукцион закрыт"
+
+#: templates/iauction/iauction_product.html:104
+msgid "The highest bidder"
+msgstr "Участник предоставивший наилучшую цену"
+
+#: templates/iauction/iauction_product.html:107
+msgid ""
+"The seller and the winner need to coordinate between themselves in getting "
+"the product delivered"
+msgstr ""
+"Продавец и покупатель должны скоординировать между собой "
+"доставку продукта"
+
+#: templates/iauction/iauction_product.html:113
+#: templates/iauction/iauction_product.html:124
+#: templates/iauction/iauction_product.html:137
+#: templates/iauction/iauction_product.html:148
+msgid "Alert"
+msgstr "Тревога"
+
+#: templates/iauction/iauction_product.html:113
+msgid "The seller has confirmed delivery"
+msgstr "Продавец подтвердил доставку"
+
+#: templates/iauction/iauction_product.html:117
+msgid "You have confirmed delivery"
+msgstr "Вы подтвердили доставку"
+
+#: templates/iauction/iauction_product.html:124
+msgid "The seller hasn't confirmed delivery"
+msgstr "Продавец не подтвердил доставку"
+
+#: templates/iauction/iauction_product.html:128
+msgid "Confirm delivery"
+msgstr "Подтвердить доставку"
+
+#: templates/iauction/iauction_product.html:137
+msgid "The winner(buyer) has confirmed receipt"
+msgstr "Победитель(покупатель) подтвердил получение"
+
+#: templates/iauction/iauction_product.html:141
+msgid "You have confirmed receipt"
+msgstr "Вы подтвердили расписку"
+
+#: templates/iauction/iauction_product.html:148
+msgid "The winner(buyer) hasn't confirmed receipt"
+msgstr "Победитель(покупатель) не подтвердил расписку"
+
+#: templates/iauction/iauction_product.html:152
+msgid "Confirm receipt"
+msgstr "Подтвердить получение"
+
+#: templates/iauction/iauction_product.html:160
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t\t\tThe auction has been closed, and the award was won by "
+"%(winner_name)s. \n"
+"\t\t\t\t\t"
+msgstr ""
+"\n"
+"\t\t\t\t\t\tАукцион закрыт, вознаграждение выиграно "
+"%(winner_name)s. \n"
+"\t\t\t\t\t"
+
+#: templates/iauction/iauction_product.html:164
+msgid "The product has been delivered and confirmed by both parties"
+msgstr "Продукт был доставлен и подтвержден обеими сторонами"
+
+#: templates/iauction/iauction_product.html:165
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t\t\t%(amount)s points have been transferred from %(buyer_name)s to "
+"%(seller_name)s.\n"
+"\t\t\t\t\t"
+msgstr ""
+"\n"
+"\t\t\t\t\t\t%(amount)s очнок было переведено от %(buyer_name)s к "
+"%(seller_name)s.\n"
+"\t\t\t\t\t"
+
+#: templates/iauction/iauction_product.html:172
+msgid "The auction has been closed, and the award was unsold"
+msgstr "Аукцион закрыт, вознаграждение не было выиграно"
+
+#: templates/iauction/iauction_product.html:180
+msgid "Bidding history"
+msgstr "Архив предыдущих ставок"
+
+#: templates/iauction/iauction_product.html:185
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t\t\t\t%(bidcount)s bid in total\n"
+"\t\t\t\t\t\t"
+msgid_plural ""
+"\n"
+"\t\t\t\t\t\t\t%(bidcount)s bids in total\n"
+"\t\t\t\t\t\t"
+msgstr[0] ""
+"\n"
+"\t\t\t\t\t\t\t%(bidcount)s всего ставка \n"
+"\t\t\t\t\t\t"
+msgstr[1] ""
+"\n"
+"\t\t\t\t\t\t\t%(bidcount)s всего ставок \n"
+"\t\t\t\t\t\t"
+
+#: templates/iauction/iauction_product.html:194
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t\t\t\t\t\t%(amount)s placed by %(bidder_name)s at %(time_string)s\n"
+"\t\t\t\t\t\t\t\t"
+msgstr ""
+"\n"
+"\t\t\t\t\t\t\t\t\t%(amount)s выставлен %(bidder_name)s в %(time_string)s\n"
+"\t\t\t\t\t\t\t\t"
+
+#: templates/iauction/iauction_product.html:202
+msgid "Ah oh, nobody has shown interests yet"
+msgstr "Пока никто не проявил интерес"
+
+#: templates/iauction/iauction_sell.html:7
+msgid "Sell an item"
+msgstr "Продать продукт/позицию"
+
+#: templates/iauction/iauction_sell.html:16
+msgid "Selling an item on iBay"
+msgstr "Продать продукт/позицию на iBay"
+
+#: templates/iauction/iauction_sell.html:19
+msgid "Exchange goods/services for knowledge/information"
+msgstr "Обменять продукт/сервис на знания/информацию"
+
+#: templates/iauction/iauction_sell.html:27
+msgid "Submit"
+msgstr "Отправить"

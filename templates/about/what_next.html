@@ -1,0 +1,130 @@
+{% extends "about/about_base.html" %}
+
+{% load i18n %}
+{% load ifsetting_tag %}
+
+{% block head_title %}{% trans "What Next?" %}{% endblock %}
+
+{% block extra_head %}
+	<style type="text/css">
+		h6.feature {
+			font-family: Verdana, Helvetica, "Courier New", sans-serif;
+			color: #488AC7;
+			font-size: 14px;
+		}
+		div.feature {
+			padding: 10px 0px 5px 20px;
+			border-bottom: 1px dotted #56A5EC;
+		}
+		div.feature h4 {
+			font-family: Verdana, Helvetica, "Courier New", sans-serif;
+			color: #56A5EC;
+			font-size: 12px;
+			margin-bottom: 5px;
+		}
+		div.feature h5 {
+			font-family: "Courier New", Verdana, Helvetica, sans-serif;
+			font-weight: normal;
+			color:	#C58917;
+			margin: 0px 0px 5px 10px;
+		}
+		div.feature p {
+			font-family: Verdana, Helvetica, "Courier New", sans-serif;
+			font-size: 12px;
+			margin: 5px 0px 5px 20px;
+		}
+		a.feature {
+			font-family: Verdana, Helvetica, "Courier New", sans-serif;
+			font-size: 12px;
+			text-decoration: none;
+			color:	#488AC7;
+		}
+	</style>
+{% endblock %}
+
+{% block body %}
+	<div class="span-24 last apage">
+		<div class="span-24 last">
+			<h1>{% trans "What Next?" %}</h1>
+		</div>
+		
+		<div class="span-12">
+			{% if not user.first_name or not user.last_name %}
+				<div class="ui-corner-all ui-state-error ierror">
+					<h2> Attention Needed !!!</h2>
+					<p>
+						{{ user.username }}, your profile has not been properly initialized.
+						To best utilize the wisdom exchange, please take some time to tell us some information about yourself. <br />
+						<a href="{% url egghead_edit %}">Edit your profile &raquo;</a>
+					</p>
+				</div>
+			{% else %}
+				<h2> Welcome, {{ user.get_full_name }}</h2>
+				<p style="margin-bottom: 10px;">The following exchanges are currently open</p>
+
+				<div class="ui-corner-all ui-state-highlight ilight">
+					<h3><a href="{% url iknow_home %}"> 
+						iKnow - a Q&A market for posting and answering questions &raquo;
+					</a></h3>
+					<h3><a href="{% url idoc_home %}"> 
+						iDoc - a document exchange &raquo;
+					</a></h3>
+				</div>
+
+			{% endif %}
+			<p style="margin-bottom: 12px;">
+				To play around on {{ SITE_NAME }}, you might want to
+			</p>
+			
+			<dl class="what_next">
+				<dt><a href="{% url about_rules %}">learn how to earn points</a></dt>
+				<dd>
+					so you can accumulate your wealth, and build up your reputation
+				</dd>
+				
+				<dt><a href="{% url acct_email %}">verify an email address</a></dt>
+				<dd>so you can receive notifications, reset your password and so people can find you more easily.</dd>
+				
+				<dt><a href="{% url egghead_detail user %}">fill out your profile</a></dt>
+				<dd>to tell the world a little about yourself.</dd>
+				
+				<dt><a href="{% url avatar_change %}">add an avatar</a></dt>
+				<dd>so people can see what you look like.</dd>
+				
+				<dt><a href="{% url tribe_list %}">join some tribes</a></dt>
+				<dd>to find people with similar interests to share and discuss with.</dd>
+				
+				<dt><a href="{% url profile_list %}">connect with friends</a></dt>
+				<dd>so you can follow what they're up to.</dd>
+				
+				{% ifsetting ACCOUNT_OPEN_SIGNUP %}
+					<dt><a href="{% url invitations %}">invite more people to the site</a></dt>
+					<dd>so more people can share in the fun.</dd>
+				{% else %}
+					{% if user.is_staff %}
+						<dt><a href="{% url admin_invite_user %}">invite more people to the site</a> [admin only]</dt>
+						<dd>so more people can share in the fun.</dd>
+					{% endif %}
+				{% endifsetting %}
+			</dl>
+		</div>
+
+		<div class="span-12 last">
+			<h6 class="feature">
+				{{ SITE_NAME }} is improving itself everyday!
+			</h6>
+			{% for feature in features %}
+				<div class="feature">
+					<h4>{{ feature.title }}</h4>
+					<h5> Posted by {{ feature.committer }} on {{ feature.creation_date }}</h5>
+					<p>
+						{{ feature.description|urlize|linebreaks }}
+					</p>
+				</div>
+			{% endfor %}
+			{% if user.is_staff %}
+				<a href="{% url feature_add %}"class="feature">&bull; Post a new feature </a>
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}

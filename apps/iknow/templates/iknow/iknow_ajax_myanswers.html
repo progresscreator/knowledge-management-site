@@ -1,0 +1,50 @@
+{% load i18n %}
+{% load iknow_tags %}
+<h4>{% trans "Recent answers" %}</h4>
+{% if my_answers %}
+	<ul class="my-answers"> 
+		{% for obj in my_answers %}
+			<li class="li_q"> 
+				{% question_icon obj.question %}
+				<a href="{{ obj.question.get_absolute_url }}">{{ obj.question.question_title }}</a> 
+				{% if obj.question.anonymous %}
+					({{ obj.question.display_name }})
+				{% else %}
+					<a style="color:#555555;"href="{% url egghead_detail obj.question.asker %}">
+						({{ obj.question.display_name }})
+					</a>
+				{% endif %}
+			</li>
+			<li class="li_a"> 
+				<p class="answer-text">
+					<strong>{% trans "Answer"%}:</strong>
+					{{ obj.answer_text|truncatewords:28 }}
+				</p>
+				<p>
+					{% ifequal obj.rating_by_asker -1 %}
+						&nbsp;
+					{% else %}
+						<img src="{{ STATIC_URL }}iknow/images/star_13x13.png" title="rating" />
+						{{ obj.rating_by_asker }} &nbsp;
+					{% endifequal %}
+				</p>
+				<p> 
+					<img src="{{ STATIC_URL }}iknow/images/thumbs_13x13.png" title="thumbs" />
+					{{ obj.thumbs }} &nbsp;
+				</p>
+				<p> 
+					{% if obj.points_received %}
+						<img src="{{ STATIC_URL }}iknow/images/coin_13x13.png" title="awards" />
+						{{ obj.points_received }} &nbsp;
+					{% endif %}
+				</p>
+			</li>
+			<br />
+		{% endfor %}
+	</ul>
+{% else %}
+	<h5> 
+		{% trans "You haven't answered any questions yet" %} <br />
+		<a href="{% url iknow_questions %}">{% trans "Browse all questions" %}</a>
+	</h5>
+{% endif %}

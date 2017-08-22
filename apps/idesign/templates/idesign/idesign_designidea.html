@@ -1,0 +1,267 @@
+{% extends "idesign/base.html" %}
+{% load avatar_tags %}
+{% load thumbnail %}
+{% load idesign_tags %}
+
+{% block head_title %}iDesign Idea: {{ designidea.title }} {% endblock %}
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}iknow/css/iknow.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}iknow/css/iknow_home.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}idesign/css/idesign.css" />
+{% endblock %}
+
+{% block body %}
+	<div class="idialog" id="donate-dialog" title="Donate">
+		<p id="donate-msg"></p>
+		<label style="margin-left: 60px; color:#F87217; font-size: 12px;"> Donate: </label>		
+		<input style="margin-left: 15px; width: 40px; color: #F87217; font-size: 12px;"id="donate-amount" type="text" />
+		<label style="margin-left: 15px; color:#F62817; font-size: 12px;" id="donate-error"></label>		
+	</div>
+	<div class="span-16">
+		<div style="margin-bottom: 15px;" class="ui-widget ui-widget-content ui-corner-all info-content designidea">
+			<h1 class="designidea-title">
+				{{ designidea.title }}
+			</h1>
+			<div style="float: left; width: 15%"> 
+				<div class="ui-widget ui-widget-content ui-corner-all designidea-thumbs">	
+					<p id="thumbs">{{ designidea.thumbs }} </p>
+				</div> 
+				<div class="votes">
+					<img class="thumbup" name="{{ answer.id }}" src="{{ STATIC_URL }}/iknow/images/thumbup_blue_28x28.png" />
+					<img class="thumbdown" name="{{ answer.id }}" src="{{ STATIC_URL }}/iknow/images/thumbdown_blue_28x28.png" />
+				</div>
+			</div>
+			<div style="float: left; width: 82%"> 
+				<p>
+					{{ designidea.details|urlize|linebreaks }} 
+				</p>
+				<p>
+					<strong>Tags:</strong> {{ designidea.tags }} 
+				</p>
+				<p style="text-align: right; color:#3090C7"> 
+					Submitted by {{ designidea.display_name }}  at {{ designidea.time_string_l }} <br />
+					{% if designidea.points_offered %}
+						Initial award:
+						<img src="{{ STATIC_URL }}iknow/images/coin_13x13.png" /> 
+						{{ designidea.points_offered }} <br />
+					{% else %}
+						No initial award was offered <br />
+					{% endif %}
+					{% ifequal designidea.status "A" %}
+						This design idea is outstanding
+					{% else %}
+						The design idea is inactive
+					{% endifequal %}
+				</p>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+	<div class="span-8 last">
+		<div class="ui-widget ui-corner-all info-block">
+			<div class="ui-widget-header ui-corner-top info-header">
+				Endowment
+			</div>
+			<div class="ui-widget-content ui-corner-bottom info-content">
+				<div style="float:left; width: 50%;">
+					<p>
+						<strong>Total award: </strong>
+					</p>
+					<p style="font-size: 26px; font-weight: bold;margin-left: 25px; color: #F87431;">
+						{{ designidea.total_award }}
+					</p>
+				</div>
+				{% ifequal designidea.status "A" %} 
+					<div style="float:left;width: 45%;">
+						<p><strong> Add Points! </strong></p>&nbsp;
+						<img src="{{ STATIC_URL }}idesign/images/piggy_bank.png" 
+							class="donate" style="cursor: pointer;" />
+					</div>
+				{% endifequal %}
+				<div class="clearfix"></div>
+				<p>
+					{% if not my_donates %}
+						You haven't donated any points!
+					{% else %}
+						<strong> Your donation: </strong>
+						<ul>
+							{% for donate in my_donates %}
+								<li>
+									<img src="{{ STATIC_URL }}iknow/images/coin_13x13.png" /> 
+									{{ donate.amount }} at {{ donate.time_string_s }}
+								</li>
+							{% endfor %}
+						</ul>
+					{% endif %}
+				</p>
+				<p>
+					<strong> Other sponsors: </strong>
+					{% if not donates %} 
+						None!
+					{% else %}
+						<br />
+						<ul>
+							{% for donate in donates %}
+								<li>
+									{{ donate.display_name }} : 
+									<img src="{{ STATIC_URL }}iknow/images/coin_13x13.png" /> 
+									{{ donate.amount }} at {{ donate.time_string_s }}
+								</li>
+							{% endfor %}
+						</ul>
+					{% endif %}
+				</p>
+			</div>
+		</div>
+		<div class="ui-widget ui-corner-all info-block">
+			<div class="ui-widget-header ui-corner-top info-header">
+				Voting History
+			</div>
+			<div class="ui-widget-content ui-corner-bottom info-content">
+				{% if thumbs %}
+					<ul>
+						{% for thumb in thumbs %}
+							<li>
+								{% ifequal thumb.up_or_down "U" %}
+									{{ thumb.display_name }} liked the idea 
+								{% else %}
+									{{ thumb.display_name }} disliked the idea
+								{% endifequal %} at {{ thumb.time_string_s }}
+							</li>
+						{% endfor %}
+					</ul>
+				{% else %}
+					<p> No one has shown opinions yet.  </p>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+{% endblock %}
+{% block extra_body %}
+	<script type="text/javascript">
+		$(function(){
+			$("img.thumbup").hover(
+				function() {
+					$(this).attr("src", "{{ STATIC_URL }}/iknow/images/thumbup_green_28x28.png")
+				},
+				function(){
+					$(this).attr("src", "{{ STATIC_URL }}/iknow/images/thumbup_blue_28x28.png")
+				}
+			).click(function() {
+				$.post("{% url idesign_post_thumbs %}", {
+					"id": {{ designidea.id }},
+					"up_or_down":"U"
+				}, function(data, textStatus) {
+					if (data == "0") {
+						var k = parseInt($("#thumbs").text());
+						$("#thumbs").text(k + 1);
+					}
+					else if (data == "1") {
+						alert("You have voted on it, you can't do it again");
+					}
+					else if (data == "2") {
+						alert("You can not vote for yourself");
+					}
+				});
+			});
+
+			$("img.donate").click (function() {
+				var msg = "Thank you for your donation. ";
+				msg += "But don't donate more than your available credit ";
+				msg += "<img src='{{ STATIC_URL }}iknow/images/coin_13x13.png' />";
+				msg += "{{ user.egghead.available_credits }}.";
+				$("#donate-msg").html(msg);
+				$("input#donate-amount").val("");
+				$("#donate-error").text("");
+				$("#donate-dialog").dialog("open");
+			});
+
+			$("input#donate-amount").keyup(function() {
+				if ($.trim($(this).val()) != "") {
+					if (isNaN($(this).val())) {
+						$("#donate-error").text("Not a valid number");
+					}
+					else {
+						var tip = parseInt($(this).val());
+						var max = {{ user.egghead.available_credits }};
+						if (tip <= 0) {
+							$("#donate-error").text("Must be a positive number");
+						}
+						else if ( tip > max ) {
+							$("#donate-error").text("Sorry, you can't afford it");
+						}
+						else {
+							$("#donate-error").text("");
+						}
+					}
+				}
+				else {
+					$("#donate-error").text("");
+				}
+			});
+
+			$("#donate-dialog").dialog({
+				autoOpen: false,
+				bgiframe: true,
+				resizable: false,
+				height: 200,
+				width: 428,
+				modal: true,
+				overlay: {
+					backgroundColor: '#000',
+					opacity: 0.5
+				},
+				buttons: {
+					"Donate": function() {
+						if ($("#donate-error").text() == "") {
+							$.post("{% url idesign_post_donate %}", {
+								"id": {{ designidea.id }},
+								"amount": $.trim($("input#donate-amount").val())
+							}, function(data, textStatus) {
+								if (data != "0" ) {
+									alert("Donate error");
+								}
+								else {
+									alert("Donated successfully");
+									location.reload(true);
+								}
+							});
+						}
+					},
+					Cancel: function() {
+						$(this).dialog("close");
+					}
+				}
+			});
+
+			$("img.thumbdown").hover(
+				function() {
+					$(this).attr("src", "{{ STATIC_URL }}/iknow/images/thumbdown_red_28x28.png")
+				},
+				function(){
+					$(this).attr("src", "{{ STATIC_URL }}/iknow/images/thumbdown_blue_28x28.png")
+				}
+			).click(function() {
+				manage_id = this.name;
+				$.post("{% url idesign_post_thumbs %}", {
+					"id": {{ designidea.id }},
+					"up_or_down":"D"
+				}, function(data, textStatus) {
+					if (data == "0") {
+						var k = parseInt($("#thumbs").text());
+						$("#thumbs").text(k - 1);
+					}
+					else if (data == "1") {
+						alert("You have voted on it, you can't do it again");
+					}
+					else if (data == "2") {
+						alert("You can not vote for yourself");
+					}
+				});
+			});
+			$("input:text").addClass("ui-corner-all")
+				.css({"font-size":"12px","padding":"5px","font-weight": "bold",
+				"font-family":"Courier, Rockwell, 'Courier New', 'Serif'"});
+		});
+	</script>
+{% endblock %}

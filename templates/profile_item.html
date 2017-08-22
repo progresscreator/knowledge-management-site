@@ -1,0 +1,89 @@
+{% load i18n %}
+{% load pagination_tags %}
+{% load avatar_tags %}
+{% load humanize %}
+
+<div class="profile clearfix">
+    <div class="avatar">
+		<a href="{% url egghead_detail user.username %}">
+			{% avatar user 60 %}
+		</a>
+	</div>
+    <div class="profile-info">
+		<h3>
+			<a href="{% url egghead_detail user.username %}">
+				{% if user.get_full_name %}
+					{{ user.get_full_name }} ( {{ user.username }} )
+				{% else %}
+					{{ user.username }}
+				{% endif %}
+			</a>
+		</h3>
+		{% if user.egghead.wealth_notes %}
+			<p>
+				<span class="label">Wealth:</span> 
+				<span class="value"> {{ user.egghead.wealth_notes }} </span>
+			</p>
+		{% endif %}
+		{% if user.egghead.title or user.egghead.affiliation %}
+			<p>
+			{% if user.egghead.title %}
+				<span class="label">Title:</span> 
+				<span class="svalue"> {{ user.egghead.title }} </span>
+			{% endif %}
+			{% if user.egghead.affiliation %}
+				<span class="label">Affiliation:</span> 
+				<span class="svalue"> {{ user.egghead.affiliation }} </span>
+			{% endif %}
+			</p>
+		{% endif %}
+		{% if user.get_profile.location %}
+			<p>
+				<span class="label">Location:</span> 
+				<span class="value"> {{ user.get_profile.location }} </span>
+			</p>
+		{% endif %}
+		{% if user.get_profile.website %}	
+			<p>
+				<span class="label">Web:</span> 
+				<span class="value"> 
+					<a href="{{ user.get_profile.website }}">{{ user.get_profile.website }}</a>
+				</span>
+			</p>
+		{% endif %}
+		{% if user.egghead.expertise_tags %}
+			<p>
+				<span class="label">Expertise:</span> 
+				<span class="value"> {{ user.egghead.expertise_tags }} </span>
+			</p>
+		{% endif %}
+
+		{% if user.egghead.prior_experiences %}
+			<p>
+				<span class="label">Prior Experiences:</span> 
+				<span class="value"> {{ user.egghead.prior_experiences }} </span>
+			</p>
+		{% endif %}
+
+		{% if user.egghead.geographic_interests %}
+			<p>
+				<span class="label">Geographic interests:</span> 
+				<span class="value"> {{ user.egghead.geographic_interests }} </span>
+			</p>
+		{% endif %}
+
+		{% if user.egghead.sector_interests %}
+			<p>
+				<span class="label">Sector interests:</span> 
+				<span class="value"> {{ user.egghead.sector_interests }} </span>
+			</p>
+		{% endif %}
+
+		{% if user.get_profile.about %}
+			<p>	
+				<span class="label">Short Bio:</span> 
+				<span class="value"> {{ user.get_profile.about|truncatewords:15 }} </span>
+			</p>
+		{% endif %}
+	 </div>
+</div>

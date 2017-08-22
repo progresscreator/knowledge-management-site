@@ -1,0 +1,81 @@
+{% extends "about/about_base.html" %}
+{% load i18n %}
+
+{% block head_title %}{% trans "What and Who" %}{% endblock %}
+{% block extra_head %}
+	<style type="text/css">
+		div.info-block{ margin-bottom: 20px; }
+		div.info-header{padding: 2px 10px;}
+		div.info-content{padding: 0px 15px;}
+		div.info-content h3.people {
+			margin: 10px 0px;
+		}
+		div.info-content p{
+			margin: 10px 10px 10px 20px;
+			font-size: 12px;
+		}
+		h3.people a {text-decoration: none; font-size: 14px; color:#e17009;}
+		span.wow{font-weight: bold; color: #E42217;}
+		span.wow-people a{text-decoration: none; font-weight: bold; color: #E17009;}
+	</style>
+{% endblock %}
+
+{% block body %}
+	<div class="span-24 last">
+		<div class="ui-widget ui-corner-all info-block">
+			<div class="ui-widget ui-widget-header ui-corner-top info-header">
+				People
+			</div>
+			<div class="ui-widget ui-widget-content ui-corner-bottom info-content">
+				<h3 class="people"><a href="http://web.media.mit.edu/~dawei/">Dawei Shen </a></h3>
+				<p>
+					Barter is being developed and maintained by Dawei. He is currently a fourth year Ph.D. student at
+					the MIT Media Lab, Viral Communications group. His supervisors are 
+					<span class="wow-people"><a href="http://www.media.mit.edu/people/lip">Andrew Lippman </a></span>and 
+					<span class="wow-people"><a href="http://www.media.mit.edu/people/dpreed">David Reed</a></span>.
+					Designing and analyzing an information marketplace is part of his thesis research.
+				</p>
+				<h3 class="people"><a href="http://web.mit.edu/marshall/www/home.html">Marshall Van Alstyne</a></h3>
+				<p>
+					Professor Van Alstyne received a BA from Yale, and MS & PhD degrees from MIT. He is an Associate Professor at Boston University and a Visiting Professor at MIT.
+					 His work concerns information economics. In designing information goods, this research concerns competitive strategy and network effects. In control over information, it concerns who has access to what information, when, and at what price. Work also balances open source principles against those that generate profits and stimulate innovation.
+					 Professor Van Alstyne was among the first to document productivity effects of IT and communications at the individual desktop level. His work has received an NSF Career Award, two best paper awards, and has appeared in Science, Management Science, Harvard Business Review, and the popular press.
+				</p>
+			</div>
+		</div>
+
+		<div class="ui-widget ui-corner-all info-block">
+			<div class="ui-widget ui-widget-header ui-corner-top info-header">
+				A Research Summary
+			</div>
+			<div class="ui-widget ui-widget-content ui-corner-bottom info-content">
+				<p>
+					This is from the MIT Media Lab PLDB as of spring 2010.
+				</p>
+				<p>
+				We are exploring the creation of Internal Knowledge Markets, with a goal of bringing an electronic, distributed market (decentralized information creation) to an organization in an effort both to measure the value of knowledge created and to link this to productivity and/or profits. A key advantage of this study will be a direct appeal to information economic theory to design an information market. In particular, we will appeal to two-sided network theory, principles of information asymmetry, and price theory. We seek to bring the rigor of this discipline to real-world applications, and measure the results.
+				</p>
+			</div>
+		</div>
+		<div class="ui-widget ui-corner-all info-block">
+			<div class="ui-widget ui-widget-header ui-corner-top info-header">
+				Contact
+			</div>
+			<div class="ui-widget ui-widget-content ui-corner-bottom info-content">
+				<p>
+					Technical questions or bug reports should be directed to (dawei at mit) (If you have an account on Barter, you should simply
+					ask it in the market with enough points to incentivize us to answer it).
+					Registration on Barter is currently closed
+					due to active development and debugging. If you are interested in participating, feel free to email us at
+					(dawei, marshall at mit).
+				</p>
+				<p>
+					<span class="wow">UROP/UAP Openings</span>
+					MIT undergraduate students are welcome to join the research efforts by doing UROP or UAP with us. We still have openings
+					for the summer or fall of 2010. Send your inquiry with your resume attached to (dawei at mit) if you are interested. Course 6
+					students who are seeking UAP projects are particularly welcome to explore research opportunities here. 
+				</p>
+			</div>
+		</div>
+	</div>
+{% endblock %}

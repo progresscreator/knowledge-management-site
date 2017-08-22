@@ -1,0 +1,20 @@
+{% extends "egghead/base.html" %}
+{% load i18n %}
+{% load uni_form %}
+{% block head_title %}{% trans "No user found" %}{% endblock %}
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}egghead/css/egghead.css" />
+{% endblock %}
+{% block body %}
+	<div class="apage span-24 last">
+		<div class="ui-widget ui-widget-content ui-corner-all" style="padding: 15px;">
+			<p>
+				{% trans "No user found matching your facebook ID" %}
+				<a href="{% url egghead_login %}">Log in</a>
+			</p>
+		</div>
+	</div>
+{% endblock %}
+
+{% block extra_body %}
+{% endblock %}

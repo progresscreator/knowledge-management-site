@@ -1,0 +1,182 @@
+{% extends "inews/base.html" %}
+{% load i18n %}
+{% load avatar_tags %}
+{% load thumbnail %}
+{% load inews_tags %}
+
+{% block head_title %}iNews{% endblock %}
+{% block extra_head %}
+
+    <link rel="stylesheet" href="{{ STATIC_URL }}inews/css/inews.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}inews/css/inews_home.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}inews/css/tabs-home.css" />
+
+{% endblock %}
+
+{% block body %}
+<div class="span-18">
+
+	<div class="ui-widget ui-corner-all info-block">
+			<div class="ui-widget-header ui-corner-top info-header">
+				{% trans "Your posted articles" %}
+			</div>
+			<div class="ui-widget-content ui-corner-bottom info-content">
+				{% if my_posts %}
+					<table class="base-table table-questions">
+						<tr>
+							<th class="title">{% trans "Title" %}</th>
+							<th class="budget">
+								<a href="{% url inews_home 'budget' %}"><img src="{{ STATIC_URL }}iknow/images/rewards.png" title="{% trans "budget" %}" /> </a>
+							</th>
+							<th class="ppv">
+								<a href="{% url inews_home 'ppv' %}"><img src="{{ STATIC_URL }}iknow/images/06_16x16.png" title="{% trans "points per view" %}" /></a>
+							</th>
+
+							<th class="votes">
+								<a href="{% url inews_home 'votes' %}"><img src="{{ STATIC_URL }}iknow/images/arrow_16x16.png" title="{% trans "votes" %}" /></a>
+							</th>
+							<th class="time">
+								<a href="{% url inews_home 'time' %}"><img src="{{ STATIC_URL }}iknow/images/clock_16x16.png" title="{% trans "time posted" %}" /></a>
+							</th>
+						</tr>
+
+						{% for post in my_posts %}
+							<tr>
+								<td class="title"> 
+								<img src="{{ STATIC_URL }}iknow/images/paper_16x16.png" title="{% trans "iNews item" %}" />&nbsp;
+									<a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+								</td>
+								<td class="budget">
+								{{ post.budget }}
+								</td>
+
+								<td class="ppv"> 
+									<img src="{{ STATIC_URL }}iknow/images/coin_13x13.png" />
+									{{ post.points_per_view }}
+								</td>
+								<td class="votes"> {{ post.thumbs }} </td>
+								<td class="time"> {{ post.time_string_l }} </td>
+							</tr>
+						{% endfor %}
+					</table>
+				{% else %}
+					<p> {% trans "You don't have any posted articles" %} </p>
+				{% endif %}
+			</div>
+		</div>
+
+
+		<div id="tabs">
+			<ul>
+				<li><a href="{% url inews_ajax_articles "h_top_value" %}"><span>{% trans "Top Value" %}</span></a></li>
+				<li><a href="{% url inews_ajax_articles "h_top_votes" %}">{% trans "Top Votes" %}</a></li>
+				<li><a href="{% url inews_ajax_articles "h_whats_new" %}">{% trans "What's New" %}</a></li>
+				<li><a href="{% url inews_ajax_articles "h_inactive" %}">{% trans "Inactive" %}</a></li>
+			</ul>
+		</div>
+
+
+	</div> <!-- End span-18 -->
+
+	
+	<div class="span-6 last">
+		<div style="margin-bottom: 20px;" class="ui-widget ui-widget-content ui-corner-all info-content">
+			<p>
+			  iNews is an internal news aggregator. Use it to share news items with others in your company.  You can vote on each iNews post to affect which news items make it to the front page.
+			</p>
+
+<input type="submit" class="ui-button ui-corner-all ui-state-default ibutton" 
+					id="id_help" value="Learn More &raquo;" />
+		</div>
+
+		<div class="ui-widget ui-corner-all info-block">
+			<div class="ui-widget-header ui-corner-top info-header">
+					{% if user.get_full_name %}
+						{{ user.get_full_name }}
+					{% else %}
+						{{ user.username }}
+					{% endif %}
+			</div>
+			<div class="ui-widget-content ui-corner-bottom info-content">
+				<div style="float: left; width:30%">
+					{% avatar user 50 %}
+				</div>
+				<p style="float: left: width: 68%">
+					Wealth: {{ user.egghead.wealth_notes }} <br />
+					Available Credits: {{ user.egghead.available_credits }}<br />
+					Level: {{ user.egghead.band_name }}
+				</p>
+				<input type="submit" class="ui-button ui-corner-all ui-state-default ibutton" 
+					id="id_dash_board" value="My Dashboard &raquo;" />
+			</div>
+		</div>
+
+<div class="ui-widget ui-corner-all info-block">
+			<div class="ui-widget-header ui-corner-top info-header">
+				{% trans "Popular iNews Tags" %}
+			</div>
+			<div class="ui-widget-content ui-corner-bottom info-content">
+				<ol>
+					{% for obj in top_tags %}
+						<li><a href="{% url inews_tag obj.id %}">
+							{{ obj.name }}
+							</a>
+							({{ obj.count }})
+						</li>
+					{% endfor %}
+				</ol>
+				<input type="submit" class="ui-button ui-corner-all ui-state-default ibutton" 
+					id="id_all_tags" value="{% trans "Browse all tags" %} &raquo;" />
+			</div>
+		</div>
+
+</div>
+
+{% endblock %}
+
+{% block extra_body %}
+	<script type="text/javascript">
+
+		$(function(){
+			$("#tabs").tabs({
+				ajaxOptions: {
+					error: function(xhr, status, index, anchor) {
+					$(anchor.hash).html("Couldn't load this tab. An administrator is working to fix this.");
+					}
+				}
+			});
+			$("input:text").addClass("ui-corner-all")
+				.css({"font-size":"12px","padding":"5px", "font-family":"Courier"}).val("");
+			$(".ui-button").hover(
+				function(){
+					$(this).removeClass("ui-state-default");
+					$(this).addClass("ui-state-highlight");
+				},
+				function(){
+					$(this).removeClass("ui-state-highlight");
+					$(this).addClass("ui-state-default");
+				}
+			);
+			$("#id_dash_board").click(function(e) {
+				e.preventDefault();
+				window.location="{% url db_home user.username %}";
+			});
+			$("#id_submit").click(function(e) {
+				e.preventDefault();
+				window.location="{% url inews_submit %}";
+			});
+			$("#id_all_tags").click(function(e) {
+				e.preventDefault();
+				window.location="{% url inews_tag 1 %}";
+			});
+			$("#id_help").click(function(e) {
+				e.preventDefault();
+				window.location="{% url inews_help %}";
+			});
+		});
+	</script>
+{% endblock %}
+
+
+
+

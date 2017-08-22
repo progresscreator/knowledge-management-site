@@ -1,0 +1,334 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-10-06 11:56-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: models.py:13
+msgid "Individuals"
+msgstr "Пользователи"
+
+#: models.py:14
+msgid "Bank"
+msgstr "Банк"
+
+#: models.py:17 models.py:263
+msgid "iKnow"
+msgstr "iKnow"
+
+#: models.py:18 models.py:264
+msgid "iDoc"
+msgstr "iDoc"
+
+#: models.py:19 models.py:265
+msgid "iQuest"
+msgstr "iQuest"
+
+#: models.py:20 models.py:266
+msgid "iPredict"
+msgstr "iPredict"
+
+#: models.py:21 models.py:267
+msgid "iDea"
+msgstr "iDea"
+
+#: models.py:22
+msgid "Subsidize"
+msgstr "Субсидировать"
+
+#: models.py:25
+msgid "Log in"
+msgstr "Вход"
+
+#: models.py:27 models.py:272
+msgid "Question and Answer"
+msgstr "Вопросы и ответы"
+
+#: models.py:28
+msgid "Tipping on Answers"
+msgstr "Вознаграждения за ответы"
+
+#: models.py:29
+msgid "Forfeited by World Bank"
+msgstr "Заблокированы Общественным банком"
+
+#: models.py:30
+msgid "Thumb up or down"
+msgstr "Поддержать или отвергнуть" 
+
+#: models.py:31
+msgid "Comment on Answers"
+msgstr "Комментарии на ответы"
+
+#: models.py:32
+msgid "Leave a comment to a question"
+msgstr "Оставить комментарий на вопрос"
+
+#: models.py:33
+msgid "Allocate points"
+msgstr "Дать баллы"
+
+#: models.py:35
+msgid "Propose a design idea"
+msgstr "Предложить конструкторскую идею"
+
+#: models.py:37
+msgid "Upload a new document"
+msgstr "Загрузить документ"
+
+#: models.py:38
+msgid "Download another user's document"
+msgstr "Загрузить документ другого пользователя"
+
+#: models.py:40
+msgid "Thumb Up/Down on an idea"
+msgstr "Поддержать либо отвергнуть идею"
+
+#: models.py:41
+msgid "Rate an idea"
+msgstr "Дать идеи рейтинг"
+
+#: models.py:42
+msgid "Leave a comment on an idea"
+msgstr "Оставить комментарий по поводу идеи"
+
+#: models.py:65
+#, python-format
+msgid ""
+"[ iKnow ] %(time)s: %(src_name)s transfers %(amount)d points to %(dst_name)s "
+"for answering the question '%(question_title)s'"
+msgstr ""
+"[ iKnow ] %(time)s: %(src_name)s перевести %(amount)d баллов %(dst_name)s "
+"за ответ на вопрос '%(question_title)s'"
+
+#: models.py:73
+#, python-format
+msgid ""
+"[ iKnow ] %(time)s: %(src_name)s tips %(amount)d points to %(dst_name)s for "
+"the answer to the question '%(question_title)s'"
+msgstr ""
+"[ iKnow ] %(time)s: %(src_name)s вознаграждение %(amount)d баллов %(dst_name)s за "
+"за ответ на вопрос '%(question_title)s'"
+
+#: models.py:81
+#, python-format
+msgid ""
+"[ iKnow ] %(time)s: %(src_name)s forfeits %(amount)d points to Worldbank for "
+"the question '%(question_title)s'"
+msgstr ""
+"[ iKnow ] %(time)s: %(src_name)s заблокировать %(amount)d баллов в пользу Общественного Банка за "
+"вопрос '%(question_title)s'"
+
+#: models.py:88
+msgid "Unknown iKnow transactions"
+msgstr "Неизвестная операция iKnow"
+
+#: models.py:93
+#, python-format
+msgid ""
+"[ iDoc - S ] %(time)s: %(dst_name)s is awarded %(amount)d points for "
+"uploading the document '%(doc_title)s'"
+msgstr ""
+"[ iDoc - S ] %(time)s: %(dst_name)s вознагражден %(amount)d баллами за "
+"размещение документа '%(doc_title)s'"
+
+#: models.py:100
+msgid "Unknown iDoc transactions"
+msgstr "Неизвестная операция iDoc"
+
+#: models.py:104
+#, python-format
+msgid ""
+"[ System - S ] %(time)s: %(dst_name)s is awarded %(amount)d points for "
+"logging in"
+msgstr ""
+"[ System - S ] %(time)s: %(dst_name)s вознагражден %(amount)d баллами за "
+"регистрацию"
+
+#: models.py:110
+#, python-format
+msgid ""
+"[ iKnow - S ] %(time)s: %(dst_name)s is awarded %(amount)d points for "
+"thumbing up/down on an answer to the question '%(question_title)s'"
+msgstr ""
+"[ iKnow - S ] %(time)s: %(dst_name)s вознагражден %(amount)d баллами за "
+"голосование в поддержку либо против ответа на вопрос '%(question_title)s'"
+
+#: models.py:117
+#, python-format
+msgid ""
+"[ iKnow - S ] %(time)s: %(dst_name)s is awarded %(amount)d points for "
+"commenting on an answer to the question '%(question_title)s'"
+msgstr ""
+"[ iKnow - S ] %(time)s: %(dst_name)s is вознагражден %(amount)d баллов за "
+"комментарий по поводу ответа на вопрос '%(question_title)s'"
+
+#: models.py:124
+#, python-format
+msgid ""
+"[ iKnow - S ] %(time)s: %(dst_name)s is awarded %(amount)d points for "
+"solving the question '%(question_title)s'"
+msgstr ""
+"[ iKnow - S ] %(time)s: %(dst_name)s вознагражден %(amount)d баллами за "
+"решение вопроса '%(question_title)s'"
+
+#: models.py:131
+#, python-format
+msgid ""
+"[ iKnow - S ] %(time)s: %(dst_name)s is awarded %(amount)d points for "
+"commenting on the question '%(question_title)s'"
+msgstr ""
+"[ iKnow - S ] %(time)s: %(dst_name)s вознагражден %(amount)d баллами за "
+"комментарий на вопрос '%(question_title)s'"
+
+#: models.py:139
+#, python-format
+msgid ""
+"[ iDesign - S ] %(time)s: %(dst_name)s is awarded %(amount)d points for "
+"proposing a new design idea"
+msgstr ""
+"[ iDesign - S ] %(time)s: %(dst_name)s is вознагражден %(amount)d баллов за "
+"представление новой дизайнерской идеи"
+
+#: models.py:145
+msgid "Unknown transactions for system subsidy"
+msgstr "Неопределенная операция системы судбсидирования"
+
+#: models.py:150 models.py:169
+msgid "World Bank"
+msgstr "Общественный банк"
+
+#: models.py:164 models.py:180
+msgid "Unknown"
+msgstr "Неизвестный"
+
+#: models.py:191
+#, python-format
+msgid "Answering the question '%(question_title)s'"
+msgstr "Отвечая на вопрос'%(question_title)s"
+
+#: models.py:195
+#, python-format
+msgid "Tipping an answer to the question '%(question_title)s'"
+msgstr "Вознаграждая за ответ на вопрос '%(question_title)s'"
+
+#: models.py:199
+#, python-format
+msgid "Forfeit for question '%(question_title)s'"
+msgstr "Заблокирован для вопроса '%(question_title)s'"
+
+#: models.py:203
+msgid "Unknown iKnow transaction"
+msgstr "Неизвестная операция iKnow"
+
+#: models.py:206
+#, python-format
+msgid "Uploading a doc '%(doc_name)s'"
+msgstr "Разместить документ '%(doc_name)s'"
+
+#: models.py:208
+msgid "Unknown iDoc transaction"
+msgstr "Неизвестная операция iDoc"
+
+#: models.py:211
+#, python-format
+msgid "Logging in on %(time)s"
+msgstr "Вход в систему %(time)s "
+
+#: models.py:213
+#, python-format
+msgid "Thumbing up/down on an answer to the question '%(question_title)s'"
+msgstr "Поддержать либо отвергнуть ответ не вопрос '%(question_title)s'"
+
+#: models.py:217
+#, python-format
+msgid "Commenting on an answer to the question '%(question_title)s'"
+msgstr "Комментировать ответ на вопрос '%(question_title)s'"
+
+#: models.py:221
+#, python-format
+msgid ""
+"25 %% refund for allocating points on time for the question '%"
+"(question_title)s'"
+msgstr ""
+"25 %% возврат баллов за размещение и вознаграждение баллами за вопрос вовремя'%"
+"(question_title)s'"
+
+#: models.py:225
+#, python-format
+msgid "Commenting on the question '%(question_title)s'"
+msgstr "Комментировать вопрос '%(question_title)s'"
+
+#: models.py:230
+msgid "Proposing a new design idea"
+msgstr "Предложить новую дизайнерскую идею"
+
+#: models.py:232
+msgid "Unknown system subsidy transactions"
+msgstr "Неизвестная операция системы по субсидированнию"
+
+#: models.py:259
+msgid "Freeze"
+msgstr "Заблокировать"
+
+#: models.py:260
+msgid "Unfreeze"
+msgstr "Разблокировать"
+
+#: models.py:268
+msgid "iAuction"
+msgstr "iAuction"
+
+#: models.py:269
+msgid "iDesign"
+msgstr "iDesign"
+
+#: models.py:273
+msgid "Bidding in iBay"
+msgstr "Ставки на iBay"
+
+#: models.py:274
+msgid "Design for self-Design"
+msgstr "Дезайн для самостоятельного дизайна"
+
+#: models.py:275
+msgid "Request a document"
+msgstr "Запросить документ"
+
+#: models.py:276
+msgid "Reward contributors to an idea"
+msgstr "Вознаградить за содействие идеи"
+
+#: models.py:298
+#, python-format
+msgid ""
+"[ iKnow ] %(time)s: %(amount)d points frozen from %(user_name)s's account "
+"for asking the question '%(question_title)s'"
+msgstr ""
+"[ iKnow ] %(time)s: %(amount)d баллов заблокированных со счета %(user_name)s  "
+"за вопрос '%(question_title)s'"
+
+#: models.py:305
+#, python-format
+msgid ""
+"[ iKnow ] %(time)s: %(amount)d points unfrozen to %(user_name)s's account "
+"for asking the question '%(question_title)s'"
+msgstr ""
+"[ iKnow ] %(time)s: %(amount)d баллов разблокированных со счета %(user_name)s's account "
+"за вопрос '%(question_title)s'"
+
+#: models.py:312
+msgid "Unknown credit freeze"
+msgstr "Неизвестная блокировка средств"

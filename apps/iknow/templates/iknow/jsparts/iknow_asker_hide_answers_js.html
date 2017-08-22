@@ -1,0 +1,31 @@
+{% ifequal question.asker.id user.id %}
+	$("#lock").hover(
+		function() {
+			{% if question.hide_answers %}
+				$(this).attr("src", "{{ STATIC_URL }}/iknow/images/unlocked_32x32.png")
+			{% else %}
+				$(this).attr("src", "{{ STATIC_URL }}/iknow/images/locked_32x32.png")
+			{% endif %}
+		},
+		function(){
+			{% if question.hide_answers %}
+				$(this).attr("src", "{{ STATIC_URL }}/iknow/images/locked_32x32.png")
+			{% else %}
+				$(this).attr("src", "{{ STATIC_URL }}/iknow/images/unlocked_32x32.png")
+			{% endif %}
+		}
+	).click(function() {
+		$.post("{% url iknow_post_asker_hide %}", {
+			"question_id": {{ question.id }}
+		}, function(data, textStatus) {
+			if (data == "0") {
+				location.reload(true);
+			} else if (date == "2") {
+				alert("Failed! You are not the asker of this question");
+			}
+			else {
+				alert("Error occured when you added the question as favorite");
+			}
+		});
+	});
+{% endifequal %}

@@ -1,0 +1,47 @@
+{% extends "idea/base.html" %}
+{% load i18n %}
+{% load iknow_tags %}
+{% load idea_tags %}
+
+{% block head_title %}{% trans "iDea Search" %}{% endblock %}
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}iknow/css/iknow_home.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}idea/css/idea.css" />
+	<link rel="stylesheet" href="{{ STATIC_URL }}core/css/page_bar.css" />
+{% endblock %}
+
+{% block body %}
+	<div class="ui-widget ui-widget-content ui-corner-all info-content">
+		<form class="uniForm" method="get" action=".">
+			<fieldset class="inlineLabels">
+				<div id="div_id_q" class="ctrlHolder">
+					<label for="id_q">{% trans "Input keywords" %}</label>
+					<input type="text" name="q" id="id_q" />
+				</div>
+				<div class="form_block">
+					<input type="submit" class="ui-button ui-corner-all ui-state-default ibutton" value="{% trans "Search cool ideas" %} &raquo;" />
+				</div>
+			</fieldset>
+		</form>
+		{% if page.object_list %}
+			<h1>{% trans "Results" %}</h1>
+			<div class="idea-list">
+				{% for result in page.object_list %}
+					{% idea_coolidea result.object %}
+				{% endfor %}
+			</div>
+		{% else %}
+			<p>{% trans "No matched results" %}.</p>
+		{% endif %}
+	</div>
+{% endblock %}
+{% block extra_body %}
+	<script type="text/javascript">
+		$(function(){
+			$("input:text").addClass("ui-corner-all")
+				.css({"font-size":"12px","padding":"5px", "color": "#2B3856", "font-weight": "bold",
+				"font-family":"Courier, Rockwell, 'Courier New', 'Serif'"});
+			$("input:submit").button();
+		});
+	</script>
+{% endblock %}

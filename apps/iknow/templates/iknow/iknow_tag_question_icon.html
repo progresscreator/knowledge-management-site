@@ -1,0 +1,18 @@
+{% ifequal question.status "A"%}
+	<img src="{{ STATIC_URL }}iknow/images/question_16x16.png" />
+{% endifequal %}
+{% ifequal question.status "E"%}
+	<img src="{{ STATIC_URL }}iknow/images/extended_16x16.png" />
+{% endifequal %}
+{% ifequal question.status "S" %}
+	<img src="{{ STATIC_URL }}iknow/images/correct_16x16.png" />
+{% endifequal %}	
+{% ifequal question.status "P" %}
+	<img src="{{ STATIC_URL }}iknow/images/pending_16x16.png" />
+{% endifequal %}
+{% ifequal question.status "F" %}
+	<img src="{{ STATIC_URL }}iknow/images/wrong_16x16.png" />
+{% endifequal %}
+{% ifequal question.status "U" %}
+	<img src="{{ STATIC_URL }}iknow/images/wrong_16x16.png" />
+{% endifequal %}

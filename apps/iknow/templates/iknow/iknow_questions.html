@@ -1,0 +1,39 @@
+{% extends "iknow/base.html" %}
+{% load i18n %}
+
+{% block head_title %}{% trans "iKnow questions" %}{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}iknow/css/iknow.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}iknow/css/tabs-home.css" />
+{% endblock %}
+
+{% block body %}
+	<div class="span-24 last">
+		<h3> {% trans "Browse all questions" %} </h3>	
+		<div id="tabs">
+			<ul>
+				<li><a href="{% url iknow_ajax_questions "active" %}">{% trans "Active" %}</a></li>
+				<li><a href="{% url iknow_ajax_questions "solved" %}">{% trans "Solved" %}</a></li>
+				<li><a href="{% url iknow_ajax_questions "unanswered" %}">{% trans "Unanswered" %}</a></li>
+				<li><a href="{% url iknow_ajax_questions "most_offered" %}">{% trans "Most rewarding" %}</a></li>
+				<li><a href="{% url iknow_ajax_questions "all" %}">{% trans "All" %}</a></li>
+			</ul>
+		</div>
+	</div>
+{% endblock %}
+
+{% block extra_body %}
+	<script type="text/javascript">
+		$(function(){
+			$("#tabs").tabs({
+				ajaxOptions: {
+					error: function(xhr, status, index, anchor) {
+					$(anchor.hash).html("Couldn't load this tab. We'll try to fix this as soon as possible. If this wouldn't be a demo.");
+					}
+				}
+			});
+		});
+	</script>
+
+{% endblock %}

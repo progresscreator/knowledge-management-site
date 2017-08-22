@@ -1,0 +1,81 @@
+{% extends "iknow/base.html" %}
+{% load i18n %}
+{% load iknow_tags %}
+
+{% block head_title %}{% trans "iKnow Search" %}{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}iknow/css/iknow.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}iknow/css/iknow_home.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}iknow/css/tabs-home.css" />
+{% endblock %}
+{% block body %}
+	<div class="ui-widget ui-widget-content ui-corner-all info-content">
+		<form class="uniForm" method="get" action=".">
+			<fieldset class="inlineLabels">
+				<div id="div_id_q" class="ctrlHolder">
+					<label for="id_q">{% trans "Input keywords" %}</label>
+					<input type="text" name="q" id="id_q" />
+				</div>
+				<div class="form_block">
+					<input type="submit" class="ui-button ui-corner-all ui-state-default ibutton" value="{% trans "Search questions" %} &raquo;" />
+				</div>
+			</fieldset>
+		</form>
+			{% if page.object_list %}
+				<h3>{% trans "Results" %}</h3>
+				<table id="search-questions" class="table-questions">
+					<tr>
+						<th class="title">{% trans "Title" %}</th>
+						<th class="asker">{% trans "Asker" %}</th>
+						<th class="award">
+							<img src="{{ STATIC_URL }}iknow/images/rewards.png" title="{% trans "reward" %}" />
+						</th>
+						<th class="answers">
+							<img src="{{ STATIC_URL }}iknow/images/replies.png" title="{% trans "answers received" %}" />
+						</th>
+						<th class="time">
+							<img src="{{ STATIC_URL }}iknow/images/timer.png" title="{% trans "time left" %}" />
+						</th>
+					</tr>
+					{% for result in page.object_list %}
+						<tr>
+							<td class="title">
+								{% question_icon result.object %}&nbsp;
+								<a href="{{ result.object.get_absolute_url }}">{{ result.object.question_title }}</a>
+								({{ result.score }})
+							</td>	
+							<td class="asker"> {{ result.object.display_name }} </td>
+							<td class="award"> 
+								<img src="{{ STATIC_URL }}iknow/images/coin_13x13.png" />
+								{{ result.object.points_offered }}
+							</td>
+							<td class="answers"> {{ result.object.answer_count }} </td>
+							<td class="time"> {{ result.object.time_left_string }} </td>
+						</tr>
+					{% endfor %}
+				</table>
+			{% else %}
+				<p>{% trans "No matched results" %}.</p>
+			{% endif %}
+	</div>
+{% endblock %}
+{% block extra_body %}
+	<script type="text/javascript">
+		$(function(){
+			$("input:text").addClass("ui-corner-all")
+				.css({"font-size":"12px","padding":"5px", "color": "#2B3856", "font-weight": "bold",
+				"font-family":"Courier, Rockwell, 'Courier New', 'Serif'"});
+			$(".ui-button").hover(
+				function(){
+					$(this).removeClass("ui-state-default");
+					$(this).addClass("ui-state-highlight");
+				},
+				function(){
+					$(this).removeClass("ui-state-highlight");
+					$(this).addClass("ui-state-default");
+				}
+			);
+		});
+	</script>
+{% endblock %}

@@ -1,0 +1,27 @@
+$("#answer_form").hide();
+$("#id_answer_text").css({"width":"75%"});
+var answer_form_isOpen = false;
+$("#ianswer,#edit-answer").click(function(e) {
+	e.preventDefault();
+	if (answer_form_isOpen) {
+		$("#answer_form").fadeOut(600);
+		answer_form_isOpen = false;
+	}
+	else {
+		$("#answer_form").fadeIn(600);
+		$("#id_answer_text").focus();
+		answer_form_isOpen = true;
+	}
+});
+$("#answer-cancel").click(function(e){
+	e.preventDefault();
+	$("#answer_form").fadeOut(600);
+	answer_form_isOpen = false;
+});
+
+$("#edit-answer").button({
+	text: false,
+	icons: {
+		primary:'ui-icon-pencil'
+	}
+});

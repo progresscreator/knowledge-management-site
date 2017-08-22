@@ -1,0 +1,22 @@
+<div class="idea-block">
+	<div style="float:left;width: 10%;">
+		<div class="ui-widget ui-widget-content ui-corner-all thumbs">
+			{{ idea.thumbs }}
+		</div>
+	</div>
+	<div style="float: left;width: 73%;">
+		<h3>
+			<a href="{{ idea.get_absolute_url }}">{{ idea.title }}</a>
+		</h3>
+		<p class="details">
+			{{ idea.details|truncatewords:20 }}
+		</p>
+	</div>
+	<div style="float: left;width: 15%;">
+		<p class="time">
+			<img src="{{ STATIC_URL }}iknow/images/coin_13x13.png" /> {{ idea.points_final }} <br />
+			{{ idea.time_string_l }}
+		</p>
+	</div>
+	<div class="clearfix"> </div>
+</div>

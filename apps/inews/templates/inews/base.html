@@ -1,0 +1,18 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+
+{% block body_class %}inews{% endblock %}
+
+{% block subnav %}
+    {% if user.is_authenticated %}
+    	<ul>
+    		<li><a href="{% url inews_home %}">Home</a></li> 
+		<li><a href="{% url inews_articles %}">All articles</a></li> 
+    		<li><a href="{% url inews_submit %}">Submit an article</a></li> 
+		<li><a href="{% url inews_tag 1 %}">Tags</a></li> 
+		<li><a href="{% url inews_help %}">Help</a></li> 
+    	</ul>
+    {% else %}
+    	&nbsp;
+    {% endif %}
+{% endblock %}

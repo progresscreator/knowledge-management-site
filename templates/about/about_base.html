@@ -1,0 +1,13 @@
+{% extends "site_base.html" %}
+
+{% block subnav %}
+	{% if user.is_authenticated %}
+		<ul>
+			<li><a href="{% url what_next %}">What next</a></li>
+			<li><a href="{% url about_rules %}">Rules</a></li>
+			<li><a href="{% url what_and_who %}">What & Who</a></li>
+		</ul>
+	{% else %}
+		&nbsp;
+	{% endif %}
+{% endblock %}

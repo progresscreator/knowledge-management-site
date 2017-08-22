@@ -1,0 +1,190 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-10-13 15:30-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: forms.py:9
+msgid "iKnow SMS"
+msgstr "iKnow SMS"
+
+#: forms.py:10
+msgid ""
+"Receive an SMS on your mobile phone when a new question enters the market"
+msgstr "Получить SMS уведомление о новом вопросе"
+
+#: forms.py:13
+msgid "Mobile No."
+msgstr "Номер мобильного телефона"
+
+#: forms.py:14
+msgid "Mobile phone number in the format of 0123456789"
+msgstr "Формат номера мобильного телефона"
+
+#: forms.py:17
+msgid "iKnow Email"
+msgstr "Электронное сообщение iKnow"
+
+#: forms.py:18
+msgid "Receive an email when a new question enters the market"
+msgstr "Получить уведомление о новом вопросе по электронной почте"
+
+#: forms.py:21
+msgid "New feature updates"
+msgstr "Обновления"
+
+#: forms.py:22
+msgid "Receive updates on new features through emails"
+msgstr "Получить уведомление об обновлениях по электронной почте"
+
+#: models.py:21
+msgid "Public"
+msgstr "Открытый доступ"
+
+#: models.py:22
+msgid "Friends"
+msgstr "Друзья"
+
+#: models.py:23
+msgid "Groups"
+msgstr "Группы"
+
+#: models.py:24
+msgid "Both friends and selected groups"
+msgstr "Друзья и избранные группы"
+
+#: models.py:25
+msgid "Targeted Users"
+msgstr "Определенные пользователи"
+
+#: models.py:28
+msgid "Document"
+msgstr "Документ"
+
+#: models.py:29
+msgid "Document Request"
+msgstr "Запрос документа"
+
+#: models.py:30
+msgid "Question Amendment"
+msgstr "Детализация вопроса"
+
+#: models.py:31
+msgid "Question Comment"
+msgstr "Задать вопрос по поводу комментария"
+
+#: models.py:32
+msgid "Answer Comment"
+msgstr "Ответить на комментарий"
+
+#: models.py:33
+msgid "Idea"
+msgstr "Идея"
+
+#: models.py:34
+msgid "Idea Comment"
+msgstr "Комментарий на идею"
+
+#: models.py:42
+msgid "Share anonymously?"
+msgstr "Поделиться анонимно?"
+
+#: models.py:79
+msgid "An Egghead"
+msgstr "Как эрудит"
+
+#: models.py:94
+msgid "Thumb up"
+msgstr "Поддержать"
+
+#: models.py:95
+msgid "Thumb down"
+msgstr "Отвергнуть"
+
+#: models.py:103
+#, python-format
+msgid "%(thumber_name)s thumbs up"
+msgstr "%(thumber_name)s поддержали"
+
+#: models.py:105
+#, python-format
+msgid "%(thumber_name)s thumbs down"
+msgstr "%(thumber_name)s отвергло"
+
+#: models.py:124
+#, python-format
+msgid "%(donater_name)s donates %(amount)d points"
+msgstr "%(donater_name)s поощерить %(amount)d points"
+
+#: models.py:147
+#, python-format
+msgid "%(user_name)s's settings"
+msgstr "настройки пользователя %(user_name)s"
+
+#: models.py:153
+msgid "Bug fixes"
+msgstr "Устранение ошибок"
+
+#: models.py:154
+msgid "New features"
+msgstr "Новинки"
+
+#: views.py:52
+msgid "A correct mobile phone number is required if 'iKnow SMS' is enabled"
+msgstr "Требуется правильный номер мобильного телефона для включения функции 'iKnow SMS'"
+
+#: views.py:55
+msgid "The phone number you input is not recognized"
+msgstr "Данный номер не может быть использован"
+
+#: views.py:91
+#, python-format
+msgid "[ %(site_name)s ] Bug fixed"
+msgstr "[ %(site_name)s ] ошибка устранена"
+
+#: views.py:93
+#, python-format
+msgid "[ %(site_name)s ] A new feature is available"
+msgstr "[ %(site_name)s ] новая функция доступна"
+
+#: templates/core/barter_settings.html:4
+msgid "Edit personal settings"
+msgstr "Изменить личные настройки"
+
+#: templates/core/barter_settings.html:8
+msgid "Settings"
+msgstr "Настройки"
+
+#: templates/core/barter_settings.html:15
+msgid "Error"
+msgstr "Ошибка"
+
+#: templates/core/barter_settings.html:23
+msgid "Save Settings"
+msgstr "Сохранить изменения"
+
+#: templates/core/core_tag_experts.html:14
+#, python-format
+msgid ""
+"\n"
+"\tExperts on '%(tag_name)s' \n"
+msgstr ""
+"\n"
+"\tЭксперт под именем'%(tag_name)s' \n"
+
+#: templates/core/feature_form.html:24
+msgid "Save"
+msgstr "Сохранить"

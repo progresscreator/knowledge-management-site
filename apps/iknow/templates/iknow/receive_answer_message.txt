@@ -1,0 +1,16 @@
+{% load i18n %}
+{% blocktrans with question.question_title|safe as question_title and question.time_string_l as time_string_l and answer.display_name as answerer_name %}
+The question:
+
+	{{ question_title }}
+
+	you posted on {{ time_string_l }} just received an answer from {{ answerer_name }}.
+{% endblocktrans %}
+
+{% trans "You could visit the link below to review the answers" %}. {% trans "Thanks for your participation" %}.
+
+	http://{{ current_site.domain }}/iknow/question/{{ question.id }}/
+
+{% blocktrans with current_site.name as site_name %}
+- {{ site_name }} Team
+{% endblocktrans %}

@@ -1,0 +1,27 @@
+$("textarea#amendment").css({"height":"50px"});
+$("#amendment-submit").click(function(){
+	$.post("{% url iknow_post_amendment %}", {
+		"question_id": {{ question.id }},
+		"amendment": $("#amendment").val(),
+	}, function(data, textStatus){
+		if (data == "0") {
+			alert("Amendment posted successfully");
+			location.reload(true);
+		}
+	});
+});
+
+var amendment_form_isOpen = false;
+$("#add-amendment").click(function(){
+	if (amendment_form_isOpen) {
+		$("#amendment_form").fadeOut(600);
+		amendment_form_isOpen = false;
+	} else {
+		$("#amendment_form").fadeIn(600);
+		amendment_form_isOpen = true;
+	}
+});
+$("#amendment-cancel").click(function(){
+	$("#amendment_form").fadeOut(600);
+	amendment_form_isOpen = false;
+});

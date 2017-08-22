@@ -1,0 +1,185 @@
+{% extends "inews/base.html" %}
+{% load i18n %}
+
+{% block head_title %}{% trans "iNews Help" %}{% endblock %}
+{% block extra_head %}
+	<style type="text/css">
+		div.info-block{ margin-bottom: 20px; }
+		div.info-header{padding: 2px 10px;}
+		div.info-content{padding: 0px 15px;}
+		div.info-content h3.people {
+			margin: 10px 0px;
+		}
+		div.info-content p{
+			margin: 10px 10px 10px 20px;
+			font-size: 12px;
+		}
+		h3.people a {text-decoration: none; font-size: 14px; color:#e17009;}
+		span.wow{font-weight: bold; color: #E42217;}
+		span.wow-people a{text-decoration: none; font-weight: bold; color: #E17009;}
+	</style>
+
+
+{% endblock %}
+
+{% block body %}
+	<div class="span-24 last">
+		<div class="ui-widget ui-corner-all info-block">
+
+                <div style="margin-bottom:10px;" id="tabs">
+			        <ul>
+
+			            <div class="ui-widget  ui-corner-top info-header">
+				            About iNews - Incentivized Social News
+			            </div>
+
+				        <li><a href="#tabs-1">Market Overview</a></li>
+				        <li><a href="#tabs-2">Market Rules</a></li>
+
+			        </ul>
+
+			<div class="ui-widget ui-widget-content ui-corner-bottom info-content" id="tabs-1">
+				<h3 class="people"><a href="">What is iNews?</a></h3>
+				<p>
+					iNews is an information market that allows you to post articles to the Barter community and reap a profit if your postings become popular. Members of the Barter community vote on your submissions, and your popularity snowblalls over time as top trending posts work their way to the iNews front page. If you want to share a news article or personal anecdote with the Barter community and earn recognition in the process, iNews is the place for you.
+				</p>
+				<h3 class="people"><a href="">How does it work?</a></h3>
+				<p>
+					When you post an article, news item, or personal anecdote, you give the posting an initial value (Budget) and a set number of points that are given to users that read your story (Points Per View, or PPV). It is helpful to think of PPV as an advertising cost paid for each user: when people read your story for the first time, the amount of points set as PPV is deducted from your Budget. When the Budget runs out, your post expires -- so be sure to set your initial Budget high!
+				</p>
+
+				<h3 class="people"><a href="">What do I need to know about Votes?</a></h3>
+				<p>
+					Views are not the only thing that affect your Budget -- Votes and Time play a role as well. Whenever you receive an upvote, PPV points are credited back to your Budget. This means that users who read your story and upvote it help your Budget -- and since users can vote multiple times, your Budget will increase if you really impress someone! By contrast, a user may downvote your post if they did not like the content. This harms your budget by subtracting PPV points for each downvote received. If you really offend a lot of users and receive more downvotes than your Budget can handle, your post will disappear completely!
+                <br /><br />
+Since voting will affect your Budget so greatly, we put safety measures in place to mitigate the risk that one or two users are responsible for upvoting you to success or downvoting you to oblivion. The first time a user votes on your post, they receive a small reward for participating; for each additional vote, the cost increases exponentially to the user. For example, if a user wanted to downvote your post once, it would be free; if they wanted to downvote your post six times, it would cost them over 120 points to do so!
+				</p>
+<h3 class="people"><a href="">How does Time play a role?</a></h3>
+				<p>
+					Time is the last factor that affects your Budget. Each day, the amount of PPV is subtracted from your post's Budget. This means that the value of posts decays over time, and posts quickly fall in the rankings and disappear if no one reads or votes on them -- so be sure to set a high PPV on your post to attract more users!
+                <br /><br />
+When the Budget on your post reaches zero, the post expires and is moved to the "Inactive" tab on the iNews homepage. At this point, the post can no longer earn income -- so try to keep your posts alive for as long as possible by coming up with a catchy title and submitting quality content.
+                </p>
+
+<h3 class="people"><a href="">Anything Else?</a></h3>
+				<p>
+That's about it! At the end of each month, the authors of the highest-grossing posts will be rewarded with a percentage of the monthly income in iNews. If you want to get rich quick, try to land at least one successful post in iNews per month -- a quality submission will continue to pay dividends well into the future.
+                <br /><br />
+Think you're ready to get started? Go ahead and click "Submit an article" to make your first post in iNews!
+                <br />
+				</p>
+
+<input type="submit" style="margin-left:10px; margin-bottom:10px;" class="ui-button ui-corner-all ui-state-default ibutton" 
+					id="id_post" value="Submit an article &raquo;" />
+
+			</div>
+			<div class="info-content" id="tabs-2">
+		
+	<table>
+				<caption>
+					<center><b>User</b> point loss or gain</center>	
+				</caption>
+				<thead>
+					<tr class="odd">
+						<th scope="col" abbr="Actions"> Actions </th>
+						<th scope="col" abbr="Points"> +/- Points </th>
+						<th scope="col" abbr="Details"> Specification </th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th scope="row" class="column1"> First Vote </th>
+						<td> Free
+						</td>
+						<td> Your first upvote or downvote on an article is free</td>
+					</tr>
+					<tr class="odd">
+						<th scope="row" class="column1"> nth Vote </th>
+						<td> -- 2<sup>n</sup>
+							<img src="{{ STATIC_URL }}iknow/images/coin_13x13.png" />
+						</td>
+						<td> Every nth upvote or downvote past the first costs 2^n points</td>
+					</tr>
+					<tr>
+						<th scope="row" class="column1"> Read Article </th>
+						<td> + PPV
+							<img src="{{ STATIC_URL }}iknow/images/coin_13x13.png" />
+						</td>
+						<td> Receive author-defined PPV points the first time you read an article. </td>
+					</tr>
+					<tr class="odd">
+						<th scope="row" class="column1"> Submit an Article </th>
+						<td> -- Budget
+							<img src="{{ STATIC_URL }}iknow/images/coin_13x13.png" />
+						</td>
+						<td> You must decide upon and invest the price of a budget into each new article you post </td>
+					</tr>
+				</tbody>
+			</table>
+
+
+
+	<table>
+				<caption>
+					<center><b>Article budget</b> point loss or gain</center>	
+				</caption>
+				<thead>
+					<tr class="odd">
+						<th scope="col" abbr="Actions"> Actions </th>
+						<th scope="col" abbr="Points"> +/- Points </th>
+						<th scope="col" abbr="Details"> Specification </th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th scope="row" class="column1"> Receive an upvote </th>
+						<td> + PPV
+							<img src="{{ STATIC_URL }}iknow/images/coin_13x13.png" />
+						</td>
+						<td> Your post budget receives PPV points for every upvote the article earns</td>
+					</tr>
+					<tr class="odd">
+						<th scope="row" class="column1"> Receive a downvote </th>
+						<td> -- PPV
+							<img src="{{ STATIC_URL }}iknow/images/coin_13x13.png" />
+						</td>
+						<td> Your post budget loses PPV points for every downvote the article earns</td>
+					</tr>
+					<tr>
+						<th scope="row" class="column1"> One day elapses </th>
+						<td> -- PPV
+							<img src="{{ STATIC_URL }}iknow/images/coin_13x13.png" />
+						</td>
+						<td> Your post budget loses PPV points for every day that elapses in which your post is still active</td>
+					</tr>
+				</tbody>
+			</table>
+
+
+
+
+				
+			</div>
+		</div>
+
+
+
+
+
+			</div>
+		</div>
+{% endblock %}
+{% block extra_body %}
+	<script type="text/javascript">
+
+		$(function(){	
+			$("#id_post").click(function(e) {
+				e.preventDefault();
+				window.location="{% url inews_submit %}";
+			});
+
+            $("#tabs").tabs();
+		});
+	</script>
+
+{% endblock %}

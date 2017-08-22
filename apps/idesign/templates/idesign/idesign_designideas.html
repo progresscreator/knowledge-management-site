@@ -1,0 +1,26 @@
+{% extends "idesign/base.html" %}
+{% load avatar_tags %}
+{% load thumbnail %}
+{% load idesign_tags %}
+
+{% block head_title %}iDesign Idea: {{ designidea.title }} {% endblock %}
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}iknow/css/iknow_home.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}idesign/css/idesign.css" />
+{% endblock %}
+
+{% block body %}
+	<div class="ui-widget ui-corner-all info-block">
+		<div class="ui-widget-content ui-corner-bottom info-content">
+			{% if ideas %}
+				{% for idea in ideas %}
+					{% idesign_idea idea %}
+				{% endfor %}
+			{% else %}
+				<p>
+					I have no idea!
+				</p>
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}

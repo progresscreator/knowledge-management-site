@@ -1,0 +1,26 @@
+{% load i18n %}
+{% load avatar_tags %}
+<style type="text/css">
+	li.experts a {
+		text-decoration: none;
+		font-size: 11.5px;
+		color:		#41627E;
+		font-family: 'Century Gothic', Verdana, Geneva, sans-serif;
+		font-weight: bold;
+	}
+</style>
+
+<h4 class="experts"> 
+{% blocktrans with tag.name as tag_name %}
+	Experts on '{{ tag_name }}' 
+{% endblocktrans %}
+</h4>
+{% if people %}
+	<ul>
+		{% for one in people %}
+			<li class="experts"><a href="{% url egghead_detail one %}">
+				{% avatar one 30 %} {{ one.egghead.display_name }}
+			</a></li>
+		{% endfor %}
+	</ul>
+{% endif %}

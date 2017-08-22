@@ -1,0 +1,165 @@
+{% extends "tribes/base.html" %}
+
+{% load i18n %}
+{% load uni_form %}
+{% load wiki_tags %}
+{% load avatar_tags %}
+{% load threadedcommentstags %}
+{% load pagination_tags %}
+{% load extra_tagging_tags %}
+{% load tribes_tags %}
+{% load group_tags %}
+{% load topics_tags %}
+{% load photo_tags %}
+{% load theme_tags %}
+
+{% block head_title %}{{ tribe.name }}{% endblock %}
+
+{% block body %}
+	<div class="span-24 last tribe-block">
+        <h1>{% trans "Tribe" %}:  {{ tribe.name }}</h1>
+        <p>
+            {% trans "Slug:" %} <tt>{{ tribe.slug }}</tt><br />
+            {% trans "Created" %} 
+            by <a href="{% url egghead_detail tribe.creator.username %}">{{ tribe.creator }}</a>
+			on {{ tribe.created|date }}
+            <br />
+            {% show_tags_for tribe %}
+			<br />
+			{{ tribe.description }}
+        </p>
+		{% ifequal user tribe.creator %}
+			<p>
+				You are the creator of this tribe, so you can
+				<div class="form-toggle" style="margin: -10px 0px 20px 0px;">
+					<p><span id="edit-tribe-toggle">{% trans "Edit details" %}</span></p>
+					
+					<form class="uniForm" id="edit-tribe" method="POST" action="">
+						<fieldset class="inlineLabels">
+							{{ tribe_form|as_uni_form }}
+							<div class="form_block">
+								<input type="hidden" name="action" value="update" />
+								<input type="submit" value="{% trans "updated" %}"/>
+							</div>
+						</fieldset>
+					</form>
+				</div>
+			</p>
+		{% endifequal %}
+
+
+		{% if is_member %}
+			<ul class="css-tabs">
+				{% comment %}
+				<li><a href="{% url iknow_ajax_tribe_members tribe.id %}">Members</a></li>
+				<li><a href="{% url iknow_ajax_tribe_documents tribe.id %}">Documents</a></li>
+				{% endcomment %}
+				<li><a href="{% url iknow_ajax_tribe_questions "active" tribe.id %}">Active Questions</a></li>
+				<li><a href="{% url iknow_ajax_tribe_questions "solved" tribe.id %}">Solved Questions</a></li>
+				<li><a href="{% url idoc_ajax_tribe_docs tribe.id %}">Documents</a></li>
+				<li><a href="{% url egghead_ajax_tribe_members tribe.id %}">Members</a></li>
+			</ul>
+			<div class="css-panes">
+				<div style="display:block"></div>
+			</div>
+		{% else %}
+			<p>
+				You are not a member of this tribe, so you can't view questions or documents
+				exchanged within this tribe. If you believe you should belong to this tribe, contact us 
+				at <a href="mailto:{{ CONTACT_EMAIL }}">{{ CONTACT_EMAIL }}</a>.
+			</p>
+		{% endif %}
+	</div>
+	{% comment %}
+    {% if user.is_authenticated %}
+        <div class="right_panel">
+            <div class="members">
+                <h2>{% trans "Members" %}</h2>
+                <table width="100%">
+                    {% for member in tribe.members.all %}
+                        {% if forloop.counter0|divisibleby:"3" %}<tr>{% endif %}
+                        <td>
+                            <div class="avatar">{% avatar member 40 %}</div>
+                            <div class="details"><a href="{% url profile_detail member.username %}" title="{{ member.username }}">{{ member.username }}</a></div>
+                        </td>
+                        {% if forloop.counter0|add:"1"|divisibleby:"3" %}</tr>{% endif %}
+                    {% endfor %}
+                    {% if tribe.members.all|length|divisibleby:"3" %}{% else %}</tr>{% endif %}
+                </table>
+            </div>
+        </div>
+    {% endif %}
+   
+
+    <div style="width: 550px;">
+        {% ifequal user tribe.creator %}
+            <div class="form-toggle">
+                <p><span id="edit-tribe-toggle">{% trans "Edit details" %}</span></p>
+                
+                <form class="uniForm" id="edit-tribe" method="POST" action="">
+                    <fieldset class="inlineLabels">
+                        {{ tribe_form|as_uni_form }}
+                        <div class="form_block">
+                            <input type="hidden" name="action" value="update" />
+                            <input type="submit" value="{% trans "updated" %}"/>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            
+            {% ifequal tribe.members.all.count 1 %}
+                <p>{% silk "delete" %} <a href="#" onclick="$('#delete_tribe_form').toggle(); return false;">{% trans "Delete tribe" %}</a><p>
+                 <form class="delete_form" id="delete_tribe_form" action="{% url tribe_delete tribe.slug %}" method="POST" style="display: none;">
+                     <input type="submit" value="{% trans "Delete Tribe" %}" /> (all content will be removed)
+                </form>
+            {% else %}
+                <p>{% trans "You are not the only member of the tribe so you can't delete the tribe." %}</p>
+            {% endifequal %}
+            
+        {% endifequal %}
+        
+        {% if user.is_authenticated %}
+            <div>
+                <form method="POST" action="">
+                    {% if is_member %}
+                        {% ifequal user tribe.creator %}
+                            <p>{% trans "You are the creator of this tribe so can't leave (yet)." %}</p>
+                        {% else %}
+                            <input type="hidden" name="action" value="leave" />
+                            <input type="submit" value="{% trans "leave" %}"/>
+                        {% endifequal %}
+                    {% else %}
+                        <input type="hidden" name="action" value="join" />
+                        <input type="submit" value="{% trans "join tribe" %}"/>
+                    {% endif %}
+                </form>
+            </div>
+        {% else %}
+            {% url acct_signup as signup_url %}
+            {% url egghead_login as login_url %}
+            <p>{% blocktrans %}<a href="{{ signup_url }}">Sign up</a> and <a href="{{ login_url }}">log in </a> to join this tribe.{% endblocktrans %}</p>
+        {% endif %}
+    </div>
+	{% endcomment %}
+
+{% endblock %}
+
+{% block extra_body %}
+	<script type="text/javascript" src="{{ STATIC_URL }}core/js/jquery.tools.min.js"> </script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#edit-tribe').hide();
+            $('#edit-tribe-toggle').click(function() {
+                $('#edit-tribe').toggle();
+                $('#edit-tribe').autoscroll();
+                return false;
+            });
+            if ($('#edit-tribe .error').length) {
+                $('#edit-tribe').show();
+                $('#edit-tribe .error').autoscroll();
+            }
+			$("ul.css-tabs").tabs("div.css-panes > div", {effect: 'ajax'}).history();
+        });
+    </script>
+    
+{% endblock %}

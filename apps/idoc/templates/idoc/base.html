@@ -1,0 +1,21 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+
+{% block body_class %}idoc{% endblock %}
+
+{% block subnav %}
+	{% if user.is_authenticated %}
+		<ul>
+			<li><a href="{% url idoc_home %}">{% trans "Home" %}</a></li> 
+			<li><a href="{% url idoc_search %}">{% trans "Search" %}</a></li> 
+			<li><a href="{% url idoc_docs %}">{% trans "All docs" %}</a></li> 
+			<li><a href="{% url idoc_upload %}">{% trans "Upload" %}</a></li> 
+			<li><a href="{% url idoc_help %}">{% trans "Help" %}</a></li> 
+			<!--
+				<li><a href="{% url idoc_request %}">{% trans "Request a document" %}</a></li> 
+			-->
+		</ul>
+	{% else %}
+		&nbsp;
+	{% endif %}
+{% endblock %}

@@ -1,0 +1,22 @@
+div.tribes {
+    background: #DEF;
+    padding: 8px;
+    margin-bottom: 20px;
+}
+div.tribes h2 {
+    margin: 0 0 5px 0;
+    padding: 0;
+}
+
+div.tribe-block h1 {
+	color: #15317E;
+	font-size: 24px;
+	font-family: Verdana, Helvetica, Courier, "Courier New", sans-serif;
+}
+div.tribe-block p {
+	padding-left: 25px;
+	color: #153E7E;
+	font-size: 12px;
+	font-family: Verdana, Helvetica, Courier, "Courier New", sans-serif;
+}
+

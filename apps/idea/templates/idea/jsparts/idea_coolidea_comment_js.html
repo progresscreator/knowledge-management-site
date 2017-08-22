@@ -1,0 +1,45 @@
+$("textarea#textarea-coolidea-comment").css({"height":"200px"});
+$("#coolidea-comment-submit").click(function(){
+	var comment_text = $("textarea#textarea-coolidea-comment").val();
+	var anonymous = $("#coolidea-comment-anonymous").is(":checked");
+	$.post("{% url idea_post_coolidea_comment %}", {
+		"coolidea_id": {{ coolidea.id }},
+		"anonymous": anonymous,
+		"comment": comment_text,
+	}, function(data, textStatus){
+		if (data == "8") {
+			alert("Comment posted successfully, you received 2 points");
+			location.reload(true);
+		} else if (data == "0") {
+			alert("Comment posted successfully, thank you");
+			location.reload(true);
+		}
+	});
+});
+
+var coolidea_comment_form_isOpen = false;
+$("#add-coolidea-comment").click(function(){
+	if (coolidea_comment_form_isOpen) {
+		$("#coolidea-comment-form").fadeOut(600);
+		coolidea_comment_form_isOpen = false;
+	} else {
+		$("#coolidea-comment-form").fadeIn(600);
+		coolidea_comment_form_isOpen = true;
+	}
+});
+$("#coolidea-comment-cancel").click(function(){
+	$("#coolidea-comment-form").fadeOut(600);
+	coolidea_comment_form_isOpen = false;
+});
+
+$("#show-comments").click(function(e){
+	var text = $(this).text();
+	e.preventDefault();
+	if (text == "Show"){
+		$("#question-comments").fadeIn(400);
+		$(this).text("Hide");
+	} else {
+		$("#question-comments").fadeOut(400);
+		$(this).text("Show");
+	}
+});

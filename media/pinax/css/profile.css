@@ -1,0 +1,40 @@
+div.profile {
+	margin: 15px 0px 15px 15px;
+}
+div.profile div.avatar {
+	float: left;
+	width: 10%;
+}
+div.profile div.avatar img{
+	border: 2px solid #4C787E;
+}
+div.profile div.profile-info {
+	float: left;
+	width: 85%;
+}
+div.profile div.profile-info h3 a {
+	text-decoration: none;
+	color: #566D7E;
+	margin-bottom: 3px;
+	font-size: 14px;
+}
+div.profile div.profile-info p{
+	margin: 0px 0px 0px 15px;
+	clear: both;
+	font-size: 11px;
+}
+div.profile div.profile-info p span.label{
+	font-weight: bold;
+	float: left;
+	width: 20%;
+}
+div.profile div.profile-info p span.value {
+	float:left;
+	margin-left: 2%;
+	width: 75%;
+}
+div.profile div.profile-info p span.svalue {
+	float:left;
+	margin-left: 2%;
+	width: 30%;
+}

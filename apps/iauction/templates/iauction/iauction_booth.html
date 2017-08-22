@@ -1,0 +1,41 @@
+{% extends "iauction/base.html" %}
+{% load i18n %}
+{% load avatar_tags %}
+{% load thumbnail %}
+
+{% block head_title %}iBay{% endblock %}
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}iknow/css/iknow_home.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}iauction/css/iauction.css" />
+{% endblock %}
+{% block body %}
+	<h3>
+		{% blocktrans with buser.egghead.display_name as seller_name %}
+			{{ seller_name }}'s little booth
+		{% endblocktrans %}
+	</h3>
+	<div class="span-24 last">
+		<div id="tabs">
+			<ul>
+				<li><a href="{% url iauction_ajax_booth_products buser "A" %}"><span>{% trans "Selling now" %}</span></a></li>
+				<li><a href="{% url iauction_ajax_booth_products buser "P" %}">{% trans "Pending" %}</a></li>
+				<li><a href="{% url iauction_ajax_booth_products buser "U" %}">{% trans "Unwanted" %}</a></li>
+				<li><a href="{% url iauction_ajax_booth_products buser "S" %}">{% trans "Sold" %}</a></li>
+				<li><a href="{% url iauction_ajax_booth_products buser "W" %}">{% trans "Withdrawn" %}</a></li>
+			</ul>
+		</div>
+	</div>
+{% endblock %}
+{% block extra_body %}
+	<script type="text/javascript">
+		$(function(){
+			$("#tabs").tabs({
+				ajaxOptions: {
+					error: function(xhr, status, index, anchor) {
+					$(anchor.hash).html("Couldn't load this tab. We'll try to fix this as soon as possible. If this wouldn't be a demo.");
+					}
+				}
+			});
+		});
+	</script>
+{% endblock %}

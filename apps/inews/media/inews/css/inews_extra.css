@@ -1,0 +1,53 @@
+div.idea-block {
+	padding: 2px 0px;
+	border-bottom: 1px dashed #54A4DE;
+}
+div.idea-block div.thumbs {
+	width: 50%;
+	height: 30px;
+	font-size: 16px;
+	padding-top: 5px;
+	text-align: center;
+	margin-top: 3px;
+	color: #FF9834;
+}
+div.idea-block h3{
+	font-family: 'Trebuchet MS', 'Arial Black', Helvetica, sans-serif;
+	font-size: 13px;
+	margin-top: 5px;
+	margin-bottom: 2px;
+}
+h1.designidea-title{
+	font-family: 'Trebuchet MS', 'Arial Black', Helvetica, sans-serif;
+	font-size: 15px;
+	color: #206BA4;
+}
+
+h1.announcepost-title{
+	font-family: 'Trebuchet MS', 'Arial Black', Helvetica, sans-serif;
+	font-size: 20px;
+	color: #206BA4;
+}
+
+div.idea-block h3 a {
+	color: #206BA4;
+	text-decoration: none;
+}
+div.idea-block p.details {
+	margin-top: 2px;
+}
+div.idea-block p.details {
+	margin-top: 0px;
+}
+div.designidea-thumbs {
+	width: 40px;
+	height: 38px;
+	margin-bottom: 10px;
+	text-align: center;
+}
+div.designidea-thumbs p {
+	margin-top: 2px;
+	margin-bottom: 0px;
+	font-size: 22px;
+	color: #FF9834;
+}

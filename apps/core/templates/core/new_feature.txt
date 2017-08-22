@@ -1,0 +1,14 @@
+{% ifequal feature.type "B" %} A bugfix {% else %} A new feature {% endifequal %}was posted by {{ feature.committer.get_full_name }} on {{ feature.creation_date|date:"D, M d, Y" }}
+
+	{{ feature.title }}:
+
+	{{ feature.description }}
+
+You could visit
+	http://{{ current_site.domain }}/
+	to review the changes. Thanks for your interests. 
+
+To change your settings on receiving notifications from {{ current_site.name }}, visit
+	http://{{ current_site.domain }}/barter/settings/
+
+- {{ current_site.name }} Team

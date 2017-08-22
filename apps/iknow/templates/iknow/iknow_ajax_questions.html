@@ -1,0 +1,215 @@
+{% load i18n %}
+{% load iknow_tags %}
+<style type="text/css">
+	ul.page-bar li {
+		margin: 2px;
+		position: relative;
+		padding: 4px 0; 
+		float: left;  
+		list-style: none;
+	}
+	ul.page-bar li a {
+		text-decoration: none;
+		color: #1569C7;
+	}
+	ul.page-bar li.page-number {
+		margin: 2px 15px;
+		color: #7F4E52;
+	}
+	ul.page-bar li.jump {
+		margin: 2px 15px;
+		padding: 2px 0px 0px 0px;
+	}
+	ul.page-bar li.jump input {
+		font-size: 10px;
+		margin: 0px 10px;
+		padding-left: 5px;
+		width: 40px;
+	}
+	ul.page-bar span.ui-icon {
+		float: left;
+		margin: 0 4px;
+	}
+</style>
+<div id="qlist">
+	<h4> {{ title }} </h4>
+	{% if objs.object_list %}
+		<table class="table-questions">
+			<tr>
+				<th class="title">{% trans "Title" %}</th>
+				{% ifnotequal title "Questions asked" %}
+					<th class="asker">{% trans "Asker" %}</th>
+				{% endifnotequal %}
+				<th class="award">
+					<img src="{{ STATIC_URL }}iknow/images/rewards.png" title="{% trans "reward" %}" />
+				</th>
+				<th class="answers">
+					<img src="{{ STATIC_URL }}iknow/images/replies.png" title="{% trans "answers received" %}" />
+				</th>
+				{% ifnotequal title "Solved Questions" %}
+					<th class="time">
+						<img src="{{ STATIC_URL }}iknow/images/timer.png" title="{% trans "time left" %}" />
+					</th>
+				{% endifnotequal %}
+			</tr>
+			{% for obj in objs.object_list %}
+				{% ifequal obj.asker.id user.id %}
+					<tr class="self">
+				{% else %}
+					<tr>
+				{% endifequal %}
+					<td class="title"> 
+						{% question_icon obj %}&nbsp;
+						<a href="{% url iknow_question obj.id %}">{{ obj.question_title }}</a>
+					</td>
+					{% ifnotequal title "Questions asked" %}
+						<td class="asker">
+							{% if obj.anonymous %}
+								{{ obj.display_name }}
+							{% else %}
+								<a href="{% url iknow_dashboard obj.asker %}">{{ obj.display_name }}</a>
+							{% endif %}
+						</td>
+					{% endifnotequal %}
+					<td class="award"> 
+						<img src="{{ STATIC_URL }}iknow/images/coin_13x13.png" />
+						{{ obj.points_offered }}
+					</td>
+					<td class="answers">
+						{{ obj.answer_count }}
+					</td>
+					{% ifnotequal title "Solved Questions" %}
+						<td class="time">
+							{{ obj.time_left_string }}
+						</td>
+					{% endifnotequal %}
+				</tr>
+			{% endfor %}
+		</table>
+		{% if not home %}
+			<ul class="page-bar">
+				{% if objs.has_previous %}
+					<li class="ui-state-default ui-corner-all left-end" >
+				{% else %}
+					<li class="ui-state-disabled ui-corner-all">
+				{% endif %}
+					<span class="ui-icon ui-icon-arrowthickstop-1-w"></span>
+				</li>
+				{% if objs.has_previous %}
+					<li class="ui-state-default ui-corner-all left-prev" >
+				{% else %}
+					<li class="ui-state-disabled ui-corner-all">
+				{% endif %}
+					<span class="ui-icon ui-icon-arrowthick-1-w"></span>
+				</li>
+				<li class="page-number">
+					{% blocktrans %}
+						page {{ page }}
+					{% endblocktrans %}
+				</li>
+				{% if objs.has_next %}
+					<li class="ui-state-default ui-corner-all right-next">
+				{% else %}
+					<li class="ui-state-disabled ui-corner-all">
+				{% endif %}
+					<span class="ui-icon ui-icon-arrowthick-1-e"></span>
+				</li>
+				{% if objs.has_next %}
+					<li class="ui-state-default ui-corner-all right-end">
+				{% else %}
+					<li class="ui-state-disabled ui-corner-all">
+				{% endif %}
+					<span class="ui-icon ui-icon-arrowthickstop-1-e"></span>
+				</li>
+				{% ifnotequal total_pages 1 %} {% ifnotequal total_pages 0 %}
+					<li class="jump">
+						{% trans "Jump to" %}
+						<input id="jump-input" class="ui-widget-content ui-corner-all" type="text" />
+					</li>
+				{% endifnotequal %} {% endifnotequal %}
+				<li style="float: right;">
+					{% blocktrans count total_pages as total_pages %}
+						{{ total_pages }} page in total
+					{% plural %}
+						{{ total_pages }} pages in total
+					{% endblocktrans %}
+				</li>
+			</ul>
+		{% else %}
+			<ul class="page-bar"><li style="float:right;">
+				<a href="{% url iknow_questions %}">{% trans "Browse more" %} &raquo;</a></li></ul>
+		{% endif %}
+	{% else %}
+		{% trans "There are no questions in this category" %}.
+	{% endif %}
+	<div class="clearfix"> </div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		var order = "{{ order }}";
+		var page = {{ page }};
+		var total_pages = {{ total_pages }};
+		{% ifequal qtype "iasked" %}
+			var target_url = "{% url iknow_ajax_dashboard duser.username "asked" %}";
+		{% else %}
+			var target_url = "{% url iknow_ajax_questions qtype %}";
+		{% endifequal %}
+		$("#sort").click(function(){
+			var api = $("ul.css-tabs").tabs();
+			api.getPanes().html("hello");
+		});
+		$("#jump-input").keypress(function(e){
+			if (e.which == 13) {
+				var gpage = parseInt(this.value);
+				if ((gpage > 0) && (gpage <= total_pages) && (gpage != page)) {
+					var selected = $("#tabs").tabs("option", "selected");
+					var url = target_url + "?page=" + gpage;
+					$("#tabs").tabs("url", selected, url);
+					$("#tabs").tabs("load", selected);
+				}
+			}
+		});
+		$("li.right-next").click(function(){
+			if (page < total_pages) {
+				var selected = $("#tabs").tabs("option", "selected");
+				var url = target_url + "?page=" + (page+1);
+				$("#tabs").tabs("url", selected, url);
+				$("#tabs").tabs("load", selected);
+			}
+		});
+		$("li.left-prev").click(function(){
+			if (page > 0) {
+				var selected = $("#tabs").tabs("option", "selected");
+				var url = target_url + "?page=" + (page-1);
+				$("#tabs").tabs("url", selected, url);
+				$("#tabs").tabs("load", selected);
+			}
+		});
+		$("li.left-end").click(function(){
+			if (page > 0) {
+				var selected = $("#tabs").tabs("option", "selected");
+				var url = target_url + "?page=1";
+				$("#tabs").tabs("url", selected, url);
+				$("#tabs").tabs("load", selected);
+			}
+		});
+		$("li.right-end").click(function(){
+			if (page < total_pages ) {
+				var selected = $("#tabs").tabs("option", "selected");
+				var url = target_url + "?page=" + total_pages;
+				$("#tabs").tabs("url", selected, url);
+				$("#tabs").tabs("load", selected);
+			}
+		});
+		$("li.ui-state-default").hover(
+			function(){
+				$(this).removeClass("ui-state-default");
+				$(this).addClass("ui-state-highlight");
+			},
+			function(){
+				$(this).removeClass("ui-state-highlight");
+				$(this).addClass("ui-state-default");
+			}
+		);
+	});
+</script>

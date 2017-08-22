@@ -1,0 +1,42 @@
+{% extends "iauction/base.html" %}
+{% load i18n %}
+{% load uni_form %}
+{% load avatar_tags %}
+{% load thumbnail %}
+
+{% block head_title %}iBay: {% trans "Sell an item" %}{% endblock %}
+{% block extra_head %}
+	<link rel="stylesheet" href="{{ STATIC_URL }}iknow/css/iknow_home.css" />
+	<link rel="stylesheet" href="{{ STATIC_URL }}iauction/css/iauction.css" />
+{% endblock %}
+{% block body %}
+	<div class="span-18 apage">
+		<div class="ui-widget ui-widget-content ui-corner-all info-content">
+			<h1 style="margin: 15px 0px 10px 15px;">
+				{% trans "Selling an item on iBay" %}
+			</h1>
+			<p style="margin-left: 20px;">
+				{% trans "Exchange goods/services for knowledge/information" %}
+			</p>
+			<form enctype="multipart/form-data" class="uniForm" id="submit_form" method="post" 
+					action="{% url iauction_sell %}">
+				<fieldset class="inlineLabels">
+					{{ form|as_uni_form }}
+					<div  class="form_block">
+						<input type="submit" class="ui-button ui-corner-all ui-state-default ibutton"
+							value="{% trans "Submit" %}" />
+					</div>
+				</fieldset>
+			</form>
+		</div>
+	</div>
+{% endblock %}
+
+{% block extra_body %}
+	<script type="text/javascript">
+		$(function(){
+			{% include "core/core_form_js.html" %}
+			$("#id_end_date").datepicker({minDate:1});
+		});
+	</script>
+{% endblock %}

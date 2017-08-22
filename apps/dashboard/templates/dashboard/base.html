@@ -1,0 +1,56 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+{% load avatar_tags %}
+{% block body_class %}dashboard{% endblock %}
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}iknow/css/iknow.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}dashboard/css/db.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}iknow/css/tabs-no-images.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}dashboard/css/expertise_tags.css" />
+	{% block db_extra_head %} {% endblock %}
+{% endblock %}
+
+{% block subnav %}
+	{% if user.is_authenticated %}
+		<ul>
+			<li><a href="{% url db_home user %}">{% trans "Overview"%}</a></li> 
+			<li><a href="{% url db_tags %}">{% trans "Tags Cloud" %}</a></li> 
+			<li><a href="{% url db_global %}">{% trans "Global Economy" %}</a></li> 
+			<li><a href="{% url db_social user %}">{% trans "Social Navigation" %}</a></li> 
+			<li><a href="{% url db_expertise %}">{% trans "Expertise Cloud" %}</a></li> 
+		</ul>
+	{% else %}
+		&nbsp;
+	{% endif %}
+{% endblock %}
+
+{% block body %}
+	<div class="span-24 last">
+		{% block db_body %}
+		{% endblock %}
+	</div>
+{% endblock %}
+
+{% block extra_body %}
+	<script type="text/javascript" src="{{ STATIC_URL }}core/js/jquery.tools.min.js"> </script>
+	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+	<script type="text/javascript">
+		$(function(){
+			$("input:text").addClass("ui-corner-all")
+				.css({"font-size":"12px","padding":"5px", "font-family":"Courier"}).val("");
+			$(".ui-button").hover(
+				function(){
+					$(this).removeClass("ui-state-default");
+					$(this).addClass("ui-state-highlight");
+				},
+				function(){
+					$(this).removeClass("ui-state-highlight");
+					$(this).addClass("ui-state-default");
+				}
+			);
+			$("ul.css-tabs").tabs("div.css-panes > div", {effect: 'ajax'}).history();
+		});
+	</script>
+	{% block db_extra_body %}
+	{% endblock %}
+{% endblock %}

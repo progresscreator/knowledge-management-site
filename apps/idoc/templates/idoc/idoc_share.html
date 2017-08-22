@@ -1,0 +1,65 @@
+{% extends "idoc/base.html" %}
+
+{% load i18n %}
+{% load uni_form %}
+{% block head_title %}{% trans "Upload a Document" %}{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}iknow/css/iknow.css" />
+{% endblock %}
+
+{% block body %}
+	<div class="span-24 last apage">
+		<h1> Upload a new document </h1>
+		<form class="uniForm" enctype="multipart/form-data" action="" method="post">
+			<fieldset class="inlineLabels">
+				{{ form|as_uni_form }}
+				{% if tribes %}
+					<p>
+						You are a member of some tribes, how would you like to share your question?
+					</p>
+					{% for tribe in tribes %}
+						<div class="ctrlHolder checkbox">
+							<label> {{ tribe.name }}: </label>
+							Share exclusively <input type="checkbox" name="tribeshare_{{ tribe.id }}" />
+							&nbsp;&nbsp;
+							Notify the tribe by email <input type="checkbox" name="tribeemail_{{ tribe.id }}" />
+						<p class="formHint">
+							Choose whether to share the doc with this tribe exclusively, and whether to notify your tribe.
+						</p>
+						</div>
+					{% endfor %}
+				{% endif %}
+				<div  class="form_block">
+					<input type="submit" class="ui-button ui-corner-all ui-state-default ibutton"
+						value="{% trans "Upload &raquo;" %}" />
+				</div>
+			</fieldset>
+		</form>
+	</div>
+{% endblock %}
+
+{% block extra_body %}
+	<script type="text/javascript" src="{{ STATIC_URL }}core/js/jquery.tools.min.js"> </script>
+	<script type="text/javascript">
+		$(function(){
+			$("input:text").addClass("ui-corner-all")
+				.css({"width": "500px", "font-size":"12px","padding":"5px", "font-family":"Courier"})
+				.val("");
+			$("textarea").addClass("ui-corner-all")
+				.css({"width":"500px", "font-size":"12px","padding":"5px", "font-family":"Courier"})
+				.val("");
+			$("#id_file").css({"margin":"5px 0px 5px 0px"});
+			$(".ui-button").hover(
+				function(){
+					$(this).removeClass("ui-state-default");
+					$(this).addClass("ui-state-highlight");
+				},
+				function(){
+					$(this).removeClass("ui-state-highlight");
+					$(this).addClass("ui-state-default");
+				}
+			);
+		});
+	</script>
+{% endblock %}

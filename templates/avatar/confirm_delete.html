@@ -1,0 +1,48 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Avatar - Delete" %}{% endblock %}
+
+{% block body %}
+	<div class="span-24 last apage">
+		<h1>{% trans "Avatar" %}</h1>
+		<div style="margin-left:30px;">
+			{% if not avatars %}
+				<h3>
+					You have no avatars to delete.  Please 
+					<a href="{% url avatar_change %}">upload one</a> now.
+				</h3>
+			{% else %}
+				<h3>Select which avatars to delete:</h3>
+				<form method="POST" action="">
+					<ul class="avatar_choices">
+						{{ delete_avatar_form.choices }}
+					</ul>
+					<input type="hidden" name="next" value="{% url avatar_change %}" />
+					<input type="submit" class="ui-button ui-corner-all ui-state-default ibutton"
+						value="Delete These" />
+				</form>
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}
+
+{% block extra_body %}
+    {% load jquery_validation %}
+    {% include_validation %}
+    <script type="text/javascript">
+        $(function(){
+			$(".ui-button").hover(
+				function(){
+					$(this).removeClass("ui-state-default");
+					$(this).addClass("ui-state-highlight");
+				},
+				function(){
+					$(this).removeClass("ui-state-highlight");
+					$(this).addClass("ui-state-default");
+				}
+			);
+        });
+    </script>
+{% endblock %}

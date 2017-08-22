@@ -1,0 +1,81 @@
+h3 { 
+	font-size: 14px;
+	color:	#357EC7;
+	font-family: 'Trebuchet MS', 'Arial Black', Helvetica, sans-serif;
+}
+div.product-block {
+	width: 158px;
+	height: 280px;
+	margin: 5px 5px;
+	padding-top: 5px;
+	float: left;
+}
+div.product-block h3 { 
+	font-size: 13px; 
+	margin: 5px 10px 5px 10px;
+	height: 45px;
+	overflow: hidden;
+}
+div.product-block h3 a { 
+	color:#e17009;
+	text-decoration: none;
+}
+div.product-block h4, div.price-tag h4{
+	font-size: 11px;
+	color: #41A317;
+	margin-left: 20px;
+	margin-bottom: 5px;
+}
+div.product-block div.product-image{
+	margin-left: 5px;
+	width: 150px;
+	height: 150px;
+}
+div.bid-price {
+	width: 86px;
+	height: 25px;
+	margin-top: 5px;
+	margin-left: 37px;
+	margin-bottom: 5px;
+	text-align: center;
+	background: #357EC7;
+	color: white;
+	padding-top: 2px;
+}
+h2.product-name {
+	font-size: 18px;
+	color: #2B3856;
+}
+table.auctable, table.wontable  {
+	width: 700px;
+	table-layout: fixed;
+	border-collapse:collapse;
+	font-size: 11px;
+}
+table.auctable td, table.wontable td {
+	overflow: hidden;
+	white-space: nowrap;
+}
+table.auctable td.t_product, table.auctable th.t_product { width:63%; }
+table.auctable td.t_current_price, table.auctable th.t_current_price { text-align: center;width:13%; }
+table.auctable td.t_status, table.auctable th.t_status { text-align: center;width:10%; }
+table.auctable td.t_time_left, table.auctable th.t_time_left { text-align: center;width:14%; }
+table.wontable td.w_product, table.wontable th.w_product { width:50%; }
+table.wontable td.w_price, table.wontable th.w_price { text-align: center;width:15%; }
+table.wontable td.w_status, table.wontable th.w_status { text-align: center;width:15%; }
+table.wontable td.w_time, table.wontable th.w_time { text-align: center;width:20%; }
+table.auctable td.t_product a, table.wontable td.w_product a{
+	text-decoration: none;
+	color:#e17009;
+}
+#bid-amount {
+	width: 86px;
+	height: 22px;
+	text-align: center;
+	margin-top: 0px;
+}
+label.anony {
+	font-weight: normal;
+	font-size: 11px;
+	color: #2B3856;
+}

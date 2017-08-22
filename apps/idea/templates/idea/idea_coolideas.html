@@ -1,0 +1,154 @@
+{% extends "idea/base.html" %}
+{% load i18n %}
+{% load avatar_tags %}
+{% load thumbnail %}
+{% load idea_tags %}
+
+{% block head_title %} {% trans "All cool ideas" %} {% endblock %}
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}iknow/css/iknow_home.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}idea/css/idea.css" />
+	<link rel="stylesheet" href="{{ STATIC_URL }}core/css/page_bar.css" />
+{% endblock %}
+
+{% block body %}
+	<h1> {% trans "Browse all cool ideas" %}</h1>
+	<div class="ui-widget ui-corner-all info-block">
+		<div class="ui-widget-content ui-corner-bottom idea-list">
+			<div id="order-radio" style="float:right; margin-bottom:15px;">
+				<strong>{% trans "Sort by" %}</strong>: &nbsp;&nbsp;
+				<input type="radio" id="radio1" name="radio" value="a"
+					{% ifequal order "time" %} checked="checked" {% endifequal %}
+				/><label for="radio1"> Time   </label>
+				<input type="radio" id="radio2" name="radio" value="b"
+					{% ifequal order "thumbs" %} checked="checked" {% endifequal %}
+				/><label for="radio2"> Thumb  </label>
+				<input type="radio" id="radio3" name="radio" value="c"
+					{% ifequal order "rating" %} checked="checked" {% endifequal %}
+				/><label for="radio3"> Rating </label>
+				<input type="radio" id="radio4" name="radio" value="d"
+					{% ifequal order "user" %} checked="checked" {% endifequal %}
+				/><label for="radio4"> User   </label>
+			</div>
+			<div class="clearfix"></div>
+			{% if ideas.object_list %}
+				{% for idea in ideas.object_list %}
+					{% idea_coolidea idea %}
+				{% endfor %}
+			{% else %}
+				<p>
+					{% trans "I have no idea!" %}
+				</p>
+			{% endif %}
+			<div class="clearfix"></div>
+			<ul class="page-bar">
+				{% if ideas.has_previous %}
+					<li class="ui-state-default ui-corner-all left-end" >
+				{% else %}
+					<li class="ui-state-disabled ui-corner-all">
+				{% endif %}
+					<span class="ui-icon ui-icon-arrowthickstop-1-w"></span>
+				</li>
+				{% if ideas.has_previous %}
+					<li class="ui-state-default ui-corner-all left-prev" >
+				{% else %}
+					<li class="ui-state-disabled ui-corner-all">
+				{% endif %}
+					<span class="ui-icon ui-icon-arrowthick-1-w"></span>
+				</li>
+				<li class="page-number">
+					page {{ page }}
+				</li>
+				{% if ideas.has_next %}
+					<li class="ui-state-default ui-corner-all right-next">
+				{% else %}
+					<li class="ui-state-disabled ui-corner-all">
+				{% endif %}
+					<span class="ui-icon ui-icon-arrowthick-1-e"></span>
+				</li>
+				{% if ideas.has_next %}
+					<li class="ui-state-default ui-corner-all right-end">
+				{% else %}
+					<li class="ui-state-disabled ui-corner-all">
+				{% endif %}
+					<span class="ui-icon ui-icon-arrowthickstop-1-e"></span>
+				</li>
+				{% ifnotequal total_pages 1 %} {% ifnotequal total_pages 0 %}
+					<li class="jump">
+						Jump to
+						<input id="jump-input" class="ui-widget-content ui-corner-all" type="text" />
+					</li>
+				{% endifnotequal %} {% endifnotequal %}
+				<li style="float: right;">
+					{{ total_pages }} page(s) in total
+				</li>
+			</ul>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block extra_body %}
+	<script type="text/javascript">
+		$(function(){
+			var order = "{{ order }}";
+			var page = {{ page }};
+			var total_pages = {{ total_pages }};
+			var target_url = "{% url idea_coolideas %}";
+			$("#order-radio").buttonset();
+			$("input[name='radio']").change(function(){
+			    if ($("input[name='radio']:checked").val() == 'a') {
+					window.location = target_url + "?order=time&page=1"
+				}
+				else if ($("input[name='radio']:checked").val() == 'b') {
+					window.location = target_url + "?order=thumbs&page=1"
+				}
+				else if ($("input[name='radio']:checked").val() == 'c') {
+					window.location = target_url + "?order=rating&page=1"
+				}
+				else {
+					window.location = target_url + "?order=user&page=1"
+				}
+			});
+
+			$("#jump-input").keypress(function(e){
+				if (e.which == 13) {
+					var gpage = parseInt(this.value);
+					if ((gpage > 0) && (gpage <= total_pages) && (gpage != page)) {
+						window.location = target_url + "?order=" + order + "&page=" + gpage;
+					}
+				}
+			});
+			$("li.right-next").click(function(){
+				if (page < total_pages) {
+					window.location = target_url + "?order=" + order + "&page=" + (page+1);
+				}
+			});
+			$("li.left-prev").click(function(){
+				if (page > 0) {
+					window.location = target_url + "?order=" + order + "&page=" + (page-1);
+				}
+			});
+			$("li.left-end").click(function(){
+				if (page > 0) {
+					window.location = target_url + "?order=" + order + "&page=" + 1;
+				}
+			});
+			$("li.right-end").click(function(){
+				if (page < total_pages ) {
+					window.location = target_url + "?order=" + order + "&page=" + total_pages;
+				}
+			});
+			$("li.ui-state-default").hover(
+				function(){
+					$(this).removeClass("ui-state-default");
+					$(this).addClass("ui-state-highlight");
+				},
+				function(){
+					$(this).removeClass("ui-state-highlight");
+					$(this).addClass("ui-state-default");
+				}
+			);
+		});
+	</script>
+{% endblock %}

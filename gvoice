@@ -1,0 +1,18 @@
+
+[auth]
+# Google Account email address (one associated w/ your Voice account)
+email=barter.pwe@gmail.com
+
+# Raw password used or login
+password=knowledgebarter
+
+[gvoice]
+# Number to place calls from (eg, your google voice number)
+forwardingNumber=6172991886
+
+# Default phoneType for your forwardingNumber as defined below
+#  1 - Home
+#  2 - Mobile
+#  3 - Work
+#  7 - Gizmo
+phoneType=1

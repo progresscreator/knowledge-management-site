@@ -1,0 +1,39 @@
+{% extends "inews/base.html" %}
+{% load i18n %}
+
+{% block head_title %}{% trans "iNews articles" %}{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}inews/css/inews.css" />
+    <link reld="stylesheet" href="{{ STATIC_URL }}inews/css/inews_home.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}inews/css/tabs-home.css" />
+{% endblock %}
+
+{% block body %}
+	<div class="span-24 last">
+		<h3> {% trans "Browse all articles" %} </h3>	
+		<div id="tabs">
+			<ul>
+				<li><a href="{% url inews_ajax_articles "h_top_value" %}"><span>{% trans "Top Value" %}</span></a></li>
+				<li><a href="{% url inews_ajax_articles "h_top_votes" %}">{% trans "Top Votes" %}</a></li>
+				<li><a href="{% url inews_ajax_articles "h_whats_new" %}">{% trans "What's New" %}</a></li>
+				<li><a href="{% url inews_ajax_articles "all" %}">{% trans "All" %}</a></li>
+			</ul>
+		</div>
+	</div>
+{% endblock %}
+
+{% block extra_body %}
+	<script type="text/javascript">
+		$(function(){
+			$("#tabs").tabs({
+				ajaxOptions: {
+					error: function(xhr, status, index, anchor) {
+					$(anchor.hash).html("Couldn't load this tab. Administrators are working to fix this.");
+					}
+				}
+			});
+		});
+	</script>
+
+{% endblock %}

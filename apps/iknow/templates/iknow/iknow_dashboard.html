@@ -1,0 +1,100 @@
+{% extends "iknow/base.html" %}
+{% load i18n %}
+{% load avatar_tags %}
+{% block head_title %}
+	{% blocktrans with duser.egghead.display_name as display_name %}
+		Dashboard of {{ display_name }}
+	{% endblocktrans %}
+{% endblock %}
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}iknow/css/iknow.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}iknow/css/tabs-no-images.css" />
+	<link rel="stylesheet" type="text/css" href="http://visapi-gadgets.googlecode.com/svn/trunk/termcloud/tc.css"/>
+{% endblock %}
+
+{% block body %}
+	<div class="span-24 last">
+		<h3 style="margin-left:0px;">
+			{% blocktrans with duser.egghead.display_name as display_name %}
+				{{ display_name }}'s iKnow Dashboard
+			{% endblocktrans %}
+		</h3>
+	</div>
+	<div class="span-24 last">
+		<div class="span-4 profile">
+			<a href="{% url egghead_detail duser.username %}">
+				{% avatar duser 120 %}
+			</a>
+		</div>
+		<div class="span-14">
+			<div class="profile">
+				<p>
+					{% trans "Wealth Balance" %}: <strong>{{ egghead.wealth_notes }}</strong>
+					({% trans "Rank" %}: <strong>{{ egghead.get_ranking_by_wealth }}</strong>) <br />
+					{% trans "Available credits" %}: <strong>{{ egghead.available_credits }} </strong><br />
+					{% trans "Questions asked" %}: <strong>{{ egghead.count_questions_all }} </strong>
+					({% trans "Solved" %}: <strong>{{ egghead.count_questions_solved }}</strong>, 
+					{% trans "on market" %}: <strong>{{ egghead.count_questions_inmarket }}</strong>) <br />
+					{% trans "Questions answered" %}: <strong>{{ egghead.count_answers_all }}</strong>
+				</p>
+				<h4> {% trans "Performance" %} </h4>
+				<p>
+					{% trans "Average rating of answers" %}: <strong>{{ egghead.average_answer_rating }}</strong> <br />
+					{% trans "Average thumbs of answers" %}: <strong>{{ egghead.average_answer_thumbs }}</strong> <br />
+					{% blocktrans with egghead.count_answers_pos_points as count_answers_pos_points and egghead.total_answers_points as total_answers_points %}
+						{{ count_answers_pos_points }} answers received points,
+						{{ total_answers_points }} points made in total
+					{% endblocktrans %}
+				</p>
+			</div>
+		</div>
+		<div class="span-6 last">
+			<div id="tags_vis" class="ui-corner-all ui-widget ui-widget-content"
+				style="padding: 10px; background: white;">
+			</div>
+		</div>
+	</div>
+	<div style="margin-top:20px;"class="span-24 last">
+		<div id="tabs">
+			<ul>
+				<li><a href="{% url iknow_ajax_dashboard duser.username "asked" %}"><span>{% trans "Questions Asked" %}</span></a></li>
+				<li><a href="{% url iknow_ajax_dashboard duser.username "answered" %}">{% trans "Questions Answered" %}</a></li>
+				<li><a href="{% url iknow_ajax_questions "my_favorite" %}">{% trans "My favorites" %}</a></li>
+				<li><a href="{% url iknow_ajax_dashboard duser.username "transaction" %}">{% trans "Transaction History" %}</a></li>
+			</ul>
+		</div>
+	</div>
+{% endblock %}
+
+{% block extra_body %}
+	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+	<script type="text/javascript" src="http://visapi-gadgets.googlecode.com/svn/trunk/termcloud/tc.js"></script>
+	<script type="text/javascript">
+		google.load("visualization", "1");
+		google.setOnLoadCallback(draw);
+		$(function(){
+			$("#tabs").tabs({
+				ajaxOptions: {
+					error: function(xhr, status, index, anchor) {
+					$(anchor.hash).html("Couldn't load this tab. We'll try to fix this as soon as possible. If this wouldn't be a demo.");
+					}
+				}
+			});
+		});
+		function draw() {
+			var query = new google.visualization.Query("{% url vis_json_tag_cloud_user duser %}");
+			query.send(handleQueryResponse);
+		}
+		function handleQueryResponse(response) {
+			if (response.isError()) {
+				alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+				return;
+			}
+			var data = response.getDataTable();
+			var outputDiv = document.getElementById('tags_vis');
+			var tc = new TermCloud(outputDiv);
+			tc.draw(data, null);
+		}
+	</script>
+
+{% endblock %}

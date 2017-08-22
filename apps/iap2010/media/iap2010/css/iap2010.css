@@ -1,0 +1,27 @@
+.small-headline {
+	font-size: 11px;
+	line-height: 14px;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	font-weight: bold;
+}
+
+.large-headline {
+	font-family: times, Times New Roman, times-roman, georgia, serif;
+	color: #444;
+	margin: 0;
+	padding: 0px 0px 6px 0px;
+	font-size: 32px;
+	line-height: 44px;
+	letter-spacing: 0px;
+	font-weight: bold;
+}
+p {
+	margin: 10px 0px;
+}
+p.quotes {
+	margin: 10px 0px;
+	padding-left: 30px;
+	color: #FF0080;
+	font-family: Verdana, Geneva, sans-serif;
+}

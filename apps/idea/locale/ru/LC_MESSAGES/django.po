@@ -1,0 +1,507 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-10-13 15:30-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: forms.py:7
+msgid "Midnight"
+msgstr "Полночь"
+
+#: forms.py:16
+msgid "Title"
+msgstr "Титул"
+
+#: forms.py:17
+msgid "The title of your cool idea is required"
+msgstr "Требуется придать титул вашей идеи"
+
+#: forms.py:18
+msgid "Provide a title of your cool idea"
+msgstr "Как вы хотите озаглавит вашу идею"
+
+#: forms.py:20
+msgid "Collaborators"
+msgstr "Работаем вместе"
+
+#: forms.py:21
+msgid ""
+"Who are collaborators of your idea inside Barter? Type their names or \t\t\t"
+"\t\t\tusernames and select from the dropdown menu. Don't change how it's "
+"formatted."
+msgstr ""
+"С кем вы сотрудничаете по вашей идее? Включите их из имена или \t\t\t"
+"\t\t\tники, можете выбрать из меню. Меню нельзя изменять, оставьте как есть."
+"formatted."
+
+#: forms.py:24
+msgid "External collaborators"
+msgstr "Коллабораторы вне платформы"
+
+#: forms.py:25
+msgid ""
+"Who are collaborators of your idea external to Barter?\t\t\t\t\t\tList their "
+"names separated by commas."
+msgstr ""
+"С кем вы сотрудничаете по вашей идее вне платформы? \t\t\t\t\t\tВключите их имена "
+"names separated by commas."
+
+#: forms.py:28
+msgid "Details"
+msgstr "Подробности"
+
+#: forms.py:29
+msgid "More details about your cool idea"
+msgstr "Расскажите о вашей идеи более подробно"
+
+#: forms.py:45 templates/idea/idea_coolidea.html:73
+msgid "Tags"
+msgstr "Теги"
+
+#: forms.py:46
+msgid ""
+"Index your idea with sufficient and accurate tags. Use a\t\t\t\t\t\tcomma-"
+"separated list of tags. Choose from the dropdown menu or type\t\t\t\t\t\ta "
+"new tag."
+msgstr ""
+"Категоризируйте вашу идею необходимыми и точными тегами. Use a\t\t\t\t\t\tcomma-"
+"выберите теги из меню либо type\t\t\t\t\t\ta "
+"дайте новый тег."
+
+#: forms.py:50
+msgid "File"
+msgstr "Файл"
+
+#: forms.py:51
+msgid "You can upload a document together with your idea"
+msgstr "Вы можете приложить документ вместе с вашей идеей"
+
+#: forms.py:53
+msgid "Picture"
+msgstr "Фото"
+
+#: forms.py:54
+msgid ""
+"You can upload an image associated with your idea (Optional)\t\t\t\t\t"
+"\twhich can be directly rendered and displayed on the idea interface."
+msgstr ""
+"Вы можете загрузить фото относящееся к вашей идеи (Optional)\t\t\t\t\t"
+"\tданная фотография будет появляться вместе с вашей идеей."
+
+
+#: models.py:15
+msgid "Active"
+msgstr "Активный"
+
+#: models.py:16
+msgid "Extended"
+msgstr "Продленный"
+
+#: models.py:17
+msgid "Closed"
+msgstr "Закрытый"
+
+#: models.py:68
+msgid "N/A"
+msgstr "Недоступный"
+
+#: models.py:87
+#, python-format
+msgid "%(thumber_name)s thumbs up on %(idea_title)s"
+msgstr "%(thumber_name)s поддержал %(idea_title)s"
+
+#: models.py:92
+#, python-format
+msgid "%(thumber_name)s thumbs down on %(idea_title)s"
+msgstr "%(thumber_name)s не поддержал %(idea_title)s"
+
+#: models.py:104
+#, python-format
+msgid "%(rater_name)s gives %(idea_title)s a rating of %(rating)d"
+msgstr "%(rater_name)s придать %(idea_title)s рейтинг %(rating)d"
+
+#: models.py:123
+#, python-format
+msgid "%(commentor_name)s comments on the idea %(idea_title)s"
+msgstr "%(commentor_name)s прокомментировать идею %(idea_title)s"
+
+#: models.py:145
+#, python-format
+msgid ""
+"%(thumber_name)s thumbs up on %(commentor_name)s's comment on %(idea_title)s"
+msgstr ""
+"%(thumber_name)s поддержать %(commentor_name)s за комментарий %(idea_title)s"
+
+
+#: models.py:151
+#, python-format
+msgid ""
+"%(thumber_name)s thumbs down on %(commentor_name)s's comment on "
+"%(idea_title)s"
+msgstr ""
+"%(thumber_name)s не поддержать %(commentor_name)s за комментарий "
+"%(idea_title)s"
+
+#: models.py:164
+msgid "Comment tip"
+msgstr "Вознаграждение за комментарий"
+
+#: models.py:179
+#, python-format
+msgid ""
+"[ iDea ] %(time)s: %(amount)d points frozen from %(user_name)s's account for "
+"rewarding contributors to the idea '%(idea_name)s'"
+msgstr ""
+"[ iDea ] %(time)s: %(amount)d заблокированных баллов со счета %(user_name)s на "
+"вознаграждение за вклад в развитие идеи '%(idea_name)s'"
+
+#: models.py:186
+#, python-format
+msgid ""
+"[ iDea ] %(time)s: %(amount)d points unfrozen to %(user_name)s's account for "
+"rewarding contributors to the idea '%(idea_name)s'"
+msgstr ""
+"[ iDea ] %(time)s: %(amount)d баллов разблокировать со счета %(user_name)s на "
+"вознаграждение за вклад в развитие идеи'%(idea_name)s'"
+
+#: models.py:205
+#, python-format
+msgid ""
+"[ iDea - S ] %(time)s: %(dst_name)s is awarded %(amount)d points for "
+"thumbing up/down on the idea '%(idea_title)s'"
+msgstr ""
+"[ iDea - S ] %(time)s: %(dst_name)s получил %(amount)d баллов за "
+"поддержку/ либо не поддержку идеи '%(idea_title)s'"
+
+#: models.py:212
+#, python-format
+msgid ""
+"[ iDea - S ] %(time)s: %(dst_name)s is awarded %(amount)d points for rating "
+"the idea '%(idea_title)s'"
+msgstr ""
+"[ iDea - S ] %(time)s: %(dst_name)s получил %(amount)d баллов за то что дал рейтинг "
+"идеи'%(idea_title)s'"
+
+#: models.py:219
+#, python-format
+msgid ""
+"[ iDea - S ] %(time)s: %(dst_name)s is awarded %(amount)d points for "
+"commenting on the idea '%(idea_title)s'"
+msgstr ""
+"[ iDea - S ] %(time)s: %(dst_name)s получил %(amount)d баллов за "
+"комментарий по поводу идеи '%(idea_title)s'"
+
+#: models.py:226
+#, python-format
+msgid ""
+"[ iDea - S ] %(time)s: %(dst_name)s is awarded %(amount)d points for "
+"thumbing up/down on %(commentor_name)s's comment to the idea '%(idea_title)s'"
+msgstr ""
+"[ iDea - S ] %(time)s: %(dst_name)s вознаграждение  %(amount)d баллов за "
+"поддержаку либо не поддержку %(commentor_name)s за комментарий по поводу идеи о '%(idea_title)s'"
+
+#: models.py:234
+#, python-format
+msgid ""
+"[ iDea - S ] %(time)s: %(tipper_name)s tips %(dst_name)s %(amount)d points "
+"for the comment to the idea '%(idea_title)s'"
+msgstr ""
+"[ iDea - S ] %(time)s: %(tipper_name)s вознаграждение %(dst_name)s %(amount)d баллов "
+"за комментарий по поводу идеи о'%(idea_title)s'"
+
+#: models.py:242
+msgid "Unknown iDea transaction"
+msgstr "Неизвестная операция iDea"
+
+#: models.py:247 models.py:258
+msgid "World Bank"
+msgstr "Общественный банк"
+
+#: models.py:253 models.py:264
+msgid "Unknown"
+msgstr "Неизвестный"
+
+#: models.py:268
+#, python-format
+msgid "Thumbing up/down on the idea '%(idea_title)s'"
+msgstr "Поддержать либо не поддержать идею '%(idea_title)s'"
+
+#: models.py:272
+#, python-format
+msgid "Rating the idea '%(idea_title)s'"
+msgstr "Рейтинг идеи '%(idea_title)s'"
+
+#: models.py:276
+#, python-format
+msgid "Commenting on the idea '%(idea_title)s'"
+msgstr "Комментировать идею '%(idea_title)s'"
+
+#: models.py:280
+#, python-format
+msgid ""
+"Thumbing up/down on %(commentor_name)s's comment to the idea '%(idea_title)s'"
+msgstr ""
+"Поддержать либо не поддержать комментарий %(commentor_name)s по поводу идеи о '%(idea_title)s'"
+
+#: models.py:285
+#, python-format
+msgid ""
+"Tipping for the %(commentor_name)s's comment to the idea '%(idea_title)s'"
+msgstr ""
+"Вознаграждать %(commentor_name)s за комментарий по поводу идеи о'%(idea_title)s'"
+
+#: models.py:290
+msgid "CoolIdea transactions"
+msgstr "Транзакция CoolIdea"
+
+#: views.py:123
+msgid "You rated the idea with <strong>"
+msgstr "Вы дали рейтинг этой идеи как <сильная>"
+
+#: views.py:127
+msgid "You have never rated this idea. Why not provide one?"
+msgstr "Вы пока еще не давали рейтинг этой идеи. Почему бы не сделать это сейчас"
+
+#: views.py:354
+#, python-format
+msgid ""
+"Your comment received %(tip_amount)d points tipping from %(tipper_name)s"
+msgstr ""
+"Ваш комментарий получил %(tip_amount)d баллов вознаграждения от %(tipper_name)s" 
+
+#: templates/idea/base.html:9
+msgid "Home"
+msgstr "Начало"
+
+#: templates/idea/base.html:10
+msgid "Search"
+msgstr "Поиск"
+
+#: templates/idea/base.html:11 templates/idea/idea_coolidea_submit.html:5
+msgid "Submit a cool idea"
+msgstr "Представить классную идею"
+
+#: templates/idea/base.html:12 templates/idea/idea_coolideas.html:7
+msgid "All cool ideas"
+msgstr "Все классные идеи"
+
+#: templates/idea/coolidea_tag.html:26
+msgid "rating"
+msgstr "рейтинг"
+
+#: templates/idea/coolidea_tag.html:28
+msgid "comments"
+msgstr "комментарии"
+
+#: templates/idea/idea_coolidea.html:6
+msgid "Cool Idea"
+msgstr "Классная идея"
+
+#: templates/idea/idea_coolidea.html:17
+msgid "Tipping"
+msgstr "Вознаграждать"
+
+#: templates/idea/idea_coolidea.html:19
+msgid "Tips"
+msgstr "Вознаграждение"
+
+#: templates/idea/idea_coolidea.html:55
+msgid "Team"
+msgstr "Команда"
+
+#: templates/idea/idea_coolidea.html:67
+msgid "External Collaborators"
+msgstr "Внешние участники"
+
+#: templates/idea/idea_coolidea.html:90 templates/idea/idea_coolidea.html:102
+#: templates/idea/idea_coolidea.html:108
+msgid "Attachment"
+msgstr "Приложение"
+
+#: templates/idea/idea_coolidea.html:95
+msgid "Download"
+msgstr "Загрузить"
+
+#: templates/idea/idea_coolidea.html:138
+msgid "Leave a comment"
+msgstr "Оставьте комментарий"
+
+#: templates/idea/idea_coolidea.html:156
+msgid "Recent voting History"
+msgstr "Недавняя история голосования"
+
+#: templates/idea/idea_coolidea.html:161
+msgid "thumb(s)"
+msgstr "голоса"
+
+#: templates/idea/idea_coolidea.html:169
+msgid "liked the idea"
+msgstr "мне нравиться эта идея"
+
+#: templates/idea/idea_coolidea.html:172
+msgid "disliked the idea"
+msgstr "это идея мне не нравиться"
+
+#: templates/idea/idea_coolidea.html:178
+msgid "No one has shown any opinions yet"
+msgstr "Никто не поделился своим мнением"
+
+#: templates/idea/idea_coolidea.html:185
+msgid "Recent rating history"
+msgstr "Недавняя рейтиговая история"
+
+#: templates/idea/idea_coolidea.html:202
+msgid "No user has rated this cool idea"
+msgstr "Никто из пользователей не дали рейтинг этой классной идеи"
+
+#: templates/idea/idea_coolidea.html:288
+msgid "Thank you for rating the idea, 2 points were awarded to your account"
+msgstr "Спасибо за рейтинг идеи, 2 балла будут перечислены на ваш счет"
+
+#: templates/idea/idea_coolidea.html:291
+msgid "Thank you for rating the idea!"
+msgstr "Спасибо за то что придали рейтинг идеи"
+
+#: templates/idea/idea_coolidea.html:294
+msgid "rating error!"
+msgstr "ошибка рейтинга"
+
+#: templates/idea/idea_coolidea_comments.html:7
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t%(count)s comment\n"
+"\t\t\t"
+msgid_plural ""
+"\n"
+"\t\t\t\t%(count)s comments\n"
+"\t\t\t"
+msgstr[0] ""
+"\n"
+"\t\t\t\t%(count)s комментарий\n"
+"\t\t\t"
+msgstr[1] ""
+"\n"
+"\t\t\t\t%(count)s комментариев\n"
+"\t\t\t"
+
+#: templates/idea/idea_coolidea_comments.html:14
+#: templates/idea/idea_coolideas.html:19
+msgid "Sort by"
+msgstr "Сортировать по"
+
+#: templates/idea/idea_coolidea_comments.html:58
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t\t\t\t\t%(tipper_name)s tipped \n"
+"\t\t\t\t\t\t\t\t\t<img src=\"%(STATIC_URL)siknow/images/coin_13x13.png\" />\n"
+"\t\t\t\t\t\t\t\t%(amount)s on %(date)s\n"
+"\t\t\t\t\t\t\t\t"
+msgstr ""
+"\n"
+"\t\t\t\t\t\t\t\t%(tipper_name)s tipped \n"
+"\t\t\t\t\t\t\t\t\t<img src=\"%(STATIC_URL)siknow/images/coin_13x13.png\" />\n"
+"\t\t\t\t\t\t\t\t%(amount)s on %(date)s\n"
+"\t\t\t\t\t\t\t\t"
+
+#: templates/idea/idea_coolideas.html:15
+msgid "Browse all cool ideas"
+msgstr "Пролистать все классные идеи"
+
+#: templates/idea/idea_coolideas.html:40
+msgid "I have no idea!"
+msgstr "У меня пока нет идей"
+
+#: templates/idea/idea_home.html:7
+msgid "iDea"
+msgstr "iDea"
+
+#: templates/idea/idea_home.html:18
+msgid "New cool ideas"
+msgstr "Новые классные идеи"
+
+#: templates/idea/idea_home.html:27
+msgid "Browse more"
+msgstr "Продолжить поиск"
+
+#: templates/idea/idea_home.html:32
+msgid "No one has submitted any new cool ideas yet."
+msgstr "Никто пока не представил классную идею"
+
+#: templates/idea/idea_home.html:40
+msgid "Top 5 ideas by thumbs"
+msgstr "Лучшие пять идей по результату голосования"
+
+#: templates/idea/idea_home.html:41
+msgid "Top 5 ideas by rating"
+msgstr "Лучшие пять идей по рейтингу"
+
+#: templates/idea/idea_home.html:50 templates/idea/idea_home.html.py:61
+msgid "Well, top 5 doesn't seem to be ready yet."
+msgstr "Пока 5 лучших идей еще не готовы"
+
+#: templates/idea/idea_home.html:68
+msgid "Cool ideas that you have submitted"
+msgstr "Классные идеи которые вы представали"
+
+#: templates/idea/idea_home.html:77
+msgid "You haven't submitted any new cool idea yet."
+msgstr "Вы еще не представили ни одной классной идеи"
+
+#: templates/idea/idea_home.html:85
+msgid "Cool ideas that list you as a collaborator"
+msgstr "Классная идея в которой вы числитесь как член комманды"
+
+#: templates/idea/idea_home.html:94
+msgid "No idea lists you as a collaborator."
+msgstr "Вы не числитесь ни в одной команде"
+
+#: templates/idea/idea_home.html:104
+msgid ""
+"\n"
+"\t\t\t\tiDea is a marketplace where innovative spirits get inspired and "
+"innovation gets created, evaluated and promoted.\n"
+"\t\t\t\t"
+msgstr ""
+"\n"
+"\t\t\t\tiDea это торговая площадка полная новых идей "
+"здесь инновации создаются, оцениваются и воплощаются в жизнь.\n"
+"\t\t\t\t"
+
+#: templates/idea/idea_home.html:117
+msgid "Search ideas"
+msgstr "Поийс идей"
+
+#: templates/idea/idea_search.html:6
+msgid "iDea Search"
+msgstr "Поиск в iDea"
+
+#: templates/idea/idea_search.html:18
+msgid "Input keywords"
+msgstr "Вводные клавиши"
+
+#: templates/idea/idea_search.html:22
+msgid "Search cool ideas"
+msgstr "Поиск классных идей"
+
+#: templates/idea/idea_search.html:27
+msgid "Results"
+msgstr "Результаты"
+
+#: templates/idea/idea_search.html:34
+msgid "No matched results"
+msgstr "Нет данных на ваш запрос"

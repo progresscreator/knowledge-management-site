@@ -1,0 +1,18 @@
+{% load i18n %}
+{% blocktrans with answer.question.question_title|safe as question_title and tip.amount as amount and tip.tipper_name as tipper_name %}
+Your answer to the question
+
+	{{ question_title }}
+
+	just received {{ amount }} points tipping from {{ tipper_name }}.
+{% endblocktrans %}
+
+{% trans "You could visit the link below to review the update" %}. {% trans "Thanks for your participation" %}.
+	http://{{ current_site.domain }}/iknow/question/{{ answer.question.id }}/
+{% blocktrans with current_site.name as site_name %}
+To change your settings on receiving notifications from {{ site_name }}, visit
+{% endblocktrans %}
+	http://{{ current_site.domain }}/barter/settings/
+{% blocktrans with current_site.name as site_name %}
+- {{ site_name }} Team
+{% endblocktrans %}

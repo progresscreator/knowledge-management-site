@@ -1,0 +1,48 @@
+{% extends "idoc/base.html" %}
+{% load i18n %}
+{% load uni_form %}
+{% block head_title %}{% trans "Edit a Document" %}{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}idoc/css/idoc.css" />
+{% endblock %}
+
+{% block body %}
+	<div class="span-18 apage">
+		<div class="ui-widget ui-widget-content ui-corner-all info-content">
+			{% ifequal user.id doc.creator.id %}
+				<h1 style="font-size: 15px; margin: 15px 0px 10px 15px;">
+					{% trans "Edit the document" %} - {{ doc.title }}
+				</h1>
+				<form enctype="multipart/form-data" class="uniForm" id="submit_form" method="post" 
+						action="">
+					<fieldset class="inlineLabels">
+						{{ form|as_uni_form }}
+						<div  class="form_block">
+							<input class="ibutton" type="submit" value="{% trans "Submit" %}" />
+						</div>
+					</fieldset>
+				</form>
+			{% else %}
+				<h1 style="font-size: 15px; margin: 15px 0px 10px 15px;">
+					{% trans "You cannot edit a document that wasn't uploaded by you" %}!
+				</h1>
+				<p>
+					<a style="font-size:11px;"id="back" href="{{ doc.get_absolute_url }}">{% trans "Go back" %}</a>
+				</p>
+			{% endifequal %}
+		</div>
+	</div>
+{% endblock %}
+
+{% block extra_body %}
+	<script type="text/javascript" src="{{ STATIC_URL }}core/js/jquery.tools.min.js"> </script>
+	<script type="text/javascript">
+		$(function(){
+			$("#id_file").css({"margin":"5px 0px 5px 0px"});
+			{% include "core/core_form_js.html" %}
+			$("input:submit").button();
+			$("#back").button();
+		});
+	</script>
+{% endblock %}

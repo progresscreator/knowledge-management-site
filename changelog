@@ -1,0 +1,11 @@
+
+Fully Complete
+apps/core/locale/fr/LC_MESSAGES/django.po
+apps/egghead/locale/fr/LC_MESSAGES/django.po
+apps/iauction/locale/fr/LC_MESSAGES/django.po
+apps/idea/locale/fr/LC_MESSAGES/django.po
+apps/idoc/locale/fr/LC_MESSAGES/django.po
+apps/iknow/locale/fr/LC_MESSAGES/django.po
+apps/worldbank/locale/fr/LC_MESSAGES/django.po
+apps/dashboard/locale/fr/LC_MESSAGES/django.po
+apps/idesign/locale/fr/LC_MESSAGES/django.po

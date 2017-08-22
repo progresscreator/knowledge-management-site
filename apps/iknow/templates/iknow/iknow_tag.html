@@ -1,0 +1,75 @@
+{% extends "iknow/base.html" %}
+{% load i18n %}
+{% block head_title %}{% trans "iKnow tag" %}: {{ tag.name }}{% endblock %}
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}iknow/css/iknow.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}idoc/css/idoc.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}iknow/css/tabs-home.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}iknow/css/iknow_home.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}dashboard/css/expertise_tags.css" />
+	<style type="text/css">
+		h1.tag-title {
+			font-size: 20px;
+			margin-bottom: 20px;
+			color: #FF9834;
+			font-family: 'Trebuchet MS', 'Arial Black', Helvetica, sans-serif;
+		}
+	</style>
+{% endblock %}
+
+{% block body %}
+	<div class="span-5">
+		<div class="ui-widget ui-corner-all info-block">
+			<div class="ui-widget-header ui-corner-top info-header">
+				{% trans "Tag cloud panel" %}
+			</div>
+			<div class="ui-widget-content ui-corner-bottom info-content">
+				<div id="tags_vis">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="span-19 last">
+		<h1 class="tag-title"> {% trans "Tag" %}: {{ tag.name }} </h1>
+		<h3> {% trans "Count" %}: {{ tag.count }} </h3>
+		<div id="tabs">
+			<ul>
+				<li><a href="{% url iknow_ajax_tag_questions "all" tag.id %}"><span>{% trans "Questions" %}</span></a></li>
+				<li><a href="{% url idoc_ajax_tag_docs "all_questions" tag.id %}">{% trans "Documents" %}</a></li>
+				<li><a href="{% url core_tag_experts tag.id %}">{% trans "Experts" %}</a></li>
+			</ul>
+		</div>
+	</div>
+{% endblock %}
+
+{% block extra_body %}
+	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+	<script type="text/javascript" src="http://visapi-gadgets.googlecode.com/svn/trunk/termcloud/tc.js"></script>
+	<script type="text/javascript">
+		google.load("visualization", "1");
+		google.setOnLoadCallback(draw);
+		function draw() {
+			var query = new google.visualization.Query("{% url vis_json_tag_cloud %}");
+			query.send(handleQueryResponse);
+		}
+		function handleQueryResponse(response) {
+			if (response.isError()) {
+				alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+				return;
+			}
+			var data = response.getDataTable();
+			var outputDiv = document.getElementById('tags_vis');
+			var tc = new TermCloud(outputDiv);
+			tc.draw(data, null);
+		}
+		$(function(){
+			$("#tabs").tabs({
+				ajaxOptions: {
+					error: function(xhr, status, index, anchor) {
+					$(anchor.hash).html("Couldn't load this tab. We'll try to fix this as soon as possible. If this wouldn't be a demo.");
+					}
+				}
+			});
+		});
+	</script>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends "iknow/base.html" %}
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}iknow/css/iknow.css" />
+{% endblock %}
+
+{% block body %}
+	<div class="span-24 last">
+		<h3> Answering the question: {{ obj.question_title }} </h3>
+		<form enctype="multipart/form-data" action="" method="post">
+
+			<label for="id_answer_text"> Answer: </label> 
+			{{ form.answer_text }} <br />
+			{% if form.answer_text.errors %}
+				<p class="error"> {{ form.answer_text.errors|join:", " }} </p>
+			{% endif %}
+
+			<label for="id_anonymous"> Anonymous? </label> 
+			{{ form.anonymous }} <br />
+			{% if form.anonymous.errors %}
+				<p class="error"> {{ form.anonymous.errors|join:", " }} </p>
+			{% endif %}
+
+			<label for="id_picture"> Upload a Picture: </label> 
+			{{ form.picture }} <br />
+			{% if form.picture.errors %}
+				<p class="error"> {{ form.picture.errors|join:", " }} </p>
+			{% endif %}
+
+			<label for="id_file"> Upload a Document: </label> 
+			{{ form.file }} <br />
+			{% if form.file.errors %}
+				<p class="error"> {{ form.file.errors|join:", " }} </p>
+			{% endif %}
+			<input type="submit" class="ui-button ui-corner-all ui-state-default iknow-button" value="iAnswer!" />
+		</form>
+	</div>
+{% endblock %}
+
+{% block extra_body %}
+	<script type="text/javascript">
+		$(function(){
+			$("input:text").addClass("ui-corner-all")
+				.css({"font-size":"12px","padding":"5px", "font-family":"Courier"}).val("");
+			$(".ui-button").hover(
+				function(){
+					$(this).removeClass("ui-state-default");
+					$(this).addClass("ui-state-highlight");
+				},
+				function(){
+					$(this).removeClass("ui-state-highlight");
+					$(this).addClass("ui-state-default");
+				}
+			);
+			$("#id_addquestion_button").click(function(e) {
+				e.preventDefault();
+				window.location="{% url iknow_ask %}";
+			});
+		});
+	</script>
+{% endblock %}

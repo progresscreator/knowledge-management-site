@@ -1,0 +1,35 @@
+{% load i18n %}
+<div class="idea-block">
+	<div style="float:left;width: 9%;">
+		<div class="ui-widget ui-widget-content ui-corner-all thumbs">
+			{{ coolidea.thumbs }}
+		</div>
+	</div>
+	<div style="float: left;width: 70%;">
+		<h3>
+			<!--
+			<a href="{{ coolidea.get_absolute_url }}">{{ coolidea.title }}</a>
+			-->
+			<a href="{% url idea_coolidea coolidea.id %}">{{ coolidea.title }} </a>
+		</h3>
+		<p class="people">
+			{{ coolidea.people_names }}
+		</p>
+		<!--
+		<p class="details">
+			{{ coolidea.details|truncatewords:20 }}
+		</p>
+		-->
+	</div>
+	<div style="float: left;width: 16%;">
+		<p class="time">
+			<img src="{{ STATIC_URL }}iknow/images/star_13x13.png" title="{% trans "rating" %}" />
+			{{ coolidea.rating_string }} &nbsp;
+			<img src="{{ STATIC_URL }}idea/images/comments_14x14.png" title="{% trans "comments" %}" />
+			{{ coolidea.comments_count }} &nbsp;
+			<br />
+			{{ coolidea.time_string_l }}
+		</p>
+	</div>
+	<div class="clearfix"> </div>
+</div>

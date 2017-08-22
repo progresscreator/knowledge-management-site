@@ -1,0 +1,48 @@
+{% load i18n %}
+$("textarea#textarea-question-comment").css({"height":"100px"});
+$("#question-comment-submit").click(function(){
+	var comment_text = $("textarea#textarea-question-comment").val();
+	var anonymous = $("#question-comment-anonymous").is(":checked");
+	$.post("{% url iknow_comment %}", {
+		"question_id": {{ question.id }},
+		"ctype": "Q",
+		"anonymous": anonymous,
+		"comment": comment_text,
+	}, function(data, textStatus){
+		if (data == "8") {
+			alert("Comment posted successfully, you received 2 points");
+			location.reload(true);
+		} else if (data == "0") {
+			alert("Comment posted successfully");
+			location.reload(true);
+		}
+	});
+});
+
+var question_comment_form_isOpen = false;
+$("#leave-question-comment").click(function(){
+	if (question_comment_form_isOpen) {
+		$("#question-comment-form").fadeOut(600);
+		question_comment_form_isOpen = false;
+	} else {
+		$("#question-comment-form").fadeIn(600);
+		question_comment_form_isOpen = true;
+	}
+});
+$("#question-comment-cancel").click(function(){
+	$("#question-comment-form").fadeOut(600);
+	question_comment_form_isOpen = false;
+});
+
+$("#show-comments").click(function(e){
+	var text = $(this).text();
+	e.preventDefault();
+	if (text == "{% trans "Show" %}"){
+		$("#question-comments").load("{% url iknow_ajax_question_comments question.id %}"+"?page=1");
+		$("#question-comments").fadeIn(400);
+		$(this).text("{% trans "Hide" %}");
+	} else {
+		$("#question-comments").fadeOut(400);
+		$(this).text("{% trans "Show" %}");
+	}
+});

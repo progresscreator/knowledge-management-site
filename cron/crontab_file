@@ -1,0 +1,5 @@
+* * * * * /var/Production/socialmobility/knowledge/pylib/knowledge/knowledge_web/cron/send_mail.sh
+* * * * * /var/Production/socialmobility/knowledge/pylib/knowledge/knowledge_web/cron/emit_notices.sh
+0,20,40 * * * * /var/Production/socialmobility/knowledge/pylib/knowledge/knowledge_web/cron/retry_deferred.sh
+0,20,40 * * * * /var/Production/socialmobility/knowledge/pylib/knowledge/knowledge_web/cron/reindex_haystack.sh
+0,20,40 * * * * /var/Production/socialmobility/knowledge/pylib/knowledge/knowledge_web/cron/check_sms.sh

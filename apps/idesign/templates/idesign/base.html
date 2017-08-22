@@ -1,0 +1,16 @@
+{% extends "site_base.html" %}
+
+{% block body_class %}idesign{% endblock %}
+
+{% block subnav %}
+	{% if user.is_authenticated %}
+		<ul>
+			<li><a href="{% url idesign_home %}">Home</a></li> 
+			<li><a href="{% url idesign_submit %}">Submit a design idea</a></li> 
+			<li><a href="{% url idesign_designideas %}">All ideas</a></li> 
+		</ul>
+	{% else %}
+		&nbsp;
+	{% endif %}
+{% endblock %}
+

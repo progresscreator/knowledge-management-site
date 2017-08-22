@@ -1,0 +1,29 @@
+{% extends "iauction/base.html" %}
+{% load i18n %}
+{% block head_title %}iBay - {% trans "How" %}?{% endblock %}
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}iknow/css/iknow_home.css" />
+{% endblock %}
+{% block body %}
+	<div class="span-24 last">
+		<div class="ui-widget ui-corner-all info-block">
+			<div class="ui-widget-header ui-corner-top info-header">
+				{% trans "How to calculate my iBay credits" %}?
+			</div>
+			<div class="ui-widget-content ui-corner-bottom info-content">
+				<p>
+					{% blocktrans %}
+						You can use your 'earned' and 'unearned' points for any activity on Barter, such as asking a question or tipping. 
+						But, you can only use the points you have 'earned' to bid on iBay.
+					{% endblocktrans %}
+				</p>
+				<p style="margin-left: 20px;">
+					{% trans "Your total income" %}: {{ user.egghead.total_income }} <br />
+					{% trans "Points frozen for your previous bids" %} {{ user.egghead.frozen_bidding_credits }} <br />
+					{% trans "Your total available credits" %} : {{ user.egghead.available_credits }} <br />
+					{% trans "Your iBay available credits" %}: {{ user.egghead.bidding_credits }}
+				</p>
+			</div>
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,175 @@
+{% extends "iauction/base.html" %}
+{% load i18n %}
+{% load avatar_tags %}
+{% load thumbnail %}
+
+{% block head_title %}iBay{% endblock %}
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}iknow/css/iknow_home.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}iauction/css/iauction.css" />
+{% endblock %}
+{% block body %}
+	<div class="span-18">
+		<div class="ui-widget ui-corner-all info-block">
+			<div class="ui-widget-header ui-corner-top info-header">
+				{% trans "Auctions in which you have participated" %}
+			</div>
+			<div class="ui-widget-content ui-corner-bottom info-content">
+				{% if my_products %}
+					<table class="auctable">
+						<tr>
+							<th class="t_product">{% trans "Award" %}</th>
+							<th class="t_current_price">{% trans "Current Bid" %}</th>
+							<th class="t_status">{% trans "Status" %}</th>
+							<th class="t_time_left">{% trans "Time left" %}</th>
+						</tr>
+						{% for product in my_products %}
+							<tr>
+								<td class="t_product"> 
+									<a href="{{ product.get_absolute_url }}">{{ product.name }} </a>
+								</td>
+								<td class="t_current_price"> {{ product.current_price }} </td>
+								<td class="t_status"> 
+									{% ifequal product.current_leader.id user.id %}
+										<span style="color: green;">{% trans "Leading" %}</span>
+									{% else %}
+										<span style="color: red;">{% trans "Outbid" %}</span>
+									{% endifequal %}
+								</td>
+								<td class="t_time_left"> {{ product.time_left_string }} </td>
+							</tr>
+						{% endfor %}
+					</table>
+				{% else %}
+					<p>
+						{% trans "There are no open auctions that you have participated in" %}.
+					</p>
+				{% endif %}
+			</div>
+		</div>
+		<div class="ui-widget ui-corner-all info-block">
+			<div class="ui-widget-header ui-corner-top info-header">
+				{% trans "Recent open auctions" %}
+			</div>
+			<div class="ui-widget-content ui-corner-bottom info-content">
+				{% if recent_products %}
+					{% for product in recent_products %}
+						{% ifequal product.seller.id user.id %}
+							<div class="ui-widget ui-widget-content ui-corner-all product-block" style="border:2px solid #307D7E;">
+						{% else %}
+							<div class="ui-widget ui-widget-content ui-corner-all product-block" style="border-width:2px;">
+						{% endifequal %}
+
+							<div class="product-image">
+								<a href="{{ product.get_absolute_url }}">
+								{% if product.picture %}
+									<img src="{% thumbnail product.picture 150x150 %}" />
+								{% else %}
+									<img src="{{ STATIC_URL }}iauction/images/gift_box.png" />
+								{% endif %}
+								</a>
+							</div>
+							<h3><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h3>
+							<h4>{% trans "Current highest bid" %}</h4>
+							<div class="ui-widget ui-widget-content ui-corner-all bid-price">
+								{{ product.current_price }}
+							</div>
+							<h4>
+								{% blocktrans with product.time_left_string as time_left_string %}
+									{{ time_left_string }} left
+								{% endblocktrans %}
+							</h4>
+						</div>
+					{% endfor %}
+					<div class="clearfix"></div>
+				{% else %}
+					<p>
+						{% trans "Sorry, there are no awards that accept bids now, come back and check later. We have plenty of surprises!" %}
+					</p>
+				{% endif %}
+			</div>
+		</div>
+		<div class="ui-widget ui-corner-all info-block">
+			<div class="ui-widget-header ui-corner-top info-header">
+				{% trans "Awards you won" %}!
+			</div>
+			<div class="ui-widget-content ui-corner-bottom info-content">
+				{% if won_deals %}
+					<table class="wontable">
+						<tr>
+							<th class="w_product">{% trans "Award" %}</th>
+							<th class="w_price">{% trans "Winning Bid" %}</th>
+							<th class="w_status">{% trans "Status" %}</th>
+							<th class="w_time">{% trans "Winning time" %}</th>
+						</tr>
+						{% for deal in won_deals %}
+							<tr>
+								<td class="w_product"> 
+									<a href="{{ deal.bid.product.get_absolute_url}}">{{ deal.bid.product.name }}</a> 
+								</td>
+								<td class="w_price"> {{ deal.bid.product.current_price }} </td>
+								<td class="w_status"> {{ deal.status_string }}</td>
+								<td class="w_time"> {{ deal.time_string_l }}</td>
+							</tr>
+						{% endfor %}
+					</table>
+				{% else %}
+					<p>
+						{% trans "You haven't won anything yet" %} :-(
+					</p>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+	<div class="span-6 last">
+		<div style="margin-bottom: 20px;" class="ui-widget ui-widget-content ui-corner-all info-content">
+			<p>
+				{% trans "iBay is a marketplace where you can map your points to something physical and awesome, and vice versa" %}.
+			</p>
+		</div>
+
+		<div class="ui-widget ui-corner-all info-block">
+			<div class="ui-widget-header ui-corner-top info-header">
+				{{ user.egghead.display_name }}
+			</div>
+			<div class="ui-widget-content ui-corner-bottom info-content">
+				<div style="float: left; width:30%">
+					{% avatar user 50 %}
+				</div>
+				<p style="float: left: width: 68%">
+					{% trans "Wealth" %}: {{ user.egghead.wealth_notes }} <br />
+					{% trans "Available Credits" %}: {{ user.egghead.available_credits }}<br />
+					{% trans "Level" %}: {{ user.egghead.band_name }}
+				</p>
+				<p>
+					{% trans "iBay Credits" %}: {{ user.egghead.bidding_credits }}
+					(<a href="{% url iauction_how %}">{% trans "Why" %}?</a>)
+				</p>
+				<input type="submit" class="ui-button ui-corner-all ui-state-default ibutton" 
+					id="id_dash_board" value="{% trans "My Dashboard" %} &raquo;" />
+			</div>
+		</div>
+	</div>
+{% endblock %}
+{% block extra_body %}
+	<script type="text/javascript">
+		$(function(){
+			$("input:text").addClass("ui-corner-all")
+				.css({"font-size":"12px","padding":"5px", "font-family":"Courier"}).val("");
+			$(".ui-button").hover(
+				function(){
+					$(this).removeClass("ui-state-default");
+					$(this).addClass("ui-state-highlight");
+				},
+				function(){
+					$(this).removeClass("ui-state-highlight");
+					$(this).addClass("ui-state-default");
+				}
+			);
+			$("#id_dash_board").click(function(e) {
+				e.preventDefault();
+				window.location="{% url db_home user.username %}";
+			});
+		});
+	</script>
+{% endblock %}

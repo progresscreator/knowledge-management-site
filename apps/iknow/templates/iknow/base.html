@@ -1,0 +1,20 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+
+{% block body_class %}iknow{% endblock %}
+
+{% block subnav %}
+	{% if user.is_authenticated %}
+		<ul>
+			<li><a href="{% url iknow_home %}">{% trans "Home" %}</a></li> 
+			<li><a href="{% url iknow_search %}">{% trans "Search" %}</a></li> 
+			<li><a href="{% url iknow_questions %}">{% trans "All Questions" %}</a></li> 
+			<li><a href="{% url iknow_dashboard user %}">{% trans "iKnow dashboard" %}</a></li> 
+			<li><a href="{% url iknow_tag 1 %}">{% trans "Tags" %}</a></li> 
+			<li><a href="{% url iknow_ask %}">{% trans "iAsk" %}</a></li> 
+			<li><a href="{% url iknow_help %}">{% trans "Help" %}</a></li> 
+		</ul>
+	{% else %}
+		&nbsp;
+	{% endif %}
+{% endblock %}

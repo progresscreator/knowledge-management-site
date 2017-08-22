@@ -1,0 +1,260 @@
+{% extends "idoc/base.html" %}
+{% load avatar_tags %}
+{% load i18n %}
+{% block head_title %}{% trans "iDoc" %}{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}iknow/css/iknow.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}iknow/css/iknow_home.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}idoc/css/idoc.css" />
+	<link rel="stylesheet" href="{{ STATIC_URL }}core/css/jquery.rating.css" />
+{% endblock %}
+
+{% block body %}
+	<div class="span-18"><div class="ui-widget ui-widget-content ui-corner-all info-content document">
+		<h1>
+			{{ doc.title }} 
+			{% ifequal user.id doc.creator.id %}
+				<a style="font-size: 11px; margin-left:50px;" id="edit-doc" 
+					href="{% url idoc_edit doc.id %}">{% trans "Edit" %}</a>
+			{% endifequal %}
+		</h1>
+		<div display="relative">
+			{% if not doc.anonymous %}
+				<div class="display:inline;" style="padding-left: 20px; width: 10%; float:left;">
+					{% avatar doc.creator 60 %}
+				</div>
+				<div class="description" style=" width: 80%; float: left; margin-top: 0px;">
+			{% else %}
+				<div class="description" style=" width: 95%; float: left; margin-top: 0px;">
+			{% endif %}
+			<strong> {% trans "Description" %}: </strong>{{ doc.details|urlize|linebreaks }} </div>
+		</div>
+		<div class="clearfix"></div>
+		<h3> 
+			{% trans "Tags" %}: {% if doc.tags %} {{ doc.tags }} {% else %} {% trans "None provided" %}{% endif %}
+		</h3>
+		<div>
+			<div style="float:left; width: 45%; padding-top: 10px; margin-left:10px;">
+				{% if doc.file %}
+					{% if downloadable %}
+						<img id="download" title="{% trans "Download" %}" style="cursor: pointer"
+							src="{{ STATIC_URL }}idoc/images/download_red_32x32.png" />
+					{% else %}
+						<img title="{% trans "Can't download - Not enough credits" %}"
+							src="{{ STATIC_URL }}idoc/images/download_disabled_32x32.png" />
+					{% endif %}
+				{% endif %}
+				{% if doc.url %}
+					<img id="go_url" title="{% trans "Go to URL" %}" style="cursor: pointer"
+						src="{{ STATIC_URL }}idoc/images/go_url_32x32.png" />
+				{% endif %}
+			</div>
+			<p class="doc-info" style="float:left; width: 45%;">
+				{% trans "Created by" %}<strong>
+				{% if doc.anonymous %}
+					{{ doc.display_name }} 
+				{% else %}
+					<a href="{% url egghead_detail doc.creator %}">{{ doc.display_name }}</a>
+				{% endif %}</strong> at {{ doc.creation_time_string_l }} <br />
+				&nbsp;&nbsp; <strong>{{ doc.visits }}</strong> 
+				{% blocktrans count doc.visits as visits %}
+					visit
+				{% plural %}
+					visits
+				{% endblocktrans %}
+				&nbsp;&nbsp; <strong>{{ doc.downloads }} </strong> 
+				{% blocktrans count doc.downloads as downloads %}
+					download
+				{% plural %}
+					downloads
+				{% endblocktrans %}
+			</p>
+		</div>
+		<div class="clearfix"></div>
+		<div style="margin-top: 20px;">
+			<p style="color: #A84F00; float:left; width: 15%; text-align: right;">
+				{% trans "Average rating" %}:
+			</p>
+			<div style="float:left; width:10%;">
+				<div class="ui-widget ui-widget-content ui-corner-all rating">
+					{{ doc.rating_string }}
+				</div>
+			</div>
+			<p style="float:left; width: 65%; padding-right: 0px; margin-left: 30px;">
+				<input class="auto-submit-star" type="radio" name="{{ answer.id }}" value="1" />
+				<input class="auto-submit-star" type="radio" name="{{ answer.id }}" value="2" />
+				<input class="auto-submit-star" type="radio" name="{{ answer.id }}" value="3" />
+				<input class="auto-submit-star" type="radio" name="{{ answer.id }}" value="4" />
+				<input class="auto-submit-star" type="radio" name="{{ answer.id }}" value="5" />
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;({{ rating_msg|safe }})
+			</p>
+		</div>
+		<div class="clearfix"></div>
+	</div></div>
+	<div class="span-6 last">
+		<div style="margin-bottom: 20px;" class="ui-widget ui-widget-content ui-corner-all info-content">
+			{% if not doc.points_needed %}
+				<h5 style="color:#41A317;"> {% trans "Free documents" %} </h5>
+			{% else %}
+				<h5> {% trans "Price" %}: <span style="color:#F62217;">{{ doc.points_needed }}</span></h5>
+				{% ifnotequal user.id doc.creator.id %}
+					<p>
+						{% if downloadable %}
+							{% trans "You can download the document" %}. 
+						{% else %}
+							{% trans "You do not have enough credits to download the document" %}. 
+						{% endif %}
+						{% if redownload %}
+							{% trans "You've downloaded it before, so you can redownload for free" %}.
+						{% endif %}
+					</p>
+					<p>
+						<strong>{% trans "Available credits" %}</strong>
+						{{ user.egghead.available_credits }}
+					</p>
+				{% endifnotequal %}
+			{% endif %}
+			{% ifequal user.id doc.creator.id %}
+				<p>
+					{% trans "You uploaded this document" %}
+				</p>
+			{% endifequal %}
+		</div>
+		<div class="ui-widget ui-corner-all info-block">
+			<div class="ui-widget-header ui-corner-top info-header">
+				{% trans "Relevant documents" %}
+			</div>
+			<div class="ui-widget-content ui-corner-bottom info-content">
+				{% if results %}
+					<ul>
+						{% for result in results %}
+							{% ifnotequal result.object.id doc.id %}
+								<li><a href="{{ result.object.get_absolute_url }}">{{ result.object.title }}
+								</a></li>
+							{% endifnotequal %}
+						{% endfor %}
+					</ul>
+				{% else %}
+					<p> {% trans "No match found" %} :-( </p>
+				{% endif %}
+			</div>
+		</div>
+		<div class="ui-widget ui-corner-all info-block">
+			<div class="ui-widget-header ui-corner-top info-header">
+				{% trans "Recent Download history" %}
+			</div>
+			<div class="ui-widget-content ui-corner-bottom info-content">
+				{% if downloads %}
+					<h4> {{ downloads|length }} download(s) </h4>
+					<ul>
+						{% for dl in downloads %}
+							<li> 
+								{% avatar dl.downloader 16 %} 
+								{% blocktrans with dl.display_name as downloader_name and dl.fee as amount %}
+									{{ downloader_name }} paid {{ amount }}
+								{% endblocktrans %}
+							</li>
+						{% endfor %}
+					</ul>
+				{% else %}
+					<p> 
+						{% trans "No user has downloaded this documents" %} :-(
+					</p>
+				{% endif %}
+			</div>
+		</div>
+		<div class="ui-widget ui-corner-all info-block">
+			<div class="ui-widget-header ui-corner-top info-header">
+				{% trans "Recent Rating history" %}
+			</div>
+			<div class="ui-widget-content ui-corner-bottom info-content">
+				{% if ratings %}
+					<h4> 
+						{{ ratings|length }} rating(s)
+					</h4>
+					<ul>
+						{% for rating in ratings %}
+							<li> 
+								{% avatar rating.rater 16 %} 
+								{% blocktrans with rating.display_name as rater_name and rating.rating as rating %}
+									{{ rater_name }} rated {{ rating }}
+								{% endblocktrans %}
+							</li>
+						{% endfor %}
+					</ul>
+				{% else %}
+					<p> 
+						{% trans "No user has rated this documents" %} ~
+					</p>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block extra_body %}
+	<script type="text/javascript" src="{{ STATIC_URL }}core/js/processing-0.6.packed.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}core/js/jquery.rating.pack.js"></script>
+	<script type="text/javascript">
+		var doc_id = {{ doc.id }};
+		$(function(){
+			$(".ui-button").hover(
+				function(){
+					$(this).removeClass("ui-state-default");
+					$(this).addClass("ui-state-highlight");
+				},
+				function(){
+					$(this).removeClass("ui-state-highlight");
+					$(this).addClass("ui-state-default");
+				}
+			);
+			$(".auto-submit-star").rating({ 
+				callback: function(value, link){ 
+					if (isNaN(value)) {return; }
+					$.post("{% url idoc_ajax_rating %}", { 
+						"id": {{ doc.id }},
+						"value": value 
+					}, function(data, textStatus) { 
+						if (data != "0" ) { 
+							alert("rating error"); 
+						} 
+						else {
+							alert("rating successful"); 
+							location.reload(true);
+						}
+					}) 
+				} 
+			}); 
+			$("#edit-doc").button();
+			{% if doc.file and downloadable %}
+				$("#download").hover(
+					function() {
+						$(this).attr("src", "{{ STATIC_URL }}/idoc/images/download_brown_32x32.png")
+					},
+					function(){
+						$(this).attr("src", "{{ STATIC_URL }}/idoc/images/download_red_32x32.png")
+					}
+				).click(function() {
+					$.post("{% url idoc_ajax_download %}", {
+						"id": {{ doc.id }}
+					},function(data, textStatus) {
+						if (data == "0") {
+							window.location = "{{ doc.file.url }}";
+						} else if (data == "1") {
+							alert("Server error");
+						} else if (data == "8") {
+							alert("You are downloading your own document, it's fine, nothing is recorded");
+							window.location = "{{ doc.file.url }}";
+						}
+					});
+				});
+			{% endif %}
+			{% if doc.url %}
+				$("#go_url").click(function() {
+					window.location = "{{ doc.url }}";
+				});
+			{% endif %}
+		});
+	</script>
+{% endblock %}

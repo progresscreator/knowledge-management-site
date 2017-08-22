@@ -1,0 +1,3 @@
+{{ object.question_title }}
+{{ object.question_text }}
+

@@ -1,0 +1,303 @@
+{% extends "idea/base.html" %}
+{% load i18n %}
+{% load avatar_tags %}
+{% load thumbnail %}
+
+{% block head_title %}{% trans "Cool Idea" %}: {{ coolidea.title }} {% endblock %}
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}iknow/css/iknow.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}iknow/css/iknow_home.css" />
+	<link rel="stylesheet" href="{{ STATIC_URL }}core/css/jquery.rating.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}idea/css/idea.css" />
+	<link rel="stylesheet" href="{{ STATIC_URL }}core/css/page_bar.css" />
+{% endblock %}
+
+{% block body %}
+
+<div class="idialog" style="display:none"; id="tipping-dialog" title="{% trans "Tipping" %}">
+	<p id="tipping-msg"></p>
+	<label style="margin-left: 60px; color:#F87217; font-size: 12px;"> {% trans "Tips" %}: </label>		
+	<input style="margin-left: 15px; width: 40px; color: #F87217; font-size: 12px;"id="tip-amount" type="text" />
+	<label style="margin-left: 15px; color:#F62817; font-size: 12px;" id="tip-error"></label>		
+</div>
+	<div class="span-16">
+		<div style="margin-bottom: 0px;" 
+			class="ui-widget ui-widget-content ui-corner-all info-content coolidea">
+
+			<h1 class="coolidea-title">
+				{{ coolidea.title }}
+			</h1>
+			<div style="float: left; width: 15%"> 
+				<div class="ui-widget ui-widget-content ui-corner-all coolidea-thumbs">	
+					<p id="thumbs">{{ coolidea.thumbs }} </p>
+				</div> 
+				<div class="votes">
+					<img class="thumbup" name="{{ answer.id }}" src="{{ STATIC_URL }}/iknow/images/thumbup_blue_28x28.png" />
+					<img class="thumbdown" name="{{ answer.id }}" src="{{ STATIC_URL }}/iknow/images/thumbdown_blue_28x28.png" />
+				</div>
+			</div>
+			<div style="float: left; width: 82%"> 
+				<p style="text-align: right; margin-top: 0px; color:#3090C7"> 
+					Submitted by {{ coolidea.display_name }}  at {{ coolidea.time_string_l }} <br />
+				</p>
+				<!--
+				<p style="text-align: right; color:#3090C7"> 
+					{% if coolidea.points_offered %}
+						Initial award:
+						<img src="{{ STATIC_URL }}iknow/images/coin_13x13.png" /> 
+						{{ coolidea.points_offered }} <br />
+					{% else %}
+						No initial award was offered <br />
+					{% endif %}
+				</p>
+				-->
+				<p style="text-align: right;">
+					<strong>{% trans "Team" %}:</strong>
+					<a href="{% url egghead_detail coolidea.creator %}" title="{{ coolidea.display_name }}">
+						{% avatar coolidea.creator 40 %}
+					</a>
+					{% for col in collaborators %}
+						<a href="{% url egghead_detail col %}" title="{{ col.egghead.display_name }}">
+							{% avatar col 40 %}
+						</a>
+					{% endfor %}
+				</p>
+				{% if coolidea.external_col %}
+					<p style="text-align: right;"> 
+						<strong>{% trans "External Collaborators"%}:</strong> {{ coolidea.external_col }} </p>
+				{% endif %}
+				<div class="coolidea-details">
+					{{ coolidea.details|urlize|linebreaks }} 
+				</div>
+				<p>
+					<strong>{% trans "Tags" %}:</strong> {{ coolidea.tags }} 
+				</p>
+				{% if coolidea.picture1 or coolidea.picture2 %}
+					<div>
+						{% if coolidea.picture1 %}
+							<div>
+								<a href="{{ coolidea.picture1.url }}">
+									<img src="{% thumbnail coolidea.picture1 500x500 %}" />
+								</a>
+							</div>
+						{% endif %}
+					</div>
+					<div class="clearfix"></div>
+				{% endif %}
+
+				{% if coolidea.file1 %}
+					<p>
+						<strong>{% trans "Attachment" %}:</strong>
+						<a class="file-link" href="{{ coolidea.file1.url }}">
+							{% if coolidea.file1_name %}
+								{{ coolidea.file1_name }}
+							{% else %}
+								{% trans "Download" %}
+							{% endif %}
+						</a>
+					</p>
+				{% endif %}
+				{% if coolidea.file2 %}
+					<p>
+						<strong>{% trans "Attachment" %}:</strong>
+						<a class="file-link" href="{{ coolidea.file2.url }}">{{ coolidea.file2_name }}</a>
+					</p>
+				{% endif %}
+				{% if coolidea.file3 %}
+					<p>
+						<strong>{% trans "Attachment" %}:</strong>
+						<a class="file-link" href="{{ coolidea.file3.url }}">{{ coolidea.file3_name }}</a>
+					</p>
+				{% endif %}
+				<div class="clearfix"></div>
+				<div style="margin-top: 5px; border-top: 1px dotted #347235; padding-top: 5px;">
+					<p style="color: #347235; float:left; width: 20%; font-size: 11.5px;
+						text-align: right; padding-right: 10px;">
+						Average rating:
+					</p>
+					<div style="float:left; width:13%;">
+						<div class="ui-widget ui-widget-content ui-corner-all rating">
+							{{ coolidea.rating_string }}
+						</div>
+					</div>
+					<p style="float:left; width: 58%; padding-right: 0px; margin-left: 30px;">
+						<input class="auto-submit-star" type="radio" name="{{ coolidea.id }}" value="1" />
+						<input class="auto-submit-star" type="radio" name="{{ coolidea.id }}" value="2" />
+						<input class="auto-submit-star" type="radio" name="{{ coolidea.id }}" value="3" />
+						<input class="auto-submit-star" type="radio" name="{{ coolidea.id }}" value="4" />
+						<input class="auto-submit-star" type="radio" name="{{ coolidea.id }}" value="5" />
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+						({{ rating_msg|safe }})
+					</p>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+
+		<div style="margin:0px 0px;">
+			<img title='{% trans "Leave a comment" %}'
+				style="cursor: pointer;"id="add-coolidea-comment" src="{{ STATIC_URL }}/idea/images/add_comment_32x32.png" />
+		</div>
+		<div id="coolidea-comment-form" class="ui-corner-all" style="display:none;padding-bottom:15px;border: 2px solid #6698FF;">
+			<h5>Leave a comment</h5>
+			<textarea style="margin-left:20px;width:570px; height:50px;"id="textarea-coolidea-comment"></textarea>
+			<br />
+			<input id="coolidea-comment-submit" style="margin-left:20px;" type="submit" value="Submit" />
+			<input id="coolidea-comment-cancel" style="margin-left:10px;" type="submit" value="Cancel" />
+			<input type='checkbox' id="coolidea-comment-anonymous"
+				class='ui-button ui-corner-all ui-state-default' />
+			Anonymous?
+		</div>
+		<div id="coolidea-comments"></div>
+	</div>
+	<div class="span-8 last">
+		<div class="ui-widget ui-corner-all info-block">
+			<div class="ui-widget-header ui-corner-top info-header">
+				{% trans "Recent voting History" %}
+			</div>
+			<div class="ui-widget-content ui-corner-bottom info-content">
+				{% if thumbs %}
+					<h4> 
+						{{ thumbs|length }} {% trans "thumb(s)" %}
+					</h4>
+					<ul>
+						{% for thumb in thumbs %}
+							<li>
+								{% avatar thumb.thumber 20 %} &nbsp;
+								{% ifequal thumb.up_or_down "U" %}
+									<img src="{{ STATIC_URL }}/iknow/images/thumbup_green_14x14.png" /> &nbsp;
+									{{ thumb.display_name }} {% trans "liked the idea" %}
+								{% else %}
+									<img src="{{ STATIC_URL }}/iknow/images/thumbdown_red_14x14.png" /> &nbsp;
+									{{ thumb.display_name }} {% trans "disliked the idea" %}
+								{% endifequal %} on {{ thumb.date_string }}
+							</li>
+						{% endfor %}
+					</ul>
+				{% else %}
+					<p> {% trans "No one has shown any opinions yet" %}.  </p>
+				{% endif %}
+			</div>
+		</div>
+
+		<div class="ui-widget ui-corner-all info-block">
+			<div class="ui-widget-header ui-corner-top info-header">
+				{% trans "Recent rating history" %}
+			</div>
+			<div class="ui-widget-content ui-corner-bottom info-content">
+				{% if ratings %}
+					<h4> 
+						{{ ratings|length }} rating(s)
+					</h4>
+					<ul>
+						{% for rating in ratings %}
+							<li> 
+								{% avatar rating.rater 16 %} 
+								{{ rating.display_name }} rated <strong>{{ rating.rating }}</strong>
+							</li>
+						{% endfor %}
+					</ul>
+				{% else %}
+					<p> 
+						{% trans "No user has rated this cool idea" %} ~
+					</p>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+{% endblock body %}
+
+{% block extra_body %}
+	<script type="text/javascript" src="{{ STATIC_URL }}core/js/jquery.rating.pack.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$("button, input:submit").button().css({"font-size":"10px"});
+			$("textarea").addClass("ui-corner-all")
+				.css({"font-size":"12px","padding":"5px", "color": "#2B3856", "font-weight": "bold",
+				"font-family":"Courier, Rockwell, 'Courier New', 'Serif'", "height":"280px"});
+			$("img.thumbup").hover(
+				function() {
+					$(this).attr("src", "{{ STATIC_URL }}/iknow/images/thumbup_green_28x28.png")
+				},
+				function(){
+					$(this).attr("src", "{{ STATIC_URL }}/iknow/images/thumbup_blue_28x28.png")
+				}
+			).click(function() {
+				$.post("{% url idea_post_thumbs %}", {
+					"id": {{ coolidea.id }},
+					"up_or_down":"U"
+				}, function(data, textStatus) {
+					if ((data == "0") || (data == "8")) {
+						var k = parseInt($("#thumbs").text());
+						$("#thumbs").text(k + 1);
+						if (data == "8") {
+							alert("Thank you for your opinion, 2 points were awarded to your account");
+						}
+					}
+					else if (data == "1") {
+						alert("You have voted on it, you can't do it again");
+					}
+					else if (data == "2") {
+						alert("You can not vote for yourself");
+					}
+					else if (data == "3") {
+						alert("Sorry! Server error happened when you voted!");
+					}
+				});
+			});
+
+			$("img.thumbdown").hover(
+				function() {
+					$(this).attr("src", "{{ STATIC_URL }}/iknow/images/thumbdown_red_28x28.png")
+				},
+				function(){
+					$(this).attr("src", "{{ STATIC_URL }}/iknow/images/thumbdown_blue_28x28.png")
+				}
+			).click(function() {
+				manage_id = this.name;
+				$.post("{% url idea_post_thumbs %}", {
+					"id": {{ coolidea.id }},
+					"up_or_down":"D"
+				}, function(data, textStatus) {
+					if ((data == "0") || (data == "8")) {
+						var k = parseInt($("#thumbs").text());
+						$("#thumbs").text(k - 1);
+						if (data == "8") {
+							alert("Thank you for your opinion, 2 points were awarded to your account");
+						}
+					}
+					else if (data == "1") {
+						alert("You have voted on it, you can't do it again");
+					}
+					else if (data == "2") {
+						alert("You can not vote for yourself");
+					}
+					else if (data == "3") {
+						alert("Sorry! Server error happened when you voted!");
+					}
+				});
+			});
+			$(".auto-submit-star").rating({ 
+				callback: function(value, link){ 
+					if (isNaN(value)) {return; }
+					$.post("{% url idea_post_rating %}", { 
+						"id": {{ coolidea.id }},
+						"value": value 
+					}, function(data, textStatus) { 
+						if (data == "8" ) { 
+							alert("{% trans "Thank you for rating the idea, 2 points were awarded to your account" %}");
+							location.reload(true);
+						} else if (data == "0") {
+							alert("{% trans "Thank you for rating the idea!" %}");
+							location.reload(true);
+						} else {
+							alert("{% trans "rating error!" %}"); 
+						}
+					})
+				} 
+			}); 
+			$("#coolidea-comments").load("{% url idea_ajax_coolidea_comments coolidea.id %}"+"?page=1&order=time");
+			{% include "idea/jsparts/idea_coolidea_comment_js.html" %}
+		});
+	</script>
+{% endblock %}

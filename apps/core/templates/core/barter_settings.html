@@ -1,0 +1,38 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+{% load uni_form %}
+{% block head_title %}{% trans "Edit personal settings" %}{% endblock %}
+
+{% block body %}
+	<div class="apage span-24 last">
+		<h1> {% trans "Settings" %} </h1>
+		<form class="login uniForm" method="POST" action="">
+			<fieldset class="inlineLabels">
+				{% if errors %}
+					<div class="form_block">
+						{% for error in errors %}
+							<p class="errorField">
+								{% trans "Error" %}: {{ error }}
+							</p>	
+						{% endfor %}
+					</div>
+				{% endif %}
+				{{ form|as_uni_form }}
+				<div class="form_block">
+					<input type="submit" class="ui-button ui-corner-all ui-state-default ibutton"
+						value="{% trans "Save Settings" %}" />
+				</div>
+			</fieldset>
+		</form>
+	</div>
+{% endblock %}
+
+{% block extra_body %}
+<script>
+	$("input:text").addClass("ui-corner-all")
+		.css({"font-size":"12px","padding":"5px", "font-family":"Courier"});
+	$("input:password").addClass("ui-corner-all")
+		.css({"font-size":"12px","padding":"5px", "font-family":"Courier"});
+	$("input:submit").button();
+</script>
+{% endblock %}

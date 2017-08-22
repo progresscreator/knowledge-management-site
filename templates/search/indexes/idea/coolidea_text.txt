@@ -1,0 +1,6 @@
+{{ object.tags }}
+{{ object.creator.username }}
+{{ object.creator.get_full_name }}
+{{ object.people_names }}
+{{ object.title }}
+{{ object.details }}

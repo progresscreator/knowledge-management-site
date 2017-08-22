@@ -1,0 +1,5 @@
+use
+	crontab -l
+to see a list of scheduled jobs, and use
+	crontab crontab_file
+to add jobs listed in crontab_file to the cron schedule

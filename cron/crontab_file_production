@@ -1,0 +1,12 @@
+* * * * * /home/www/barter-dv.mit.edu/knowledge/pylib/knowledge/knowledge_web/cron/barter-dv.mit.edu/send_mail.sh
+* * * * * /home/www/barter-dv.mit.edu/knowledge/pylib/knowledge/knowledge_web/cron/barter-dv.mit.edu/emit_notices.sh
+0,20,40 * * * * /home/www/barter-dv.mit.edu/knowledge/pylib/knowledge/knowledge_web/cron/barter-dv.mit.edu/retry_deferred.sh
+0,20,40 * * * * /home/www/barter-dv.mit.edu/knowledge/pylib/knowledge/knowledge_web/cron/barter-dv.mit.edu/reindex_haystack.sh
+* * * * * /home/www/barter.mit.edu/knowledge/pylib/knowledge/knowledge_web/cron/barter.mit.edu/send_mail.sh
+* * * * * /home/www/barter.mit.edu/knowledge/pylib/knowledge/knowledge_web/cron/barter.mit.edu/emit_notices.sh
+0,20,40 * * * * /home/www/barter.mit.edu/knowledge/pylib/knowledge/knowledge_web/cron/barter.mit.edu/retry_deferred.sh
+0,20,40 * * * * /home/www/barter.mit.edu/knowledge/pylib/knowledge/knowledge_web/cron/barter.mit.edu/reindex_haystack.sh
+* * * * * /home/www/nomadlab.mit.edu/knowledge/pylib/knowledge/knowledge_web/cron/nomadlab.mit.edu/send_mail.sh
+* * * * * /home/www/nomadlab.mit.edu/knowledge/pylib/knowledge/knowledge_web/cron/nomadlab.mit.edu/emit_notices.sh
+0,20,40 * * * * /home/www/nomadlab.mit.edu/knowledge/pylib/knowledge/knowledge_web/cron/nomadlab.mit.edu/retry_deferred.sh
+0,20,40 * * * * /home/www/nomadlab.mit.edu/knowledge/pylib/knowledge/knowledge_web/cron/nomadlab.mit.edu/reindex_haystack.sh

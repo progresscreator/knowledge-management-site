@@ -1,0 +1,50 @@
+{% extends "imessage/base.html" %}
+
+{% load i18n %}
+{% load uni_form %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}imessage/css/imessage.css" />
+{% endblock %}
+{% block body %}
+<div class="ui-widget ui-widget-content ui-corner-all imessage span-24 last">
+    <h1>{% trans "Compose Message"%}</h1>
+    <form action="" method="post" class="uniForm">
+        <fieldset class="inlineLabels">
+            {{ form|as_uni_form }}
+            <div class="form_block">
+                <input class="ibutton" type="submit" value="{% trans "Send" %} &raquo;"/>
+            </div>
+		</fieldset>
+    </form>
+</div>
+{% endblock %}
+
+{% block extra_body %}
+    {{ block.super }}
+    <script type="text/javascript" src="{{ STATIC_URL }}pinax/js/jquery.bgiframe.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}pinax/js/jquery.dimensions.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}pinax/js/jquery.ajaxQueue.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}pinax/js/jquery.autocomplete.min.js"></script>
+    <script type="text/javascript">
+        $().ready(function() {
+			{% include "core/core_form_js.html" %}
+			$("input:submit").button();
+            $("#id_recipient").autocomplete("{% url profile_username_autocomplete %}", {
+                formatItem: function(data, i, n, value) {
+                    values = value.split(",,");
+                    return values[0] + values[1] + "<br />" + values[2];
+                },
+                formatResult: function(data, value) {
+                    return value.split(",,")[1];
+                },
+                // TODO: improve highlighting to only affect username.
+                highlight: false
+            });
+            $("#id_recipient").result(function() {
+                $("#id_subject").focus();
+            });
+            $("#id_recipient").focus()
+        });
+    </script>
+{% endblock %}

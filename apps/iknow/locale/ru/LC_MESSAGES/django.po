@@ -1,0 +1,1172 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-10-13 15:45-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: forms.py:9
+msgid "Midnight"
+msgstr "Полночь"
+
+#: forms.py:10
+msgid "6 AM"
+msgstr "6 утра"
+
+#: forms.py:11
+msgid "9 AM"
+msgstr "9 утра"
+
+#: forms.py:12
+msgid "12 PM"
+msgstr "Полдень"
+
+#: forms.py:13
+msgid "3 PM"
+msgstr "15.00"
+
+#: forms.py:14
+msgid "6 PM"
+msgstr "18.00"
+
+#: forms.py:15
+msgid "9 PM"
+msgstr "21.00"
+
+#: forms.py:19 templates/iknow/iknow_ajax_questions.html:39
+#: templates/iknow/iknow_home.html:31 templates/iknow/iknow_search.html:29
+msgid "Title"
+msgstr "Титул"
+
+#: forms.py:20
+msgid "The question title is required"
+msgstr "The question title is required"
+
+#: forms.py:21
+msgid "Provide a title of your question"
+msgstr "Вопрос необходимо озаглавить"
+
+#: forms.py:23
+msgid "Details"
+msgstr "Детали"
+
+#: forms.py:24
+msgid "More details of your question"
+msgstr "Опишите в деталях свой вопрос"
+
+#: forms.py:26 templates/iknow/iknow_question.html:107
+msgid "Points offered"
+msgstr "Предлагаемые баллы за участие"
+
+#: forms.py:27
+msgid "Please provide the starting price"
+msgstr "Назовите начальную цену вопроса"
+
+#: forms.py:28
+msgid "How many points you are willing to offer"
+msgstr "Сколько очков вы готовы предложить за ответ на вопрос"
+
+#: forms.py:29
+msgid "End date"
+msgstr "Конечная дата"
+
+#: forms.py:30
+msgid "When will your question expire?"
+msgstr "Когда последняя дата подачи ответа"
+
+#: forms.py:32
+msgid "End hour"
+msgstr "Окончание подачи ответов"
+
+#: forms.py:33
+msgid "What time will your question expire exactly?"
+msgstr "Во сколько заканчивается подача ответов?"
+
+#: forms.py:35 templates/iknow/base.html:13
+#: templates/iknow/iknow_question.html:68
+msgid "Tags"
+msgstr "Теги"
+
+#: forms.py:36
+msgid "Index your question with sufficient and accurate tags"
+msgstr "Дайте своему вопросу надлежащий тег"
+
+#: forms.py:38 forms.py:48 templates/iknow/iknow_question.html:131
+msgid "Anonymous"
+msgstr "Анонимный"
+
+#: forms.py:39
+msgid "Ask the question anonymously?"
+msgstr "Задать вопрос анонимно?"
+
+#: forms.py:41
+msgid "Hide answers"
+msgstr "Скрыть ответы"
+
+#: forms.py:42
+msgid "Disallow users to review answers until expiration"
+msgstr ""
+"Не давать возможность пользователям просматривать ответы до истечения срока"
+
+#: forms.py:45 models.py:452 templates/iknow/iknow_ajax_myanswers.html:20
+msgid "Answer"
+msgstr "Ответ"
+
+#: forms.py:46
+msgid "The answer field can't be empty"
+msgstr "Необходимо заполнить пустой файл"
+
+#: forms.py:49
+msgid "Answer anonymously?"
+msgstr "Ответить анонимно?"
+
+#: forms.py:51
+msgid "Hidden"
+msgstr "Скрыть"
+
+#: forms.py:52
+msgid "Hide your answer to other users before the question expires?"
+msgstr "Скрыть свой ответ от других пользователей до истечения срока?"
+
+
+#: models.py:39 templates/iknow/iknow_home.html:64
+#: templates/iknow/iknow_questions.html:16
+msgid "Active"
+msgstr "Активный"
+
+#: models.py:40 models.py:285
+msgid "Withdrawn"
+msgstr "Отменить"
+
+#: models.py:41 models.py:224
+msgid "Expired and Pending"
+msgstr "Прекращен с истечением срока и ожидающий решения"
+
+#: models.py:42
+msgid "Expired and Forfeited"
+msgstr "Прекращен с истечением срока и заблокирован"
+
+#: models.py:43
+msgid "Solved and Closed"
+msgstr "Ответ получен и вопрос закрыт"
+
+#: models.py:44
+msgid "Unsolved and Closed"
+msgstr "Ответ не получен и вопрос закрыт"
+
+#: models.py:45
+msgid "Extended"
+msgstr "Продлен"
+
+#: models.py:46 models.py:284
+msgid "Illegal"
+msgstr "Незаконный"
+
+#: models.py:49 models.py:288
+msgid "Public"
+msgstr "Отрытый доступ"
+
+#: models.py:50 models.py:289
+msgid "Friends"
+msgstr "Друзья"
+
+#: models.py:51 models.py:290
+msgid "Groups"
+msgstr "Группы"
+
+#: models.py:52 models.py:291
+msgid "Both friends and selected groups"
+msgstr "Друзья и избранные группы"
+
+#: models.py:53 models.py:292
+msgid "Targeted Users"
+msgstr "Выбранные пользователи"
+
+#: models.py:130
+msgid "Action is needed on your question"
+msgstr "Требуются действия по вашему вопросу"
+
+#: models.py:220
+msgid "Forfeited"
+msgstr "Оштрафоован"
+
+#: models.py:222
+msgid "Unsolved"
+msgstr "Нерешенный"
+
+#: models.py:226 templates/iknow/iknow_dashboard.html:36
+#: templates/iknow/iknow_home.html:65 templates/iknow/iknow_question.html:372
+#: templates/iknow/iknow_question.html:400
+#: templates/iknow/iknow_questions.html:17
+msgid "Solved"
+msgstr "Решенный"
+
+#: models.py:233
+#, python-format
+msgid "%(count)d day"
+msgid_plural "%(count)d days"
+msgstr[0] "%(count)d день"
+msgstr[1] "%(count)d дней"
+
+#: models.py:234 models.py:239
+#, python-format
+msgid "%(count)d hr"
+msgid_plural "%(count)d hrs"
+msgstr[0] "%(count)d час"
+msgstr[1] "%(count)d часов"
+
+#: models.py:240 models.py:243
+#, python-format
+msgid "%(count)d min"
+msgid_plural "%(count)d mins"
+msgstr[0] "%(count)d мин"
+msgstr[1] "%(count)d мин"
+
+#: models.py:247 models.py:346
+msgid "An Egghead"
+msgstr "Эрудит"
+
+#: models.py:265
+#, python-format
+msgid "Amendment made on question: %(question_title)s at %(time_stamp)s"
+msgstr "Вопрос дополнен: %(question_title)s в %(time_stamp)s"
+
+#: models.py:282
+msgid "Regular"
+msgstr "Обычный"
+
+#: models.py:283
+msgid "Edited"
+msgstr "Исправленный"
+
+#: models.py:293 templates/iknow/iknow_ajax_questions.html:41
+#: templates/iknow/iknow_search.html:30
+msgid "Asker"
+msgstr "Задающий"
+
+#: models.py:314
+msgid "Picture"
+msgstr "Картинка"
+
+#: models.py:377
+msgid "As a elicitor"
+msgstr "Как гид"
+
+#: models.py:378
+msgid "As a contributor"
+msgstr "Как соавтор"
+
+#: models.py:388
+#, python-format
+msgid ""
+"%(rater_name)s gives %(receiver_name)s a %(rating)s rating on question "
+"'%(question_title)s'"
+msgstr "%(rater_name)s дать %(receiver_name)s определенный %(rating)s рейтинг вопросу '%"
+"(question_title)s'"
+
+#: models.py:399
+#, python-format
+msgid "%(commentor)s's comment on question: '%(question_title)s'"
+msgstr "%(commentor)s's прокоментировать вопрос: '%(question_title)s'"
+
+#: models.py:411
+#, python-format
+msgid ""
+"%(tipper_name)s tips %(answerer_name)s %(amount)d points for an answer to "
+"the question '%(question_title)s'"
+msgstr "%(tipper_name)s вознаграждение %(answerer_name)s %(amount)d очков за ответ "
+"на вопрос'%(question_title)s'"
+
+#: models.py:439
+#, python-format
+msgid ""
+"%(commentor)s's comment on %(answerer_name)s's answer to the question: "
+"'%(question_title)s'"
+msgstr "%(commentor)s коментарий %(answerer_name)s ответ на вопрос:"
+"'%(question_title)s'"
+
+#: models.py:447
+msgid "Thumb up"
+msgstr "Классная идея"
+
+#: models.py:448
+msgid "Thumb down"
+msgstr "Отклонить идею"
+
+#: models.py:451 templates/iknow/iknow_question.html:29
+msgid "Question"
+msgstr "Вопрос"
+
+#: models.py:464
+#, python-format
+msgid ""
+"%(thumber_name)s thumbs up on %(asker_name)s's question: '%(question_title)s'"
+msgstr "%(thumber_name)s голосов в поддержку %(asker_name)s вопроса: '%(question_title)s'"
+
+#: models.py:470
+#, python-format
+msgid ""
+"%(thumber_name)s thumbs down on %(asker_name)s's question: '%(question_title)"
+"s'"
+msgstr "%(thumber_name)s голосов не поддержали %(asker_name)s вопрос: '%(question_title)"
+"s'"
+
+#: models.py:477
+#, python-format
+msgid ""
+"%(thumber_name)s thumbs up on %(answerer_name)s's answer to the question: '%"
+"(question_title)s'"
+msgstr "%(thumber_name)s голосов в поддержку %(answerer_name)s ответа на вопрос: '%"
+"(question_title)s'"
+
+#: models.py:483
+#, python-format
+msgid ""
+"%(thumber_name)s thumbs down on %(answerer_name)s's answer to the question: "
+"'%(question_title)s'"
+msgstr "%(thumber_name)s голосов не поддержали %(answerer_name)s ответ на вопроса: "
+"'%(question_title)s'"
+
+#: views.py:145
+msgid "A new question entered the market"
+msgstr "Новый вопрос размещен на рынке"
+
+#: views.py:274
+#, python-format
+msgid "Your answer received %(points_received)d points!"
+msgstr "Ваш ответ получает %(points_received)d баллов!"
+
+#: views.py:323
+#, python-format
+msgid "Your question received on answer from %(answerer_name)s"
+msgstr "На ваш вопрос получен ответ от %(answerer_name)s"
+
+#: views.py:350
+msgid "Questions you have bookmarked"
+msgstr "Вопрос который вы поместили в закладку"
+
+#: views.py:420
+msgid "All questions"
+msgstr "Все вопросы"
+
+#: views.py:422
+msgid "Active questions in the marketplace"
+msgstr "Активные вопросы на рынке"
+
+#: views.py:425
+msgid "Solved Questions"
+msgstr "Решенные вопросы"
+
+#: views.py:429
+msgid "Questions ignored"
+msgstr "Вопросы оставленные без внимания"
+
+#: views.py:432
+msgid "Most rewarding questions"
+msgstr "Вопросы с наибольшим вознаграждением"
+
+#: views.py:446
+#, python-format
+msgid "Questions tagged with %(tag_name)s"
+msgstr "Вопросы с тегом %(tag_name)s"
+
+#: views.py:628
+#, python-format
+msgid "An answer received a comment from %(commentor_name)s"
+msgstr "На ответ был дан комментарий от %(commentor_name)s"
+
+#: views.py:660
+#, python-format
+msgid "A question received a comment from %(commentor_name)s"
+msgstr "Вопрос получил комментарий от %(commentor_name)s"
+
+#: views.py:717
+msgid "Your answer is extremely helpful"
+msgstr "Спасибо, ваш ответ очень помог"
+
+#: views.py:726
+#, python-format
+msgid "Your answer received %(tip_amount)d points tipping from %(tipper_name)s"
+msgstr "Ваш ответ получает %(tip_amount)d поощрительных очков от %(tipper_name)s"
+
+#: views.py:776 templates/iknow/iknow_dashboard.html:35
+msgid "Questions asked"
+msgstr "Заданные вопросы"
+
+#: views.py:827
+msgid "You can not review others' transaction history"
+msgstr "Вы не можете просмотреть архив действий других пользователей"
+
+#: templates/iknow/base.html:9
+msgid "Home"
+msgstr "Начало"
+
+#: templates/iknow/base.html:10
+msgid "Search"
+msgstr "Поиск"
+
+#: templates/iknow/base.html:11
+msgid "All Questions"
+msgstr "Все вопросы"
+
+#: templates/iknow/base.html:12
+msgid "iKnow dashboard"
+msgstr "iKnow настройки "
+
+#: templates/iknow/base.html:14
+msgid "IAsk"
+msgstr "IAsk?"
+
+#: templates/iknow/iknow_ajax_myanswers.html:3
+msgid "Recent answers"
+msgstr "Последние ответы"
+
+#: templates/iknow/iknow_ajax_myanswers.html:47
+msgid "You haven't answered any questions yet"
+msgstr "Вы не ответили ни на один вопрос"
+
+#: templates/iknow/iknow_ajax_myanswers.html:48
+#: templates/iknow/iknow_questions.html:13
+msgid "Browse all questions"
+msgstr "Просмотреть все вопросы"
+
+#: templates/iknow/iknow_ajax_question_comments.html:30
+msgid "An egghead"
+msgstr "Эрудит"
+
+#: templates/iknow/iknow_ajax_question_comments.html:34
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t\t\tat %(time_string_l)s\n"
+"\t\t\t\t\t"
+msgstr ""
+
+#: templates/iknow/iknow_ajax_questions.html:44
+#: templates/iknow/iknow_home.html:33 templates/iknow/iknow_search.html:32
+msgid "reward"
+msgstr "поощрения" 
+
+#: templates/iknow/iknow_ajax_questions.html:47
+#: templates/iknow/iknow_home.html:36 templates/iknow/iknow_search.html:35
+msgid "answers received"
+msgstr "ответы получены"
+
+#: templates/iknow/iknow_ajax_questions.html:51
+#: templates/iknow/iknow_home.html:39 templates/iknow/iknow_search.html:38
+msgid "time left"
+msgstr "осталось времени"
+
+#: templates/iknow/iknow_ajax_questions.html:106
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t\t\tpage %(page)s\n"
+"\t\t\t\t\t"
+msgstr ""
+"\n"
+"\t\t\t\t\t\tстраница %(page)s\n"
+"\t\t\t\t\t"
+
+
+#: templates/iknow/iknow_ajax_questions.html:126
+msgid "Jump to"
+msgstr "Перейти к"
+
+#: templates/iknow/iknow_ajax_questions.html:131
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t\t\t%(total_pages)s page in total\n"
+"\t\t\t\t\t"
+msgid_plural ""
+"\n"
+"\t\t\t\t\t\t%(total_pages)s pages in total\n"
+"\t\t\t\t\t"
+msgstr[0] ""
+"\n"
+"\t\t\t\t\t\t%(total_pages)s всего страница\n"
+"\t\t\t\t\t"
+msgstr[1] ""
+"\n"
+"\t\t\t\t\t\t%(total_pages)s всего страниц\n"
+"\t\t\t\t\t"
+
+#: templates/iknow/iknow_ajax_questions.html:140
+msgid "Browse more"
+msgstr "Продолжить обзор"
+
+#: templates/iknow/iknow_ajax_questions.html:143
+msgid "There are no questions in this category"
+msgstr "В данной категории вопросов нет"
+
+#: templates/iknow/iknow_ajax_suggested_questions.html:5
+msgid "Your question might have been answered"
+msgstr "Возможно на ваш вопрос уже есть ответ"
+
+#: templates/iknow/iknow_ajax_transaction.html:3
+msgid "Frozen credits"
+msgstr "Зарезервированные баллы"
+
+#: templates/iknow/iknow_ajax_transaction.html:9
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t\t\t%(amount)s credit frozen for raising the question \n"
+"\t\t\t\t\t"
+msgid_plural ""
+"\n"
+"\t\t\t\t\t\t%(amount)s credits frozen for raising the question \n"
+"\t\t\t\t\t"
+msgstr[0] ""
+"\n"
+"\t\t\t\t\t\t%(amount)s зарезервированные баллы для ответа на вопрос \n"
+"\t\t\t\t\t"
+msgstr[1] ""
+"\n"
+"\t\t\t\t\t\t%(amount)s зарезервированные баллы для ответа на вопрос \n"
+"\t\t\t\t\t"
+
+#: templates/iknow/iknow_ajax_transaction.html:37
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t\t\t\tto %(dst_name)s\n"
+"\t\t\t\t\t\t"
+msgstr ""
+"\n"
+"\t\t\t\t\t\t\tкому %(dst_name)s\n"
+"\t\t\t\t\t\t"
+
+#: templates/iknow/iknow_ajax_transaction.html:58
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t\t\t\tfrom %(src_name)s\n"
+"\t\t\t\t\t\t"
+msgstr ""
+"\n"
+"\t\t\t\t\t\t\tот %(src_name)s\n"
+"\t\t\t\t\t\t"
+
+#: templates/iknow/iknow_answer_full.html:15
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t%(display_name)s attached a file:\n"
+"\t\t\t"
+msgstr ""
+"\n"
+"\t\t\t\t%(display_name)s приложить файл:\n"
+"\t\t\t"
+
+#: templates/iknow/iknow_answer_full.html:18
+msgid "Download"
+msgstr "Загрузить"
+
+#: templates/iknow/iknow_ask.html:5
+msgid "Ask a Question"
+msgstr "Задать вопрос"
+
+#: templates/iknow/iknow_ask.html:14
+msgid "you got a question?"
+msgstr "вы получили вопрос"
+
+#: templates/iknow/iknow_ask.html:16
+msgid "Available Credit"
+msgstr "Доступный кредит"
+
+#: templates/iknow/iknow_ask.html:22
+msgid "Average Price of Questions on Market"
+msgstr "Средняя цена вопроса на рынке"
+
+#: templates/iknow/iknow_ask.html:29
+msgid "Rebate Reminder"
+msgstr "Возможная скидка"
+
+#: templates/iknow/iknow_ask.html:30
+msgid ""
+"You will receive 1/4 of your offered points back if you allocate your points "
+"among answerers on time"
+msgstr "Вы получите 1/4 часть предложенных вами очков если " 
+"разметите своим очки вовремя"
+
+#: templates/iknow/iknow_dashboard.html:5
+#, python-format
+msgid ""
+"\n"
+"\t\tDashboard of %(display_name)s\n"
+"\t"
+msgstr ""
+"\n"
+"\t\tНастройки %(display_name)s\n"
+"\t"
+
+#: templates/iknow/iknow_dashboard.html:18
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t%(display_name)s's iKnow Dashboard\n"
+"\t\t\t"
+msgstr ""
+"\n"
+"\t\t\t\t%(display_name)s Настройки iKnow\n"
+"\t\t\t"
+
+#: templates/iknow/iknow_dashboard.html:32
+msgid "Wealth Balance"
+msgstr "Общее количество баллов"
+
+#: templates/iknow/iknow_dashboard.html:33
+msgid "Rank"
+msgstr "Уровень"
+
+#: templates/iknow/iknow_dashboard.html:34
+msgid "Available credits"
+msgstr "Доступные средства"
+
+#: templates/iknow/iknow_dashboard.html:37
+msgid "on market"
+msgstr "на рынке"
+
+#: templates/iknow/iknow_dashboard.html:38
+msgid "Questions answered"
+msgstr "Решенный вопросы"
+
+#: templates/iknow/iknow_dashboard.html:40
+msgid "Performance"
+msgstr "Результаты"
+
+#: templates/iknow/iknow_dashboard.html:42
+msgid "Average rating of answers"
+msgstr "Средневзвешенный рейтинг ответов"
+
+#: templates/iknow/iknow_dashboard.html:43
+msgid "Average thumbs of answers"
+msgstr "Средневзвешенное голосование ответов"
+
+#: templates/iknow/iknow_dashboard.html:44
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t\t\t%(count_answers_pos_points)s answers received points,\n"
+"\t\t\t\t\t\t%(total_answers_points)s points made in total\n"
+"\t\t\t\t\t"
+msgstr ""
+"\n"
+"\t\t\t\t\t\t%(count_answers_pos_points)s ответов получившие баллы,\n"
+"\t\t\t\t\t\t%(total_answers_points)s всего получено баллов\n"
+"\t\t\t\t\t"
+
+#: templates/iknow/iknow_dashboard.html:60
+msgid "Questions Asked"
+msgstr "Заданные вопросы"
+
+#: templates/iknow/iknow_dashboard.html:61
+msgid "Questions Answered"
+msgstr "Решенные вопросы"
+
+#: templates/iknow/iknow_dashboard.html:62
+msgid "My favorites"
+msgstr "Избранные"
+
+#: templates/iknow/iknow_dashboard.html:63
+msgid "Transaction History"
+msgstr "Архив операций"
+
+#: templates/iknow/iknow_home.html:6
+msgid "iKnow"
+msgstr "iKnow"
+
+#: templates/iknow/iknow_home.html:17
+msgid "Explore"
+msgstr "Исследовать"
+
+#: templates/iknow/iknow_home.html:19
+msgid "I have a question"
+msgstr "У меня есть вопрос"
+
+#: templates/iknow/iknow_home.html:25
+msgid "Your active questions"
+msgstr "Ваши активные вопросы"
+
+#: templates/iknow/iknow_home.html:58
+msgid "You don't have active questions now"
+msgstr "В данный момент у вас нет активных вопросов"
+
+#: templates/iknow/iknow_home.html:66 templates/iknow/iknow_questions.html:18
+msgid "Unanswered"
+msgstr "Не вопросы на которые не был получен ответ"
+
+#: templates/iknow/iknow_home.html:67 templates/iknow/iknow_questions.html:19
+msgid "Most rewarding"
+msgstr "Наиболее вознаграждаемые"
+
+#: templates/iknow/iknow_home.html:81
+msgid "Wealth"
+msgstr "Богатство"
+
+#: templates/iknow/iknow_home.html:82
+msgid "Available Credits"
+msgstr "Доступные средства"
+
+#: templates/iknow/iknow_home.html:83
+msgid "Level"
+msgstr "Уровень"
+
+#: templates/iknow/iknow_home.html:86
+msgid "My Dashboard"
+msgstr "Мои настройки"
+
+#: templates/iknow/iknow_home.html:91
+msgid "Popular Tags"
+msgstr "Популярные теги"
+
+#: templates/iknow/iknow_home.html:104
+msgid "Browse all tags"
+msgstr "Просмотреть все теги"
+
+#: templates/iknow/iknow_home.html:110
+msgid "Top Eggheads"
+msgstr "Лучшие эрудиты"
+
+#: templates/iknow/iknow_home.html:114
+msgid "By wealth"
+msgstr "По количеству средств"
+
+#: templates/iknow/iknow_home.html:115
+msgid "By earning"
+msgstr "По заработку"
+
+#: templates/iknow/iknow_home.html:120
+msgid "Browse all eggheads"
+msgstr "Просмотреть всех эрудитов"
+
+#: templates/iknow/iknow_home.html:126
+msgid "Tribes Joined"
+msgstr "Примкнувшие племена"
+
+#: templates/iknow/iknow_home.html:140
+msgid "You haven't joined any tribe yet"
+msgstr "Вы еще не примкнули ни к одному племени"
+
+#: templates/iknow/iknow_home.html:143
+msgid "Browse all tribes"
+msgstr "Просмотреть все племена"
+
+#: templates/iknow/iknow_question.html:7
+msgid "iKnow Question "
+msgstr "Вопросы iKnow"
+
+#: templates/iknow/iknow_question.html:15
+msgid "Tipping"
+msgstr "Вознаграждать"
+
+#: templates/iknow/iknow_question.html:17
+msgid "Tips"
+msgstr "Вознаграждение"
+
+#: templates/iknow/iknow_question.html:21
+msgid "Tipping comment"
+msgstr "Комментарии к вознаграждению"
+
+#: templates/iknow/iknow_question.html:32
+msgid "You have answered it"
+msgstr "Вы ответили на вопрос"
+
+#: templates/iknow/iknow_question.html:35
+msgid "iAnswer"
+msgstr "iAnswer"
+
+#: templates/iknow/iknow_question.html:40
+#: templates/iknow/iknow_question.html:135
+msgid "Add an Amendment"
+msgstr "Добавить дополнение"
+
+#: templates/iknow/iknow_question.html:57
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t\t\t\t\t\tAmendment %(counter)s added at %(time_string)s:\n"
+"\t\t\t\t\t\t\t\t"
+msgstr ""
+"\n"
+"\t\t\t\t\t\t\t\t\tДополнение %(counter)s добавлено к %(time_string)s:\n"
+"\t\t\t\t\t\t\t\t"
+
+
+#: templates/iknow/iknow_question.html:73
+msgid "You've added this question as favorite"
+msgstr "Вы добавили этот вопрос как лучший"
+
+#: templates/iknow/iknow_question.html:75
+msgid "Add as favorite"
+msgstr "Добавить как лучший"
+
+#: templates/iknow/iknow_question.html:80
+msgid ""
+"Users can't review answers until the question expires. Click to unlock it"
+msgstr ""
+"Пользователи не могут просматривать ответы до истечения срока. Нажмите для разблокировки"
+
+#: templates/iknow/iknow_question.html:82
+msgid ""
+"Users are able to review answers before the question expires. Click to lock "
+"it"
+msgstr ""
+"Пользователи могут просматривать ответы до истечения срока. Нажмите для блокировки"
+
+#: templates/iknow/iknow_question.html:86
+msgid "Users can't review answers until the question expires"
+msgstr "Пользователи не могут просмотреть ответы до истечения срока"
+
+#: templates/iknow/iknow_question.html:88
+msgid "Users are able to review answers before the question expires"
+msgstr "Пользователи могут просмотреть ответы до истечения срока"
+
+#: templates/iknow/iknow_question.html:91
+msgid "Add a comment"
+msgstr "Добавить комментарии"
+
+#: templates/iknow/iknow_question.html:97
+msgid "Asked by"
+msgstr "Вопрос задан"
+
+#: templates/iknow/iknow_question.html:103
+msgid "Expire(d) at"
+msgstr "Срок истекает в"
+
+#: templates/iknow/iknow_question.html:105
+msgid "left"
+msgstr "оставлен"
+
+#: templates/iknow/iknow_question.html:109
+msgid "visit(s)"
+msgstr "посещений"
+
+#: templates/iknow/iknow_question.html:110
+msgid "answer(s)"
+msgstr "ответ(ов)"
+
+#: templates/iknow/iknow_question.html:116
+msgid "comment(s)"
+msgstr "коментратий(ев)"
+
+#: templates/iknow/iknow_question.html:116
+#: templates/iknow/iknow_question.html:332
+msgid "Show"
+msgstr "Показать"
+
+#: templates/iknow/iknow_question.html:124
+msgid "Leave a comment"
+msgstr "Оставить коментарий"
+
+#: templates/iknow/iknow_question.html:127
+#: templates/iknow/iknow_question.html:138
+#: templates/iknow/iknow_question.html:148
+msgid "Submit"
+msgstr "Отправить"
+
+#: templates/iknow/iknow_question.html:128
+#: templates/iknow/iknow_question.html:139
+#: templates/iknow/iknow_question.html:149
+msgid "Cancel"
+msgstr "Отменить"
+
+#: templates/iknow/iknow_question.html:158
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t\t%(answer_count)s Answer\n"
+"\t\t\t\t"
+msgid_plural ""
+"\n"
+"\t\t\t\t\t%(answer_count)s Answers\n"
+"\t\t\t\t"
+msgstr[0] ""
+"\n"
+"\t\t\t\t\t%(answer_count)s Ответ\n"
+"\t\t\t\t"
+msgstr[1] ""
+"\n"
+"\t\t\t\t\t%(answer_count)s Ответов\n"
+"\t\t\t\t"
+
+#: templates/iknow/iknow_question.html:168
+msgid "Replied by"
+msgstr "Отправлении от"
+
+#: templates/iknow/iknow_question.html:183
+msgid "Last edited at"
+msgstr "Последние изменения сделаны в "
+
+#: templates/iknow/iknow_question.html:188
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t\t\t\t\t\t\tTipped once\n"
+"\t\t\t\t\t\t\t\t\t"
+msgid_plural ""
+"\n"
+"\t\t\t\t\t\t\t\t\t\tTipped %(received_tipping_times)s times\n"
+"\t\t\t\t\t\t\t\t\t"
+msgstr[0] ""
+"\n"
+"\t\t\t\t\t\t\t\t\t\tВознагражден раз\n"
+"\t\t\t\t\t\t\t\t\t"
+msgstr[1] ""
+"\n"
+"\t\t\t\t\t\t\t\t\t\tВознагражден раз\n"
+"\t\t\t\t\t\t\t\t\t"
+
+#: templates/iknow/iknow_question.html:194
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t\t\t\t\t\t\t%(received_tipping_total)s in total\n"
+"\t\t\t\t\t\t\t\t\t"
+msgstr ""
+"\n"
+"\t\t\t\t\t\t\t\t\t\t%(received_tipping_total)s всего\n"
+"\t\t\t\t\t\t\t\t\t"
+
+
+#: templates/iknow/iknow_question.html:204
+msgid "Edit"
+msgstr "Изменить"
+
+#: templates/iknow/iknow_question.html:206
+msgid "Lock"
+msgstr "Блокировать"
+
+#: templates/iknow/iknow_question.html:208
+msgid "Unlock"
+msgstr "Открыть"
+
+#: templates/iknow/iknow_question.html:228
+msgid "The full answer is hidden to other users until the question expires"
+msgstr "Полный ответ скрыт от других пользователей до истечения срока"
+
+#: templates/iknow/iknow_question.html:249
+#: templates/iknow/iknow_question.html:272
+#: templates/iknow/iknow_question.html:295
+msgid "Never rated"
+msgstr "Еще не оценен"
+
+#: templates/iknow/iknow_question.html:253
+msgid "Allocate points"
+msgstr "Дать баллы"
+
+#: templates/iknow/iknow_question.html:275
+#: templates/iknow/iknow_question.html:298
+msgid "Award received"
+msgstr "Получено вознаграждение"
+
+#: templates/iknow/iknow_question.html:325
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t\t\t\t\t\t\t%(comment_count)s comment\n"
+"\t\t\t\t\t\t\t\t\t"
+msgid_plural ""
+"\n"
+"\t\t\t\t\t\t\t\t\t\t%(comment_count)s comments\n"
+"\t\t\t\t\t\t\t\t\t"
+msgstr[0] ""
+"\n"
+"\t\t\t\t\t\t\t\t\t\t%(comment_count)s коментарий\n"
+"\t\t\t\t\t\t\t\t\t"
+msgstr[1] ""
+"\n"
+"\t\t\t\t\t\t\t\t\t\t%(comment_count)s коментариев\n"
+"\t\t\t\t\t\t\t\t\t"
+
+#: templates/iknow/iknow_question.html:335
+msgid "Post a comment"
+msgstr "Разместить коментарий"
+
+#: templates/iknow/iknow_question.html:344
+msgid "No one has answered this question"
+msgstr "Никто не ответил на этот вопрос"
+
+#: templates/iknow/iknow_question.html:351
+msgid "You are the asker of this question"
+msgstr "Вы автор этого вопроса"
+
+#: templates/iknow/iknow_question.html:355
+msgid "This question is active and accepting answers"
+msgstr "Это активный вопрос и ждет ваших ответов"
+
+#: templates/iknow/iknow_question.html:358
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t\t\t\t\t\tThis question has been extended and accepting answers. You "
+"have to take actions before %(deadline_string_l)s\n"
+"\t\t\t\t\t\t\t\t"
+msgstr ""
+"\n"
+"\t\t\t\t\t\t\t\t\tЭтот вопрос продлении и принимает ответы. Вы "
+"можете принять участие до %(deadline_string_l)s\n"
+"\t\t\t\t\t\t\t\t"
+
+#: templates/iknow/iknow_question.html:366
+msgid ""
+"You can allocate reward points among answers you favor, and click on the "
+"'solved' button after you feel satisfied."
+msgstr ""
+"Вы можете разметить вознаграждение среди понравившихся вам ответов, и нажать на кнопку "
+"'Решен' если считает что вопрос разрешен."
+
+#: templates/iknow/iknow_question.html:368
+msgid "Reminder"
+msgstr "Напоминание"
+
+#: templates/iknow/iknow_question.html:369
+msgid ""
+"you will receive 1/4 of offered points back if you allocate points on time"
+msgstr ""
+"вы получите 1/4 часть предложенных вами очков в случае если разметите свои очки вовремя"
+
+#: templates/iknow/iknow_question.html:375
+#: templates/iknow/iknow_question.html:402
+msgid "You haven't received any answers yet"
+msgstr "Я еще не получил ответ"
+
+#: templates/iknow/iknow_question.html:379
+#: templates/iknow/iknow_question.html:403
+msgid "I want my money back"
+msgstr "Я хочу вернуть свои баллы"
+
+#: templates/iknow/iknow_question.html:384
+msgid ""
+"Your question is non-rewarding. It keeps accepting new answers for a week, "
+"you can rate or vote on given answers"
+msgstr ""
+"Ваш вопрос безвозмездный. Он будет принимать ответы в течение недели, "
+"вы можете отдавать предпочтения голосуя за тот или иной ответ"
+
+#: templates/iknow/iknow_question.html:389
+msgid "This question has been solved and closed by you"
+msgstr "Этот вопрос решен и закрыт вами"
+
+#: templates/iknow/iknow_question.html:393
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t\t\t\t\t\tAction required! Your question has expired, please take "
+"actions before %(deadline_string_l)s\n"
+"\t\t\t\t\t\t\t\t"
+msgstr ""
+"\n"
+"\t\t\t\t\t\t\t\t\tТребуется принять решение! Срок вашего вопроса истек, необходимо принять действия "
+"до %(deadline_string_l)s\n"
+"\t\t\t\t\t\t\t\t"
+
+#: templates/iknow/iknow_question.html:397
+msgid ""
+"if answers given by far are not satisfactory, you can extend it by 7 days "
+"from the original expiration time, but just once"
+msgstr ""
+"если ответы вам не удовлетворили вопрос можно продлить на 7 дней "
+"со дня первоначального истечения срока, но только один раз"
+
+#: templates/iknow/iknow_question.html:405
+msgid "Extend 7 days"
+msgstr "Продлить на 7 дней"
+
+#: templates/iknow/iknow_question.html:409
+msgid ""
+"\n"
+"\t\t\t\t\t\t\t\t\tYou haven't acted on the question before the designated "
+"deadline, your points were forfeited and distributed by the system. \n"
+"\t\t\t\t\t\t\t\t\tThe question is considered as unsolved.\n"
+"\t\t\t\t\t\t\t\t"
+msgstr ""
+"\n"
+"\t\t\t\t\t\t\t\t\tВы не приняли соответствующих действий до  "
+"окончания срока, ваши баллы заморожены и распределены в системе. \n"
+"\t\t\t\t\t\t\t\t\tВопрос оставлен нерешенным.\n"
+"\t\t\t\t\t\t\t\t"
+
+#: templates/iknow/iknow_question.html:415
+msgid ""
+"Since you haven't received any answers. Your points have been returned to you"
+msgstr ""
+"Так как вы не получили ответов, ваши баллы возвращаются к вам"
+
+#: templates/iknow/iknow_question.html:424
+msgid "Related questions you might be interested in"
+msgstr "Схожие по тематике вопросы"
+
+#: templates/iknow/iknow_question.html:436
+msgid "No match found"
+msgstr "Соответствий не найдено"
+
+#: templates/iknow/iknow_questions.html:4
+msgid "iKnow questions"
+msgstr "Вопросы iKnow"
+
+#: templates/iknow/iknow_questions.html:20
+msgid "All"
+msgstr "Все"
+
+#: templates/iknow/iknow_search.html:5
+msgid "iKnow Search"
+msgstr "Поиск в iKnow"
+
+#: templates/iknow/iknow_search.html:17
+msgid "Input keywords"
+msgstr "Ввести ключевое слово"
+
+#: templates/iknow/iknow_search.html:21
+msgid "Search questions"
+msgstr "Поиск вопросов"
+
+#: templates/iknow/iknow_search.html:26
+msgid "Results"
+msgstr "Результаты"
+
+#: templates/iknow/iknow_search.html:59
+msgid "No matched results"
+msgstr "Нет результата, попробуйте еще раз"
+
+#: templates/iknow/iknow_tag.html:3
+msgid "iKnow tag"
+msgstr "iKnow тег"
+
+#: templates/iknow/iknow_tag.html:24
+msgid "Tag cloud panel"
+msgstr "Панель облака тегов"
+
+#: templates/iknow/iknow_tag.html:33
+msgid "Tag"
+msgstr "Тег"
+
+#: templates/iknow/iknow_tag.html:34
+msgid "Count"
+msgstr "Счет"
+
+#: templates/iknow/iknow_tag.html:37
+msgid "Questions"
+msgstr "Вопросы"
+
+#: templates/iknow/iknow_tag.html:38
+msgid "Documents"
+msgstr "Документы"
+
+#: templates/iknow/iknow_tag.html:39
+msgid "Experts"
+msgstr "Эксперты"

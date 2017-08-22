@@ -1,0 +1,39 @@
+{% extends "idoc/base.html" %}
+
+{% load i18n %}
+{% load uni_form %}
+{% block head_title %}{% trans "Request a Document" %}{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}idoc/css/idoc.css" />
+{% endblock %}
+
+{% block body %}
+	<div class="span-18 apage">
+		<div class="ui-widget ui-widget-content ui-corner-all info-content">
+			<h1 style="margin: 15px 0px 10px 15px;">
+				Request a document
+			</h1>
+			<form enctype="multipart/form-data" class="uniForm" id="submit_form" method="post" 
+					action="{% url idoc_request %}">
+				<fieldset class="inlineLabels">
+					{{ form|as_uni_form }}
+					<div  class="form_block">
+						<input class="ibutton" type="submit" value="Submit" />
+					</div>
+				</fieldset>
+			</form>
+		</div>
+	</div>
+{% endblock %}
+
+{% block extra_body %}
+	<script type="text/javascript" src="{{ STATIC_URL }}core/js/jquery.tools.min.js"> </script>
+	<script type="text/javascript">
+		$(function(){
+			{% include "core/core_form_js.html" %}
+			$("input:submit").button();
+			$("#id_end_date").datepicker({minDate:0});
+		});
+	</script>
+{% endblock %}

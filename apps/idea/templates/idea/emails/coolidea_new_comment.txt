@@ -1,0 +1,24 @@
+{% load i18n %}
+{% blocktrans with coolidea.title|safe as coolidea_title and coolidea.display_name as coolidea_contributor and comment.display_name as commentor_name %}
+The idea
+
+	{{ coolidea_title }}
+
+	contributed by {{ coolidea_contributor }}
+
+	just received a comment from {{ commentor_name }}
+{% endblocktrans %}
+****************************************************************************
+{{ comment.details }}
+****************************************************************************
+
+{% trans "You could visit the link below to review the comment" %}. {% trans "Thanks for your participation" %}.
+	http://{{ current_site.domain }}/idea/coolidea/{{ coolidea.id }}/
+
+{% blocktrans with current_site.name as site_name %}
+To change your settings on receiving notifications from {{ site_name }}, visit
+{% endblocktrans %}
+	http://{{ current_site.domain }}/barter/settings/
+{% blocktrans with current_site.name as site_name %}
+- {{ site_name }} Team
+{% endblocktrans %}

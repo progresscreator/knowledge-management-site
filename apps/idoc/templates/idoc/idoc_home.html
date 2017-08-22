@@ -1,0 +1,209 @@
+{% extends "idoc/base.html" %}
+{% load i18n %}
+{% load avatar_tags %}
+{% block head_title %}{% trans "iDoc" %}{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}iknow/css/iknow.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}idoc/css/idoc.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}iknow/css/iknow_home.css" />
+{% endblock %}
+
+{% block body %}
+	<div id="search-bar" class="span-24 last">
+		<form enctype="multipart/form-data" action="{% url idoc_search %}" method="get">
+			<input type="text" class="input-home-search" id="id_idoc_search" name="q" />
+			<input type="submit" class="ui-button ui-corner-all ui-state-default home-button" value="{% trans "Search" %}" />
+			<input type="submit" id="id_upload_button"
+				class="ui-button ui-corner-all ui-state-default home-button" value="{% trans "Upload a Doc" %}!" />
+		</form>
+	</div>
+	<div class="span-18">
+		<div class="ui-widget ui-corner-all info-block">
+			<div class="ui-widget-header ui-corner-top info-header">
+				{% trans "Recent documents" %}
+			</div>
+			<div id="doc-list" class="ui-widget-content ui-corner-bottom info-content">
+					{% if docs %}
+						<table class="doc-list">
+							<tr>
+								<th class="title">{% trans "Title" %}</th>
+								<th class="uploader">{% trans "Uploader" %}</th>
+								<th class="downloads"> 
+									<img src="{{ STATIC_URL }}idoc/images/download_icon_14x14.png" title="{% trans "Downloads" %}"/>
+								</th>
+								<th class="fee"> 
+									<img src="{{ STATIC_URL }}iknow/images/coin_13x13.png" title="{% trans "Fee" %}"/>
+								</th>
+								<th class="rating">
+									<img src="{{ STATIC_URL }}idoc/images/rating_14x14.png" title="{% trans "Rating" %}"/>
+								</th>
+							</tr>
+							{% for doc in docs %}
+								<tr>
+									<td class="title"><a href="{% url idoc_doc doc.id %}">{{ doc.title }}</a></td>	
+									{% if doc.anonymous %}
+										<td class="uploader"> {{ doc.display_name }} </td>
+									{% else %}
+										<td class="uploader"> 
+											<a href="{% url egghead_detail doc.creator  %}">
+												{{ doc.display_name }}
+											</a>
+										</td>
+									{% endif %}
+									<td class="downloads"> {{ doc.downloads }} </td>
+									{% if doc.points_needed %}
+										<td class="fee" style="color:red;"> {{ doc.points_needed }} </td>
+									{% else %}
+										<td class="fee" style="color:green;"> {{ doc.points_needed }} </td>
+									{% endif %}
+									<td class="rating"> {{ doc.rating_string }} </td>
+								</tr>
+							{% endfor %}
+						</table>
+					{% endif %}
+					<input type="submit" class="ui-button ui-corner-all ui-state-default ibutton" 
+						id="id_all_docs" value="{% trans "Browse all documents" %} &raquo;" />
+			</div>
+		</div>
+	</div>
+	<div class="span-6 last">
+		<div class="ui-widget ui-corner-all info-block">
+			<div class="ui-widget-header ui-corner-top info-header">
+				{{ user.egghead.display_name }}
+			</div>
+			<div class="ui-widget-content ui-corner-bottom info-content">
+				<div style="float: left; width:30%">
+					{% avatar user 50 %}
+				</div>
+				<p style="float: left: width: 68%">
+					{% trans "Wealth" %}: {{ egghead.wealth_notes }} <br />
+					{% trans "Available Credits" %}: {{ egghead.available_credits }}<br />
+					{% trans "Level" %}: {{ egghead.band_name }}
+				</p>
+				<input type="submit" class="ui-button ui-corner-all ui-state-default ibutton" 
+					id="id_dash_board" value="{% trans "My Dashboard" %} &raquo;" />
+			</div>
+		</div>
+		<div class="ui-widget ui-corner-all info-block">
+			<div class="ui-widget-header ui-corner-top info-header">
+				{% trans "Popular Tags" %}
+			</div>
+			<div class="ui-widget-content ui-corner-bottom info-content">
+				<ol>
+					{% for obj in top_tags %}
+						<li><a href="{% url iknow_tag obj.id %}">
+							{{ obj.name }}
+							</a>
+							({{ obj.count }})
+						</li>
+					{% endfor %}
+				</ol>
+				<input type="submit" class="ui-button ui-corner-all ui-state-default ibutton" 
+					id="id_all_tags" value="{% trans "Browse all tags" %} &raquo;" />
+			</div>
+		</div>
+
+		<div class="ui-widget ui-corner-all info-block">
+			<div class="ui-widget-header ui-corner-top info-header">
+				{% trans "Top Eggheads" %}
+			</div>
+			<div class="ui-widget-content ui-corner-bottom info-content">
+				<p style="text-align: right;padding-right: 20px;">
+					<a id="select_wealth" href="">{% trans "By wealth" %}</a>	|
+					<a id="select_earning" href="">{% trans "By earning" %}</a>
+				</p>
+				<div id="egghead-rank">
+				</div>
+				<input type="submit" class="ui-button ui-corner-all ui-state-default ibutton" 
+					id="id_all_eggheads" value="{% trans "Browse all eggheads" %} &raquo;" />
+			</div>
+		</div>
+
+		<div class="ui-widget ui-corner-all info-block">
+			<div class="ui-widget-header ui-corner-top info-header">
+				{% trans "Tribes Joined" %}
+			</div>
+			<div class="ui-widget-content ui-corner-bottom info-content">
+				{% if tribes %}
+					<ol>
+						{% for tribe in tribes %}
+							<li>
+								<a href="{% url tribe_detail tribe.slug %}">
+									{{ tribe.name }}
+								</a>
+							</li>
+						{% endfor %}
+					</ol>
+				{% else %}
+					<p> {% trans "You haven't joined any tribe yet" %} ~</p>
+				{% endif %}
+				<input type="submit" class="ui-button ui-corner-all ui-state-default ibutton" 
+					id="id_all_tribes" value="{% trans "Browse all tribes" %} &raquo;" />
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block extra_body %}
+	<script type="text/javascript" src="{{ STATIC_URL }}core/js/jquery.tools.min.js"> </script>
+	<script type="text/javascript">
+		var top_egghead_wealth = "\
+				<ol>\
+					{% for obj in top_eggheads %}\
+						<li><a href='{% url iknow_dashboard obj.user.username %}'>\
+							{{ obj.display_name }}\
+						</a>({{ obj.wealth_notes }})</li>\
+					{% endfor %}\
+				</ol>\
+				";
+		var top_egghead_earning = "\
+				<ol>\
+					{% for obj in top_eggheads_earning %}\
+						<li><a href='{% url iknow_dashboard obj.user.username %}'>\
+							{% if obj.user.get_full_name %} {{ obj.user.get_full_name }} {% else %} {{ obj.user.username }} {% endif %}\
+						</a>({{ obj.earning_total }})</li>\
+					{% endfor %}\
+				</ol>\
+				";
+		function select_rank_wealth() {
+			$("#select_wealth").css({"text-decoration": "none", "color": "#206BA4"});
+			$("#select_earning").css({"text-decoration": "underline", "color": "#555555"});
+			$("#egghead-rank").html(top_egghead_wealth);
+		}
+		function select_rank_earning() {
+			$("#select_earning").css({"text-decoration": "none", "color":"#555555"});
+			$("#select_wealth").css({"text-decoration": "underline", "color":"#206BA4"});
+			$("#egghead-rank").html(top_egghead_earning);
+		}
+		$(function(){
+			select_rank_wealth();
+			$(".ibutton, .home-button").button();
+			$("#select_wealth").click(function(e){
+				select_rank_wealth();
+				e.preventDefault();
+			});
+			$("#select_earning").click(function(e){
+				select_rank_earning();
+				e.preventDefault();
+			});
+			$("input:text").addClass("ui-corner-all")
+				.css({"font-size":"12px","padding":"5px", "color": "#2B3856", "font-weight": "bold",
+				"font-family":"Courier, Rockwell, 'Courier New', 'Serif'"})
+				.val("");
+			$("#id_upload_button").click(function(e) {
+				e.preventDefault();
+				window.location="{% url idoc_upload %}";
+			});
+			$("#id_all_docs").click(function(e) {
+				e.preventDefault();
+				window.location="{% url idoc_docs %}";
+			});
+			$("#id_dash_board").click(function(e) {
+				e.preventDefault();
+				window.location="{% url iknow_dashboard user.username %}";
+			});
+			$("ul.css-tabs").tabs("div.css-panes > div", {effect: 'ajax'}).history();
+		});
+	</script>
+{% endblock %}

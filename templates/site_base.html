@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load openid_tags %}
+{% load ifsetting_tag %}
+{% load analytics %}
+
+{% block extra_head_base %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/site_tabs.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/avatar.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/blogs.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/comments.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/friends.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/groups.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/locations.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/messages.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/microblogging.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/pagination.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/photos.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/tabs.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/topics.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/wiki.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/jquery.autocomplete.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}bookmarks/css/bookmarks.css" />
+    {% block extra_head %}{% endblock %}
+{% endblock %}
+
+{% block login %}
+    {% if user.is_authenticated %}
+        {% openid_icon openid user %}
+		<b>{{ user }}</b> | 
+		<a href="{% url acct_email %}">{% trans "Account" %}</a> | 
+		<a href="{% url barter_settings %}">{% trans "Settings" %}</a> |
+		{% if user.is_staff %}<a href="/admin/">{% trans "Admin" %}</a> | {% endif %}
+		{% if imessage_enabled %}
+			<a href="{% url messages_inbox %}"> <img src="{{ STATIC_URL }}core/images/mail_21x14.png" /> ({{ combined_inbox_count }})</a> |
+		{% endif %}
+		<a href="/openid/logout/?next={% url acct_logout %}">{% trans "Logout" %}</a>
+    {% else %}
+        <a href="{% url egghead_login %}">{% trans "Login" %}</a> {% ifsetting ACCOUNT_OPEN_SIGNUP %}{% trans "or" %} <a href="{% url acct_signup %}"><b>{% trans "Sign up" %}</b></a>{% endifsetting %}
+    {% endif %}
+{% endblock %}
+
+{% block locale_switcher %}
+    <form action="{% if request.user.is_authenticated %}{% url acct_language_change %}{% else %}/i18n/setlang/{% endif %}" method="post" id="locale_switcher">
+        <select name="language" onchange="$('#locale_switcher').submit()">
+            {% for lang in LANGUAGES %}
+                <option value="{{ lang.0 }}"{% ifequal lang.0 LANGUAGE_CODE %} selected="selected"{% endifequal %}>{{ lang.1 }}</option>
+            {% endfor %}
+        </select>
+    </form>
+{% endblock %}
+
+{% block logo_link_image %}<a href="{% url home %}">
+	{% ifequal current_site_name "barter-dv" %}
+		<img src="{{ STATIC_URL }}pinax/images/logo_dv.png" alt="Barter"/></a>
+	{% else %}
+		{% ifequal current_site_name "debug" %}
+			<img src="{{ STATIC_URL }}pinax/images/logo3.png" alt="Barter"/></a>
+		{% else %}
+			<img src="{{ STATIC_URL }}pinax/images/logo3.png" alt="Barter"/></a>
+		{% endifequal %}
+	{% endifequal %}
+{% endblock %}
+
+{% block right_tabs %}
+	{% if user.is_authenticated %}
+		<ul class="tabs">{% spaceless %}
+			<li id="tab_profile"><a href="{% url egghead_detail user %}">{% trans "Profile" %}</a></li>
+			<li id="tab_dashboard"><a href="{% url db_home user %}">{% trans "Economy" %}</a></li>
+			<li id="tab_iknow"><a href="{% url iknow_home %}">{% trans "iKnow" %}</a></li>
+			<li id="tab_idoc"><a href="{% url idoc_home %}">{% trans "iDoc" %}</a></li>
+			{% if inews_enabled %}
+				<li id="tab_inews"><a href="{% url inews_home %}">{% trans "iNews" %}</a></li>
+			{% endif %}
+			<li id="tab_idea"><a href="{% url idea_home %}">{% trans "iDea" %}</a></li>
+			<li id="tab_iauction"><a href="{% url iauction_home %}">{% trans "iBay" %}</a></li>
+			{% if not hide_idesign %}
+				<li id="tab_idesign"><a href="{% url idesign_home %}">{% trans "iDesign" %}</a></li>
+			{% endif %}
+		{% endspaceless %}</ul>
+	{% endif %}
+{% endblock %}
+
+{% block footer %}
+<div class="legal">
+	{% trans "&copy; 2010 &bull; Barter - A Market-incented Wisdom Exchange &sdot; &bull; MIT Media Lab &sdot; &bull; Viral Communications" %}
+	- <a href="{% url what_and_who %}">{% trans "About" %}</a>
+	- <a href="{% url terms %}">{% trans "Terms of Service" %}</a>
+</div>
+{% endblock %}
+
+{% block extra_body_base %}
+	{% urchin %}
+	<script type="text/javascript" src="{{ STATIC_URL }}pinax/js/topics.js"></script>
+	{% if facebook_enabled %}
+		<div id="fb-root"></div>
+		<script>
+			window.fbAsyncInit = function() {
+				FB.init({appId: '144415995605235', status: true, cookie: true, xfbml: true});
+			};
+			(function() {
+				var e = document.createElement('script');
+				e.type = 'text/javascript';
+				e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
+				e.async = true;
+				document.getElementById('fb-root').appendChild(e);
+			}());
+		</script>
+	{% endif %}
+	{% block extra_body %}{% endblock %}
+{% endblock %}

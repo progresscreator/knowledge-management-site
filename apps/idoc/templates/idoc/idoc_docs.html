@@ -1,0 +1,87 @@
+{% extends "idoc/base.html" %}
+
+{% load i18n %}
+{% block head_title %}{% trans "iDoc" %} - {% trans "All documents" %}{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}idoc/css/idoc.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}iknow/css/iknow_home.css" />
+{% endblock %}
+
+{% block body %}
+	<div id="idoc-search-bar" class="span-24 last">
+		<form enctype="multipart/form-data" action="" method="post">
+			<input type="text" id="id_idoc_search" name="idoc_search" />
+			<input type="submit" class="ui-button ui-corner-all ui-state-default home-button" value="{% trans "Search" %}" />
+			<input type="submit" id="id_upload_button"
+				class="ui-button ui-corner-all ui-state-default home-button" value="{% trans "Upload a Document" %}!" />
+		</form>
+	</div>
+	<div class="span-24 last">
+		<div class="ui-widget ui-widget-content ui-corner-all info-content" id="doc-list">
+			<h1> {% trans "All documents" %} </h1>
+			{% if docs %}
+				<table id="all-docs">
+					<tr>
+						<th class="title">{% trans "Title" %}</th>
+						<th class="uploader">{% trans "Uploader" %}</th>
+						<th class="downloads"> 
+							<img src="{{ STATIC_URL }}idoc/images/download_icon_14x14.png" title="{% trans "Downloads" %}"/>
+						</th>
+						<th class="fee"> 
+							<img src="{{ STATIC_URL }}iknow/images/coin_13x13.png" title="{% trans "Fee" %}"/>
+						</th>
+						<th class="rating">
+							<img src="{{ STATIC_URL }}idoc/images/rating_14x14.png" title="{% trans "Ratings" %}"/>
+						</th>
+						<th class="time">
+							<img src="{{ STATIC_URL }}idoc/images/timer_icon_14x14.png" title="{% trans "Upload time" %}"/>
+						</th>
+					</tr>
+					{% for doc in docs %}
+						<tr>
+							<td class="title"><a href="{% url idoc_doc doc.id %}">{{ doc.title }}</a></td>	
+							{% if doc.anonymous %}
+								<td class="uploader"> {{ doc.display_name }} </td>
+							{% else %}
+								<td class="uploader"> 
+									<a href="{% url egghead_detail doc.creator  %}">
+										{{ doc.display_name }}
+									</a>
+								</td>
+							{% endif %}
+							<td class="downloads"> {{ doc.downloads }} </td>
+							{% if doc.points_needed %}
+								<td class="fee" style="color:red;"> {{ doc.points_needed }} </td>
+							{% else %}
+								<td class="fee" style="color:green;"> {{ doc.points_needed }} </td>
+							{% endif %}
+							<td class="rating"> {{ doc.rating_string }} </td>
+							<td class="time"> {{ doc.time_string_s }} </td>
+						</tr>
+					{% endfor %}
+				</table>
+			{% endif %}
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block extra_body %}
+	<script type="text/javascript" src="{{ STATIC_URL }}core/js/jquery.tools.min.js"> </script>
+	<script type="text/javascript">
+		$(function(){
+			$("input:text").addClass("ui-corner-all")
+				.css({"font-size":"12px","padding":"5px", "font-family":"Courier"}).val("");
+			$("#id_upload_button").click(function(e) {
+				e.preventDefault();
+				window.location="{% url idoc_upload %}";
+			});
+			$("#id_dash_board").click(function(e) {
+				e.preventDefault();
+				window.location="{% url iknow_dashboard user.username %}";
+			});
+			$("ul.css-tabs").tabs("div.css-panes > div", {effect: 'ajax'}).history();
+		});
+	</script>
+{% endblock %}

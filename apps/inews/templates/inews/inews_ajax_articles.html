@@ -1,0 +1,208 @@
+{% load i18n %}
+<style type="text/css">
+	ul.page-bar li {
+		margin: 2px;
+		position: relative;
+		padding: 4px 0; 
+		float: left;  
+		list-style: none;
+	}
+	ul.page-bar li a {
+		text-decoration: none;
+		color: #1569C7;
+	}
+	ul.page-bar li.page-number {
+		margin: 2px 15px;
+		color: #7F4E52;
+	}
+	ul.page-bar li.jump {
+		margin: 2px 15px;
+		padding: 2px 0px 0px 0px;
+	}
+	ul.page-bar li.jump input {
+		font-size: 10px;
+		margin: 0px 10px;
+		padding-left: 5px;
+		width: 40px;
+	}
+	ul.page-bar span.ui-icon {
+		float: left;
+		margin: 0 4px;
+	}
+</style>
+<div id="qlist">
+	<h4> {{ title }} </h4>
+	{% if objs.object_list %}
+		<table class="table-questions">
+			<tr>
+				<th class="title">{% trans "Title" %}</th>
+
+				<th class="submitter">{% trans "Submitter" %}</th>
+
+				<th class="ppv">
+					<img src="{{ STATIC_URL }}iknow/images/06_16x16.png" title="{% trans "points per view" %}" />
+				</th>
+				<th class="votes">
+					<img src="{{ STATIC_URL }}iknow/images/arrow_16x16.png" title="{% trans "votes" %}" />
+				</th>
+				<th class="time">
+						<img src="{{ STATIC_URL }}iknow/images/clock_16x16.png" title="{% trans "time posted" %}" />
+					</th>
+			</tr>
+
+			{% for obj in objs.object_list %}
+				{% ifequal obj.asker.id user.id %}
+					<tr class="self">
+				{% else %}
+					<tr>
+				{% endifequal %}
+					<td class="title"> 
+						<img src="{{ STATIC_URL }}iknow/images/paper_16x16.png" />&nbsp;
+						<a href="{{ obj.get_absolute_url }}">{{ obj.title }}</a>
+					</td>
+
+					<td class="submitter">          
+						{{ obj.display_name }}
+						</td>
+
+					<td class="ppv"> 
+						<img src="{{ STATIC_URL }}iknow/images/coin_13x13.png" />
+						{{ obj.points_per_view }}
+					</td>
+					<td class="votes">
+						{{ obj.thumbs }}
+					</td>
+
+					<td class="time">
+							{{ obj.time_string_l }}
+						</td>
+				</tr>
+			{% endfor %}
+		</table>
+		{% if not home %}
+			<ul class="page-bar">
+				{% if objs.has_previous %}
+					<li class="ui-state-default ui-corner-all left-end" >
+				{% else %}
+					<li class="ui-state-disabled ui-corner-all">
+				{% endif %}
+					<span class="ui-icon ui-icon-arrowthickstop-1-w"></span>
+				</li>
+				{% if objs.has_previous %}
+					<li class="ui-state-default ui-corner-all left-prev" >
+				{% else %}
+					<li class="ui-state-disabled ui-corner-all">
+				{% endif %}
+					<span class="ui-icon ui-icon-arrowthick-1-w"></span>
+				</li>
+				<li class="page-number">
+					{% blocktrans %}
+						page {{ page }}
+					{% endblocktrans %}
+				</li>
+				{% if objs.has_next %}
+					<li class="ui-state-default ui-corner-all right-next">
+				{% else %}
+					<li class="ui-state-disabled ui-corner-all">
+				{% endif %}
+					<span class="ui-icon ui-icon-arrowthick-1-e"></span>
+				</li>
+				{% if objs.has_next %}
+					<li class="ui-state-default ui-corner-all right-end">
+				{% else %}
+					<li class="ui-state-disabled ui-corner-all">
+				{% endif %}
+					<span class="ui-icon ui-icon-arrowthickstop-1-e"></span>
+				</li>
+				{% ifnotequal total_pages 1 %} {% ifnotequal total_pages 0 %}
+					<li class="jump">
+						{% trans "Jump to" %}
+						<input id="jump-input" class="ui-widget-content ui-corner-all" type="text" />
+					</li>
+				{% endifnotequal %} {% endifnotequal %}
+				<li style="float: right;">
+					{% blocktrans count total_pages as total_pages %}
+						{{ total_pages }} page in total
+					{% plural %}
+						{{ total_pages }} pages in total
+					{% endblocktrans %}
+				</li>
+			</ul>
+		{% else %}
+			<ul class="page-bar"><li style="float:right;">
+				<a href="{% url inews_articles %}">{% trans "Browse more" %} &raquo;</a></li></ul>
+		{% endif %}
+	{% else %}
+		{% trans "There are no articles in this category" %}.
+	{% endif %}
+	<div class="clearfix"> </div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		var order = "{{ order }}";
+		var page = {{ page }};
+		var total_pages = {{ total_pages }};
+		{% ifequal qtype "iasked" %}
+			var target_url = "{% url iknow_ajax_dashboard duser.username "asked" %}";
+		{% else %}
+			var target_url = "{% url iknow_ajax_questions qtype %}";
+		{% endifequal %}
+		$("#sort").click(function(){
+			var api = $("ul.css-tabs").tabs();
+			api.getPanes().html("hello");
+		});
+		$("#jump-input").keypress(function(e){
+			if (e.which == 13) {
+				var gpage = parseInt(this.value);
+				if ((gpage > 0) && (gpage <= total_pages) && (gpage != page)) {
+					var selected = $("#tabs").tabs("option", "selected");
+					var url = target_url + "?page=" + gpage;
+					$("#tabs").tabs("url", selected, url);
+					$("#tabs").tabs("load", selected);
+				}
+			}
+		});
+		$("li.right-next").click(function(){
+			if (page < total_pages) {
+				var selected = $("#tabs").tabs("option", "selected");
+				var url = target_url + "?page=" + (page+1);
+				$("#tabs").tabs("url", selected, url);
+				$("#tabs").tabs("load", selected);
+			}
+		});
+		$("li.left-prev").click(function(){
+			if (page > 0) {
+				var selected = $("#tabs").tabs("option", "selected");
+				var url = target_url + "?page=" + (page-1);
+				$("#tabs").tabs("url", selected, url);
+				$("#tabs").tabs("load", selected);
+			}
+		});
+		$("li.left-end").click(function(){
+			if (page > 0) {
+				var selected = $("#tabs").tabs("option", "selected");
+				var url = target_url + "?page=1";
+				$("#tabs").tabs("url", selected, url);
+				$("#tabs").tabs("load", selected);
+			}
+		});
+		$("li.right-end").click(function(){
+			if (page < total_pages ) {
+				var selected = $("#tabs").tabs("option", "selected");
+				var url = target_url + "?page=" + total_pages;
+				$("#tabs").tabs("url", selected, url);
+				$("#tabs").tabs("load", selected);
+			}
+		});
+		$("li.ui-state-default").hover(
+			function(){
+				$(this).removeClass("ui-state-default");
+				$(this).addClass("ui-state-highlight");
+			},
+			function(){
+				$(this).removeClass("ui-state-highlight");
+				$(this).addClass("ui-state-default");
+			}
+		);
+	});
+</script>

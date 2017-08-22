@@ -1,0 +1,90 @@
+h3 {
+	margin-bottom: 20px;
+	color: #151B54;
+	font-size: 15px;
+	font-family: Verdana;
+	font-weight: bold;
+}
+h4 {
+	margin-bottom: 20px;
+	color:#800517;
+	font-size: 14px;
+	font-family: Courier;
+	font-weight: bold;
+}
+h5 {
+	margin: 0px 0px 10px 0px;
+	font-family: 'Trebuchet MS', 'Arial Black', Helvetica, sans-serif;
+	color: #206BA4;
+}
+form p {
+	margin: 2px 0px 2px 0px;
+	clear: both;
+}
+form p label {
+	float: left;
+	width: 250px;
+	text-align: right;
+	margin-right: 20px;
+	padding-top: 8px;
+	color: #153E7E;
+}
+form p input,textarea {
+	display: block;
+	float: left;
+	width: 300px;
+	padding: 2px;	
+	font-size: 12px;
+}
+form p textarea {
+	height: 100px;
+}
+
+input.save-button{
+	display: block;
+	margin: 20px 0px 0px 268px;
+	width: 200px;
+	padding: 5px;
+}
+input.profile-button{
+	padding: 5px 7px;
+	font-size: 11px;
+	margin-top: 15px;
+}
+
+div.profile-detail {
+	margin-left: 30px;
+	font-weight: bold;
+	font-size: 12px;
+	font-family: Verdana, Geneva, Helvetica, arial, sans-serif;
+}
+div.profile-detail p {
+	padding: 3px 0px 3px 0px;
+	clear: both;
+}
+div.profile-detail p span.label{
+	float: left;
+	text-align: right;
+	width: 22%;
+	margin-right: 20px;
+	color: #206BA4;
+}
+div.profile-detail p span.label a { color: #206BA4; }
+div.profile-detail p span.label a:hover { color: #FF9834;}
+div.profile-detail p span.value{
+	float:left;
+	width: 74%;
+	color: #555555;
+}
+div.profile-settings p span.label { width: 50%; text-align: left;}
+div.profile-settings p span.value { width: 45%;}
+div.profile-detail p span.prl{
+	width: 120px;
+	color: #307D7E;
+}
+div.profile-detail p span.prv{
+	color: #AF7817;
+}
+div.profile-detail img {
+	border: 2px solid #D6EB9A;
+}

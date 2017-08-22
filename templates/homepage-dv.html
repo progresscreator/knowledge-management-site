@@ -1,0 +1,79 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+{% load ifsetting_tag %}
+
+{% block head_title %}{% trans "Welcome" %}{% endblock %}
+
+{% block tab_id %}id="home_tab"{% endblock %}
+
+{% block body %}
+		<div class="apage span-24 last">
+			<div class="span-12">
+				<h2>{% trans "Welcome to Development Ventures (15.375/MAS.665)" %}</h2>
+				<h2>{% trans "and Welcome to Barter" %}</h2>
+				<p>
+					<span class="start">Barter</span> has been designed as a platform inside 
+					an organizational boundary for matching problems to solutions.
+					Our goal is to apply better theories to creating and managing a knowledge market in order
+					to improve organizational desgin, generate information at higher rates, and track the 
+					gains in productivity that should result.
+				</p>
+				<p>
+					<span class="start">Barter</span>'s goal for the 
+					<span class="start">Development Ventures </span>class is to help 
+					with information sharing and innovation creation among all students.
+				</p>
+				<h2>{% trans "A Summary" %} </h2>	
+				<p>
+					{% blocktrans %}
+					<span class="start">Development Ventures </span>
+					is an exploratory development entrepreneurship class on founding, financing, and building
+					viable ventures in developing nations and emerging regions and for underserved customers
+					everywhere.
+					{% endblocktrans %}
+				</p>
+				<p>
+					{% blocktrans %}
+					<span class="start">Barter </span>is exploring the creation of
+					Internal Knowledge Markets, with a goal of bringing an 
+					electronic, distributed market (decentralized information creation) to a firm or a 
+					laboratory in an effort to both measure the value of knowledge created and link this to 
+					productivity and/or profits. A key advantage of this study will be a direct appeal to 
+					information economic theory to design an information market. In particular, we will appeal 
+					to two-sided network theory, principles of information asymmetry, and price theory. We 
+					seek to bring the rigor of this discipline to real-world applications, and measure the 
+					results. 
+					{% endblocktrans %}
+				</p>
+				<h2>{% trans "Welcome to participate!" %} </h2>
+				<p>
+					{% blocktrans %}
+					<span class="start">We</span> are actively designing 
+					Barter, and implementing a prototype. You are more than welcome 
+					to participate in the system, and share with us your thoughts and 
+					improvement suggestions.
+					{% endblocktrans %} <br />
+				</p>
+				
+				<hr />
+				{% if user.is_authenticated %}
+					{% url what_next as what_next_url %}
+					<p class="what_next">{% blocktrans %}Wondering <a href="{{ what_next_url }}">What Next</a>?{% endblocktrans %}</p>
+				{% else %}
+					{% url egghead_login as login_url %}
+					<p>{% blocktrans %}You can <a href="{{ login_url }}">Log in</a> to try out Barter,
+					
+					{% endblocktrans %}
+					or find out more <a href="{% url what_and_who %}">about us</a>.
+					</p>
+					<p>Open registration is closed. The site is only open to 15.375/MAS.665 class participants. To request an account, please email <a href="mailto:dawei@media.mit.edu">Dawei</a> with your desired username</p>
+				{% endif %}
+			</div>
+			<div class="span-12 last">
+				<img style="margin-left: 10%; width:80%; border: 2px solid green; padding: 4px;" 
+					src="{{ STATIC_URL }}pinax/images/dv_flier.png" alt="Development Ventures" title="Development Ventures" />
+			</div>
+		</div>
+    
+{% endblock %}

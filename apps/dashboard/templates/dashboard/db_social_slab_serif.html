@@ -1,0 +1,62 @@
+{% extends "dashboard/base.html" %}
+{% block head_title %}
+	Dashboard: 
+	{% if cuser.get_full_name %}
+		{{ cuser.get_full_name }}
+	{% else %}
+		{{ cuser.username }}
+	{% endif %}
+	's knowledge network
+{% endblock %}
+
+{% block db_extra_head %} 
+	<style type="text/css">
+		h1.db_title, ul.tabs a, ul.tabs a:visited, #tabhead .login, #subnav ul a:link, #subnav ul a:visited
+		{
+			font-family: Courier, 'Courier New', Rockwell, 'Bookman Old Style', 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+			font-weight: bold;
+		}
+		ul.tabs a, ul.tabs a:visited {
+			font-size: 11px;
+		}
+	</style>
+{% endblock %}
+{% block db_body %}
+	<div class="ui-widget ui-widget-content ui-corner-all db-block">
+		<h1 class="db_title">
+			{% if cuser.get_full_name %}
+				{{ cuser.get_full_name }}
+			{% else %}
+				{{ cuser.username }}
+			{% endif %}'s knowledge network
+		</h1>
+		<div>
+			<canvas datasrc="{{ STATIC_URL }}dashboard/js/social.js" width="940" height="820"></canvas>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+
+	<div class="ui-widget ui-widget-content ui-corner-all db-block" style="padding: 15px; margin-top: 20px;">
+		<p style="font-size: 11px;">
+			<a href="{% url db_social cuser %}">Trebuchet (default)</a> <br />
+			<a href="{% url db_social_slab_serif cuser %}">Slab-serif</a> <br />
+			<a href="{% url db_social_verdana cuser %}">Verdana</a> <br />
+			<a href="{% url db_social_arial cuser %}">Arial</a>
+		</p>
+	</div>
+{% endblock %}
+
+{% block extra_body %}
+	<script type="text/javascript">
+		// var font_url = "{{ STATIC_URL }}core/js/Champagne_Limousines.svg";		
+		// var font_url = "{{ STATIC_URL }}core/js/courier.svg";
+		var font_url = "{{ STATIC_URL }}core/js/rockwell.svg";
+		var my_icon_url = "{{ my_icon_url }}";
+		var my_name = "{% if cuser.get_full_name %} {{ cuser.get_full_name }} {% else %} {{ cuser.username }} {% endif %}";
+		var json_network_url = "{% url db_social_json_network cuser%}";
+		var min_wealth = {{ min_wealth }};
+		var max_wealth = {{ max_wealth }};
+		var my_wealth = {{ cuser.egghead.wealth_notes }};
+	</script>
+	<script type="text/javascript" src="{{ STATIC_URL }}core/js/processing-0.6.packed.js"></script>
+{% endblock %}

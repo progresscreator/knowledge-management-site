@@ -1,0 +1,108 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-10-13 15:29-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: models.py:69
+#, python-format
+msgid ""
+"[ iDesign ] %(time)s: %(amount)d points frozen from %(user_name)s's account "
+"for donating on the design idea '%(designidea)s'"
+msgstr ""
+"[ iDesign ] %(time)s: %(amount)d заблокировано баллов на счету %(user_name)s "
+"на поощрение дизайнерской идеи '%(designidea)s'"
+
+#: models.py:76
+#, python-format
+msgid ""
+"[ iDesign ] %(time)s: %(amount)d points frozen from %(user_name)s's account "
+"for proposing a new design idea '%(designidea)s'"
+msgstr ""
+"[ iDesign ] %(time)s: %(amount)d заблокировано баллов на счету %(user_name)s"
+"за предложение новой дизайнерской идеи '%(designidea)s'"
+
+#: models.py:84
+#, python-format
+msgid ""
+"[ iDesign ] %(time)s: %(amount)d points unfrozen to %(user_name)s's account "
+"for donating on the design idea '%(designidea)s'"
+msgstr ""
+"[ iDesign ] %(time)s: %(amount)d свободных баллов на счету %(user_name)s "
+"на поощрение дизайнерской идеи  '%(designidea)s'"
+
+#: models.py:91
+#, python-format
+msgid ""
+"[ iDesign ] %(time)s: %(amount)d points unfrozen to %(user_name)s's account "
+"for proposing a new design idea '%(designidea)s'"
+msgstr ""
+"[ iDesign ] %(time)s: %(amount)d свободных баллов на счету %(user_name)s "
+"за предложение новой дизайнерской идеи '%(designidea)s'"
+
+#: templates/idesign/idesign_home.html:17
+msgid "New design ideas"
+msgstr "Новая дизайнерская идея"
+
+#: templates/idesign/idesign_home.html:25
+msgid "Browse more"
+msgstr "Продолжить поиск"
+
+#: templates/idesign/idesign_home.html:29
+msgid "No one has submitted any new design idea yet"
+msgstr "Пока никто не предложил какую либо дизайнерскую идею"
+
+#: templates/idesign/idesign_home.html:46
+#: templates/idesign/idesign_home.html:57
+msgid "Well, top 5 doesn't seem to be ready yet"
+msgstr "5 лучших идей еще не сформировались"
+
+#: templates/idesign/idesign_home.html:64
+msgid "Design ideas that you have submitted"
+msgstr "Дизайнерские идеи которые вы предложили"
+
+#: templates/idesign/idesign_home.html:73
+msgid "You haven't submitted any new design idea yet"
+msgstr "Пока вы не предложили какую либо дизайнерскую идею"
+
+#: templates/idesign/idesign_home.html:82
+msgid ""
+"iDesign is a suggestion box.  Use it to propose new features or request bug "
+"fixes.  You can also add points to suggestions to change their priorities."
+msgstr ""
+"Ящик предложений iDesign.  Используйте его чтобы продолжить новые функции либо запросить устранение "
+"сбоев.  Вы также можете получить дополнительные баллы за изменение приоритетов."
+
+#: templates/idesign/idesign_home.html:86
+msgid "Submit a design idea"
+msgstr "Предложить дизайнерскую идею"
+
+
+#: templates/idesign/idesign_home.html:98
+msgid "Wealth"
+msgstr "Богатство"
+
+#: templates/idesign/idesign_home.html:99
+msgid "Available Credits"
+msgstr "Имеющихся кредитов"
+
+#: templates/idesign/idesign_home.html:100
+msgid "Level"
+msgstr "Уровень"
+
+#: templates/idesign/idesign_home.html:103
+msgid "My Dashboard"
+msgstr "Моя панель управления"

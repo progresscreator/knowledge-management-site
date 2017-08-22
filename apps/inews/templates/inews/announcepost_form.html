@@ -1,0 +1,346 @@
+{% extends "inews/base.html" %}
+{% load i18n %}
+{% load uni_form %}
+
+{% block head_title %}iNews - Submit a new post{% endblock %}
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}iknow/css/iknow_home.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}inews/css/inews.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}inews/css/inews_extra.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}inews/css/char_counter.css" />
+    <script src="{{ STATIC_URL }}core/js/jquery.tools.min.js"></script>
+
+{% endblock %}
+
+{% block body %}
+	<div class="span-19 apage">
+		<div class="ui-widget ui-widget-content ui-corner-all info-content">
+			<h1 style="margin: 15px 0px 10px 15px;">
+				Submit a post to iNews
+			</h1>
+			<p style="margin-left: 20px;">
+				Your available credits: {{ user.egghead.available_credits }}
+			</p>
+
+<form class ="uniForm" id="submit_form" action="{% url inews_submit %}" method="post">
+<fieldset class="inlineLabels">
+    {{ form.non_field_errors }}
+
+    <div id='title' class="form_block">
+        {{ form.title.errors }}
+        <label for="id_title">Title:</label>
+        {{ form.title }}
+    </div>
+
+    <div id='budget' class="form_block">
+        {{ form.budget.errors }}
+        <label for="id_budget">Budget:</label>
+        {{ form.budget }}
+    </div>
+
+    <div id='ppv' class="form_block">
+        {{ form.points_per_view.errors }}
+        <label for="id_points_per_view">Pts Per Viewer:</label>
+        {{ form.points_per_view }}
+    </div>
+
+    <div id='user_count' class="form_block">
+        {{ form.user_count.errors }}
+        <label for="id_user_count">Number of Users to Reach:</label>
+        {{ form.user_count }}
+    </div>
+
+</fieldset>
+
+     <br />
+		<div class="ui-widget ui-corner-all info-block" style="margin-left: 90px; margin-right: 65px;">
+			<div class="ui-widget ui-widget-header ui-corner-top info-header">
+				Copyright Information
+			</div>
+			<div class="ui-widget ui-widget-content ui-corner-bottom info-content">
+				<p><fieldset id="radio_form">
+                    <label style="font-weight: lighter;"><input type="radio" name="color" value="#1" />I own the copyright to the material being posted.</label>
+                    <label style="font-weight: lighter;"><input type="radio" name="color" value="#2" />I do not own the copyright, but this information is freely available on the web.</label>
+                    <label style="font-weight: lighter;"><input type="radio" name="color" value="#3" />I do not own the copyright, but this material is subject to a fair-use exception.</label>
+                    <label style="font-weight: lighter;"><input type="radio" name="color" value="#4" />I do not own the copyright, and I am unsure of its copyrighted status.</label>
+                    </fieldset></p>
+            </div>
+        </div>
+
+<fieldset class="inlineLabels">
+
+    <div id='details' class="form_block">
+        {{ form.details.errors }}
+        <label for="id_details">Post Content:<br /><br />
+        <div id="barbox">
+            <div id="bar"></div>
+        </div>
+        <div id="count" align="right">Characters left: 2000</div>
+
+        </label>
+        {{ form.details }}
+    </div>
+
+    <div id='url' class="form_block">
+        {{ form.url.errors }}
+        <label for="id_url">URL:</label>
+        {{ form.url }}
+    </div>
+
+   <div id='tags' class="form_block">
+	{{ form.tags.errors }}
+	<label for="id_tags">Tags:</label>
+	{{ form.tags }}
+   </div>
+
+    <p><input type="submit" class="ui-button ui-corner-all ui-state-default ibutton" value="Submit" /></p>
+
+</fieldset>
+</form>
+
+	    </div>
+    </div>
+<div class="span-6 last">
+</div>
+{% endblock %}
+
+{% block extra_body %}
+
+<script>
+	$(document).ready(function() {
+
+		$('#budget').change(function() {
+			var_budget = $('#id_budget').val();
+			var_ppv = $('#id_points_per_view').val();
+			var_user_count = $('#id_user_count').val();
+
+			budget = 0;
+			ppv = 0;
+			user_count = 0;
+
+			if (var_budget>0)
+				budget = 1;
+			if (var_ppv>0)
+				ppv = 1;
+			if (var_user_count>0)
+				user_count = 1;
+
+			if ( !(budget) && !(ppv) && !(user_count) ){
+				// Do nothing...
+			}
+
+			else if ( !(budget) && !(ppv) && (user_count) ){
+				// Do nothing...
+			}
+
+			else if ( !(budget) && (ppv) && !(user_count) ){
+				// Do nothing...
+			}
+
+			else if ( !(budget) && (ppv) && (user_count) ){
+				num = Math.floor(var_ppv * var_user_count);
+				$('#id_budget').attr( {value: num});
+			}
+
+			else if ( (budget) && !(ppv) && !(user_count) ){
+				// Do nothing...
+			}
+
+			else if ( (budget) && !(ppv) && (user_count) ){
+				num = Math.floor(var_budget / var_user_count);
+				$('#id_points_per_view').attr( {value: num});
+			}
+
+			else if ( (budget) && (ppv) && !(user_count) ){
+				num = Math.floor(var_budget / var_ppv);
+				$('#id_user_count').attr( {value: num});
+			}
+
+			else if ( (budget) && (ppv) && (user_count) ){
+				num = Math.floor(var_budget / var_ppv);
+				$('#id_user_count').attr( {value: num});
+			}
+
+		});
+
+		$('#ppv').change(function() {
+			var_budget = $('#id_budget').val();
+			var_ppv = $('#id_points_per_view').val();
+			var_user_count = $('#id_user_count').val();
+
+			budget = 0;
+			ppv = 0;
+			user_count = 0;
+
+			if (var_budget>0)
+				budget = 1;
+			if (var_ppv>0)
+				ppv = 1;
+			if (var_user_count>0)
+				user_count = 1;
+
+			if ( !(budget) && !(ppv) && !(user_count) ){
+				// Do nothing...
+			}
+
+			else if ( !(budget) && !(ppv) && (user_count) ){
+				// Do nothing...
+			}
+
+			else if ( !(budget) && (ppv) && !(user_count) ){
+				// Do nothing...
+			}
+
+			else if ( !(budget) && (ppv) && (user_count) ){
+				num = Math.floor(var_ppv * var_user_count);
+				$('#id_budget').attr( {value: num});
+			}
+
+			else if ( (budget) && !(ppv) && !(user_count) ){
+				// Do nothing...
+			}
+
+			else if ( (budget) && !(ppv) && (user_count) ){
+				num = Math.floor(var_budget / var_user_count);
+				$('#id_points_per_view').attr( {value: num});
+			}
+
+			else if ( (budget) && (ppv) && !(user_count) ){
+				num = Math.floor(var_budget / var_ppv);
+				$('#id_user_count').attr( {value: num});
+			}
+
+			else if ( (budget) && (ppv) && (user_count) ){
+				num = Math.floor(var_budget / var_ppv);
+				$('#id_user_count').attr( {value: num});
+			}
+
+		});
+
+		$('#user_count').change(function() {
+			var_budget = $('#id_budget').val();
+			var_ppv = $('#id_points_per_view').val();
+			var_user_count = $('#id_user_count').val();
+
+			budget = 0;
+			ppv = 0;
+			user_count = 0;
+
+			if (var_budget>0)
+				budget = 1;
+			if (var_ppv>0)
+				ppv = 1;
+			if (var_user_count>0)
+				user_count = 1;
+
+			if ( !(budget) && !(ppv) && !(user_count) ){
+				// Do nothing...
+			}
+
+			else if ( !(budget) && !(ppv) && (user_count) ){
+				// Do nothing...
+			}
+
+			else if ( !(budget) && (ppv) && !(user_count) ){
+				// Do nothing...
+			}
+
+			else if ( !(budget) && (ppv) && (user_count) ){
+				num = Math.floor(var_ppv * var_user_count);
+				$('#id_budget').attr( {value: num});
+			}
+
+			else if ( (budget) && !(ppv) && !(user_count) ){
+				// Do nothing...
+			}
+
+			else if ( (budget) && !(ppv) && (user_count) ){
+				num = Math.floor(var_budget / var_user_count);
+				$('#id_points_per_view').attr( {value: num});
+			}
+
+			else if ( (budget) && (ppv) && !(user_count) ){
+				num = Math.floor(var_budget / var_ppv);
+				$('#id_user_count').attr( {value: num});
+			}
+
+			else if ( (budget) && (ppv) && (user_count) ){
+				num = Math.floor(var_budget / var_ppv);
+				$('#id_user_count').attr( {value: num});
+			}
+
+		});
+		
+		$('#radio_form').change(function() {
+		var var_name = $("input[name='color']:checked").val();
+
+		switch(var_name)
+		{
+			case '#1':	 $('#details').show("slow");
+					 $('#url').show("slow");
+					break;
+
+			case '#2':      $('#details').hide("slow");
+					 $('#url').show("slow");
+					break;
+
+			case '#3':	 $('#details').show("slow");
+					 $('#url').show("slow");
+					break;
+
+			case '#4':      $('#details').hide("slow");
+					 $('#url').show("slow");
+					break;
+			default: break;
+		}
+
+		});
+
+        $("#id_details").keyup(function() {
+            var box=$(this).val();
+            var main = box.length *100;
+            var value= (main / 2000);
+            var count= 2000 - box.length;
+
+            if(box.length <= 2000) {
+                $('#count').html('Characters left: ' + count);
+                $('#bar').animate( {"width": value+'%',}, 1);
+            }
+            else {
+                alert(' Full ');
+            }
+
+            return false;
+        });
+
+	});
+</script>
+
+<script>
+
+alert(var_name);
+</script>
+
+	<script type="text/javascript">
+		$(function(){
+			$("input:text").addClass("ui-corner-all")
+				.css({"font-size":"12px","padding":"5px", "width": "70%",
+				"color": "#2B3856", "font-weight": "bold",
+				"font-family":"Courier, Rockwell, 'Courier New', 'Serif'"});
+			$("textarea").addClass("ui-corner-all")
+				.css({"font-size":"12px","padding":"5px", "width": "70%",
+				"color": "#2B3856", "font-weight": "bold",
+				"font-family":"Courier, Rockwell, 'Courier New', 'Serif'", "height":"280px"});
+			$(".ui-button").hover(
+				function(){
+					$(this).removeClass("ui-state-default");
+					$(this).addClass("ui-state-highlight");
+				},
+				function(){
+					$(this).removeClass("ui-state-highlight");
+					$(this).addClass("ui-state-default");
+				}
+			);
+		});
+	</script>
+{% endblock %}

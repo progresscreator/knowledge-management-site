@@ -1,0 +1,19 @@
+{% load i18n %}
+{% blocktrans with question.question_title|safe as question_title and question.display_name as asker_name and question.time_string_l as time_string_l and question.points_offered as points_offered %}
+A new question
+
+	{{ question_title }}
+
+	asked by {{ asker_name }} was posted on iKnow at {{ time_string_l }} 
+	{{ points_offered }} point(s) were offered as awards.
+{% endblocktrans %}
+
+{% trans "You could visit the link below to review the question and provide your answer" %}. {% trans "Thanks for your participation" %}.
+	http://{{ current_site.domain }}/iknow/question/{{ question.id }}/
+{% blocktrans with current_site.name as site_name %}
+To change your settings on receiving notifications from {{ site_name }}, visit
+{% endblocktrans %}
+	http://{{ current_site.domain }}/barter/settings/
+{% blocktrans with current_site.name as site_name %}
+- {{ site_name }} Team
+{% endblocktrans %}

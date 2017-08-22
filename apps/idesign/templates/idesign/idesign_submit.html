@@ -1,0 +1,41 @@
+{% extends "idesign/base.html" %}
+{% load i18n %}
+{% load uni_form %}
+
+{% block head_title %}iDesign - Submit a design idea{% endblock %}
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}iknow/css/iknow_home.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}idesign/css/idesign.css" />
+{% endblock %}
+
+{% block body %}
+	<div class="span-18 apage">
+		<div class="ui-widget ui-widget-content ui-corner-all info-content">
+			<h1 style="margin: 15px 0px 10px 15px;">
+				Thank you for submitting your design idea.
+			</h1>
+			<p style="margin-left: 20px;">
+				Your available credits: {{ user.egghead.available_credits }}
+			</p>
+			<form class="uniForm" id="submit_form" method="post" action="{% url idesign_submit %}">
+				<fieldset class="inlineLabels">
+					{{ form|as_uni_form }}
+					<div  class="form_block">
+						<input type="submit" class="ui-button ui-corner-all ui-state-default ibutton"
+							value="Submit" />
+					</div>
+				</fieldset>
+			</form>
+		</div>
+	</div>
+	<div class="span-6 last">
+	</div>
+{% endblock %}
+
+{% block extra_body %}
+	<script type="text/javascript">
+		$(function(){
+			{% include "core/core_form_js.html" %}
+		});
+	</script>
+{% endblock %}

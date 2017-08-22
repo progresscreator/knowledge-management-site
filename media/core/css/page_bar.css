@@ -1,0 +1,36 @@
+ul.page-bar {
+	margin: 20px 0px;
+}
+ul.page-bar li {
+	margin: 2px;
+	position: relative;
+	padding: 4px 0; 
+	float: left;  
+	list-style: none;
+	font-size: 11.5px;
+	font-weight: bold;
+}
+ul.page-bar li a {
+	text-decoration: none;
+	color: #1569C7;
+}
+ul.page-bar li.page-number {
+	margin: 2px 15px;
+	color: #6698FF;
+}
+ul.page-bar li.jump {
+	margin: 2px 15px;
+	padding: 2px 0px 0px 0px;
+	font-size: 11.5px;
+}
+ul.page-bar li.jump input {
+	font-size: 11.5px;
+	font-weight: bold;
+	margin: 0px 10px;
+	padding-left: 5px;
+	width: 40px;
+}
+ul.page-bar span.ui-icon {
+	float: left;
+	margin: 0 4px;
+}

@@ -1,0 +1,45 @@
+/* SITE-SPECIFIC TAB STYLING */
+
+body.egghead #tab_profile a,
+body.dashboard #tab_dashboard a,
+body.idoc #tab_idoc a,
+body.iknow #tab_iknow a,
+body.iauction #tab_iauction a,
+body.inews #tab_inews a,
+body.idea #tab_idea a,
+body.idesign #tab_idesign a,
+body.blogs #tab_blogs a,
+body.swaps #tab_swaps a,
+body.photos #tab_photos a,
+body.tribes #tab_tribes a,
+body.tweets #tab_tweets a,
+body.bookmarks #tab_bookmarks a,
+body.locations #tab_locations a,
+body.inbox #tab_inbox a
+{
+    color: #EBF4FA; /* selected tab text colour */
+}
+body.egghead #tab_profile,
+body.dashboard #tab_dashboard,
+body.idoc #tab_idoc,
+body.inews #tab_inews,
+body.iknow #tab_iknow,
+body.iauction #tab_iauction,
+body.idea #tab_idea,
+body.idesign #tab_idesign,
+body.blogs #tab_blogs,
+body.swaps #tab_swaps,
+body.photos #tab_photos,
+body.tribes #tab_tribes,
+body.tweets #tab_tweets,
+body.bookmarks #tab_bookmarks,
+body.locations #tab_locations,
+body.inbox #tab_inbox
+{
+    margin: 0; /* to compensate for border */
+    padding: 5px 0 5px;
+    background-color: #FF9834; /* selected tab colour */
+    border-left: 2px solid #FFF8C6; /* tab border */
+    border-top: 2px solid #FFF8C6; /* tab border */
+    border-right: 2px solid #FFF8C6; /* tab border */
+}

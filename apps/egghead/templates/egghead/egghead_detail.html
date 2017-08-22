@@ -1,0 +1,249 @@
+{% extends "egghead/base.html" %}
+{% load i18n %}
+{% load avatar_tags %}
+{% block head_title %} 
+	{% blocktrans with person.egghead.display_name as egghead_name %}
+		{{ egghead_name }}'s egghead profile 
+	{% endblocktrans %}
+{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}egghead/css/egghead.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}iknow/css/iknow_home.css" />
+{% endblock %}
+{% block body %}
+	<div class="span-24">
+		{% if facebook_enabled %}
+			{% ifequal user.id person.id %}
+				<div class="ui-widget ui-corner-all info-block">
+					<div class="ui-widget-header ui-corner-top info-header">
+						{% trans "Connect with Facebook" %}
+					</div>
+					<div class="ui-widget-content ui-corner-bottom info-content">
+						{% if user.facebookuser.facebook_id and user.facebookuser.token_valid %}
+							<p style="font-size:12px;">
+								{% trans "You have successfully connected your account with Facebook" %},
+								{% trans "Your facebook id " %}:
+								{{ user.facebookuser.facebook_id }}
+							</p>
+							<img src="http://graph.facebook.com/{{ user.facebookuser.facebook_id }}/picture?type=square" />
+						{% else %}
+							<p style="font-size:12px;">
+								{% trans "You haven't connected your account with Facebook" %},
+								{% trans "or your access token has been invalidated" %}.
+							</p>
+							<p>
+								<a href="{% url facebook_associate %}">
+									<img src="{{ STATIC_URL }}pinax/images/facebook_connect.png" />
+								</a>
+							</p>
+						{% endif %}
+					</div>
+				</div>
+			{% else %}
+				{% if person.facebookuser.facebook_id and person.facebookuser.token_valid %}
+					<div class="ui-widget ui-corner-all info-block">
+						<div class="ui-widget-header ui-corner-top info-header">
+							{% trans "Facebook Connect" %}
+						</div>
+						<div class="ui-widget-content ui-corner-bottom info-content">
+							<p style="font-size:12px;">
+								{{ person.facebookuser.facebook_id }}
+							</p>
+							<img src="http://graph.facebook.com/{{ person.facebookuser.facebook_id }}/picture?type=square" />
+						</div>
+					</div>
+				{% endif %}
+			{% endifequal %}
+		{% endif %}
+		<div class="ui-widget ui-corner-all info-block">
+			<div class="ui-widget-header ui-corner-top info-header">
+				{% blocktrans with person.egghead.display_name as egghead_name %}
+					{{ egghead_name }}'s profile
+				{% endblocktrans %}
+			</div>
+			<div class="ui-widget-content ui-corner-bottom info-content">
+				<div class="span-6">
+					<div class="profile-detail">
+						<h5> 
+							{% blocktrans with person.egghead.display_name as egghead_name %}
+								{{ egghead_name }}'s avatar
+							{% endblocktrans %}
+						</h5>
+						{% avatar person 160 %}
+						{% ifequal user.id person.id %}
+							<input type="submit" class="ui-button ui-corner-all ui-state-default profile-button" 
+								id="avatar-button" value="{% trans "Manage Avatars" %}!" />
+						{% endifequal %}
+					</div>	
+				</div>
+				<div class="span-17 last">
+					<div class="profile-detail">
+						<p><span class="label">{% trans "First name" %}:</span> <span class="value">
+							{% if person.first_name %} {{ person.first_name }} {% else %} {% trans "missing" %} {% endif %}
+						</span></p>
+						<p><span class="label">{% trans "Last name" %}:</span> <span class="value">
+							{% if person.last_name %} {{ person.last_name }} {% else %} {% trans "missing" %} {% endif %}
+						</span></p>
+						<p><span class="label">{% trans "Email" %}:</span> <span class="value">
+							{% if person.email %} {{ person.email }} {% else %} {% trans "not provided" %} {% endif %}
+						</span></p>
+						{% if egghead.title %}
+							<p><span class="label">{% trans "Title" %}:</span> <span class="value">
+								{{ egghead.title }} 
+							</span></p>
+						{% endif %}
+						{% if egghead.affiliation %}
+							<p><span class="label">{% trans "Affiliation" %}:</span> <span class="value">
+								{{ egghead.affiliation }}
+							</span></p>
+						{% endif %}
+						{% if egghead.program_year %}
+							<p><span class="label">{% trans "Program/Year" %}:</span> <span class="value">
+								{{ egghead.program_year }}
+							</span></p>
+						{% endif %}
+
+						{% if egghead.gtalk %}
+							<p><span class="label">{% trans "Google talk" %}:</span> <span class="value">
+								{{ egghead.gtalk }} 
+							</span></p>
+						{% endif %}
+
+						{% if egghead.facebook %}
+							<p><span class="label">{% trans "Facebook ID" %}:</span> <span class="value">
+								{{ egghead.facebook }} 
+							</span></p>
+						{% endif %}
+
+						{% if egghead.twitter %}
+							<p><span class="label">{% trans "Twitter" %}:</span> <span class="value">
+								{{ egghead.twitter }} 
+							</span></p>
+						{% endif %}
+						
+
+						{% if profile.location %}
+							<p><span class="label">{% trans "Location" %}:</span> <span class="value">
+								{{ profile.location }}
+							</span></p>
+						{% endif %}
+
+						{% if profile.website %}
+							<p><span class="label">{% trans "Web" %}:</span> <span class="value">
+								<a href="{{ profile.website }}">{{ profile.website }}</a>
+							</span></p>
+						{% endif %}
+						{% if egghead.expertise_tags %}
+							<p><span class="label">{% trans "Expertise" %}:</span> <span class="value">
+								{{ egghead.expertise_tags }} 
+							</span></p>
+						{% endif %}
+
+						{% if egghead.prior_experiences %}
+							<p><span class="label">{% trans "Prior experiences" %}:</span> <span class="value">
+								{{ egghead.prior_experiences }}
+							</span></p>
+						{% endif %}
+						{% if egghead.geographic_interests %}
+							<p><span class="label">{% trans "Geographic interests" %}:</span> <span class="value">
+								{{ egghead.geographic_interests }}
+							</span></p>
+						{% endif %}
+						{% if egghead.sector_interests %}
+							<p><span class="label">{% trans "Sector interests" %}:</span> <span class="value">
+								{{ egghead.sector_interests }}
+							</span></p>
+						{% endif %}
+
+						<p><span class="label">{% trans "Short Bio" %}:</span> <span class="value">	
+							{% if profile.about %} {{ profile.about }} {% else %} {% trans "not provided" %} {% endif %}
+						</span></p>
+						<div class="clearfix"> </div>
+					</div>
+					{% ifequal user.id person.id %}
+						<input type="submit" class="ui-button ui-corner-all ui-state-default profile-button"
+							style="margin-left: 22%;" id="edit-button" value="{% trans "Edit" %} {{ user.username }}!" />
+					{% endifequal %}
+				</div>
+				<div class="clearfix"></div>
+				<p style="font-size: 12px; padding-left: 30px; color: grey;">
+					({% blocktrans with person.egghead.display_name as egghead_name %}
+						To see {{ egghead_name }}'s iKnow dashboard, 
+					{% endblocktrans %}
+					<a href="{% url iknow_dashboard person %}">{% trans "Click here" %}</a>)
+				</p>
+			</div>
+		</div>
+	</div>
+	{% ifequal user.id person.id %}
+		<div class="span-24 last">
+			<div class="ui-widget ui-corner-all info-block">
+				<div class="ui-widget-header ui-corner-top info-header">
+					{{ SITE_NAME }} {% trans "Settings" %}
+				</div>
+				<div class="ui-widget-content ui-corner-bottom info-content">
+					<div class="profile-detail profile-settings">
+						<p><span class="label">{% trans "Receive SMS notifications when new questions enter iKnow" %}:</span> <span class="value">
+							{% if settings.new_q_notification_txt %} {% trans "Yes" %} {% else %} {% trans "No" %} {% endif %}
+						</span></p>
+						<p><span class="label">{% trans "Mobile phone number" %}:</span> <span class="value">
+							{% if settings.mobile %} {{ settings.mobile }} {% else %} {% trans "not provided" %} {% endif %}
+						</span></p>
+						<p><span class="label">{% trans "Receive Email notifications when new questions enter iKnow" %}:</span> <span class="value">
+							{% if settings.new_q_notification_email %} {% trans "Yes" %} {% else %} {% trans "No" %} {% endif %}
+						</span></p>
+						<p><span class="label">{% trans "Receive Email notifications when new features are available" %}:</span> <span class="value">
+							{% if settings.new_feature_email %} {% trans "Yes" %} {% else %} {% trans "No" %} {% endif %}
+						</span></p>
+						<div class="clearfix"> </div>
+					</div>
+					<input type="submit" class="ui-button ui-corner-all ui-state-default profile-button"
+						style="margin-left: 30px;" id="settings-button" value="{% trans "Edit settings" %}!" />
+				</div>
+			</div>
+		</div>
+		{% if user.is_staff %}
+			<div class="span-24 last">
+				<div class="ui-widget ui-corner-all info-block">
+					<div class="ui-widget-header ui-corner-top info-header">
+						Staff Tools
+					</div>
+					<div class="ui-widget-content ui-corner-bottom info-content">
+						<div class="profile-detail profile-settings">
+							<p><span class="label"><a href="{% url feature_add %}" style="text-decoration: none;">
+								&bull; Manage new features/bug fixes
+							</a></span>
+							</p>
+							<br />
+						</div>
+					</div>
+				</div>
+			</div>
+		{% endif %}
+	{% endifequal %}
+{% endblock %}
+
+{% block extra_body %}
+	<script type="text/javascript">
+		$(function(){
+			$("input:text").addClass("ui-corner-all")
+				.css({"font-size":"12px","padding":"5px", "font-family":"Courier"});
+			$("textarea").addClass("ui-corner-all")
+				.css({"font-size":"12px","padding":"5px"});
+			$("input:submit").button().css({"font-size":"11px"});
+			$("#edit-button").click(function(e) {
+				e.preventDefault();
+				window.location="{% url egghead_edit %}";
+			});
+			$("#avatar-button").click(function(e) {
+				e.preventDefault();
+				window.location="{% url avatar_change %}";
+			});
+			$("#settings-button").click(function(e) {
+				e.preventDefault();
+				window.location="{% url barter_settings %}";
+			});
+		});
+	</script>
+{% endblock %}

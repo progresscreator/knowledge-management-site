@@ -1,0 +1,81 @@
+{% extends "idoc/base.html" %}
+{% load i18n %}
+
+{% block head_title %}{% trans "iDoc Search" %}{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}idoc/css/idoc.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}iknow/css/iknow_home.css" />
+{% endblock %}
+
+{% block body %}
+	<div class="ui-widget ui-widget-content ui-corner-all info-content">
+		<form class="uniForm" method="get" action=".">
+			<fieldset class="inlineLabels">
+				<div id="div_id_q" class="ctrlHolder">
+					<label for="id_q">{% trans "Input keywords" %}</label>
+					<input type="text" name="q" id="id_q" />
+				</div>
+				<div class="form_block">
+					<input type="submit" class="ui-button ui-corner-all ui-state-default ibutton" value="{% trans "Search documents" %} &raquo; " />
+				</div>
+			</fieldset>
+		</form>
+			{% if page.object_list %}
+				<h3>{% trans "Results" %}</h3>
+				<table id="all-docs">
+					<tr>
+						<th class="title">{% trans "Title" %}</th>
+						<th class="uploader">{% trans "Uploader" %}</th>
+						<th class="downloads">
+							<img src="{{ STATIC_URL }}idoc/images/download_icon_14x14.png" title="{% trans "Downloads" %}"/>
+						</th>
+						<th class="fee"> 
+							<img src="{{ STATIC_URL }}iknow/images/coin_13x13.png" title="{% trans "Fee" %}"/>
+						</th>
+						<th class="rating">
+							<img src="{{ STATIC_URL }}idoc/images/rating_14x14.png" title="{% trans "Rating" %}"/>
+						</th>
+						<th class="time">
+							<img src="{{ STATIC_URL }}idoc/images/timer_icon_14x14.png" title="{% trans "Upload time" %}"/>
+						</th>
+					</tr>
+					{% for result in page.object_list %}
+						<tr>
+							<td class="title"><a href="{% url idoc_doc result.object.id %}">{{ result.object.title }}</a></td>	
+							{% if result.object.anonymous %}
+								<td class="uploader"> {{ result.object.display_name }} </td>
+							{% else %}
+								<td class="uploader">
+									<a class="uploader" href="{% url egghead_detail result.object.creator %}">
+										{{ result.object.display_name }}
+									</a>
+								</td>
+							{% endif %}
+							<td class="downloads"> {{ result.object.downloads }} </td>
+							{% if result.object.points_needed %}
+								<td class="fee" style="color:red;"> {{ result.object.points_needed }} </td>
+							{% else %}
+								<td class="fee" style="color:green;"> {{ result.object.points_needed }} </td>
+							{% endif %}
+							<td class="rating"> {{ result.object.rating_string }} </td>
+							<td class="time"> {{ result.object.time_string_s }} </td>
+						</tr>
+					{% endfor %}
+				</table>
+			{% else %}
+				<p>{% trans "No matched results" %}.</p>
+			{% endif %}
+	</div>
+{% endblock %}
+
+{% block extra_body %}
+	<script type="text/javascript">
+		$(function(){
+			$("input:text").addClass("ui-corner-all")
+				.css({"font-size":"12px","padding":"5px", "color": "#2B3856", "font-weight": "bold",
+				"font-family":"Courier, Rockwell, 'Courier New', 'Serif'"});
+			$("input:submit").button();
+		});
+	</script>
+{% endblock %}

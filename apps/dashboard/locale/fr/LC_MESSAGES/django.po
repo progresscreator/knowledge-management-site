@@ -1,0 +1,226 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-10-21 10:49-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: views.py:224
+msgid "iKnow"
+msgstr "iKnow"
+
+#: views.py:225
+msgid "iDoc"
+msgstr "iDoc"
+
+#: views.py:226
+msgid "Subsidy"
+msgstr "Subvention"
+
+#: views.py:245
+msgid "Inflow"
+msgstr "Afflux"
+
+#: views.py:246
+msgid "Outflow"
+msgstr "Sortie"
+
+#: views.py:376
+msgid "Date"
+msgstr "Date"
+
+#: views.py:377
+msgid "Average price of questions"
+msgstr "Le prix moyen des questions"
+
+#: views.py:378
+msgid "Average awards an answer receives"
+msgstr "Prix moyen reçoit une réponse"
+
+#: views.py:418
+msgid "Number of transactions"
+msgstr "Nombre de transactions"
+
+#: views.py:421
+msgid "Transaction amount (x10)"
+msgstr "Montant de la transaction (x10)"
+
+#: views.py:459
+msgid "Rating"
+msgstr "Evaluation"
+
+#: views.py:460 views.py:483 views.py:525 views.py:561
+msgid "Answers"
+msgstr "Réponses"
+
+#: views.py:482 templates/dashboard/db_home.html:209
+msgid "Thumbs"
+msgstr "Pouces"
+
+#: views.py:524
+msgid "Award"
+msgstr "Prix"
+
+#: views.py:558
+msgid "Questions"
+msgstr "Questions"
+
+#: views.py:564
+msgid "Income"
+msgstr "Revenu"
+
+#: views.py:567
+msgid "Spending"
+msgstr "Dépenses"
+
+#: templates/dashboard/base.html:16
+msgid "Overview"
+msgstr "Vue d'ensemble"
+
+#: templates/dashboard/base.html:17
+msgid "Tags Cloud"
+msgstr "Nuage d’Etiquettes"
+
+#: templates/dashboard/base.html:18 templates/dashboard/db_global.html:5
+msgid "Global Economy"
+msgstr "Economie Globale"
+
+#: templates/dashboard/base.html:19
+msgid "Social Navigation"
+msgstr "Navigation Sociale"
+
+#: templates/dashboard/base.html:20 templates/dashboard/db_expertise.html:4
+#: templates/dashboard/db_expertise.html:10
+msgid "Expertise Cloud"
+msgstr "Nuage d’Expertises"
+
+#: templates/dashboard/db_expertise.html:4
+#: templates/dashboard/db_global.html:5 templates/dashboard/db_social.html:4
+#: templates/dashboard/db_tags.html:4
+msgid "Dashboard"
+msgstr "Tableau de bord"
+
+#: templates/dashboard/db_global.html:14
+msgid "Questions and Answers"
+msgstr "Questions et Réponses"
+
+#: templates/dashboard/db_global.html:27
+msgid "Price Index of Q&A"
+msgstr "Indice des prix des Q&R"
+
+#: templates/dashboard/db_global.html:40
+msgid "Transactions"
+msgstr "Transactions"
+
+#: templates/dashboard/db_home.html:5
+#, python-format
+msgid ""
+"\n"
+"\t\tDashboard of %(egghead_name)s\n"
+"\t"
+msgstr ""
+"\n"
+"\t\tTableau de bord de %(egghead_name)s\n"
+"\t"
+
+#: templates/dashboard/db_home.html:15
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t\tYour wealth gauge (Rank: %(ranking)s out of %(total_user)s)\n"
+"\t\t\t\t\t"
+msgstr ""
+"\n"
+"\t\t\t\t\tJauge de votre richesse: (Classement: %(ranking)s sur "
+"%(total_user)s)\n"
+"\t\t\t\t\t"
+
+#: templates/dashboard/db_home.html:27
+msgid "Overview of your income/expenses"
+msgstr "Vue synthétique de vos revenus/dépenses"
+
+#: templates/dashboard/db_home.html:39
+msgid "Performance review"
+msgstr "Revue de la performance"
+
+#: templates/dashboard/db_home.html:50
+msgid "Expertise tags"
+msgstr "Etiquettes d’expertises"
+
+#: templates/dashboard/db_home.html:63
+msgid "Time Series: Activities"
+msgstr "Série dans le Temps: Activités"
+
+#: templates/dashboard/db_home.html:67
+msgid "Question"
+msgstr "Question"
+
+#: templates/dashboard/db_home.html:67
+msgid "Answer"
+msgstr "Réponse"
+
+#: templates/dashboard/db_home.html:68
+msgid "Points flow"
+msgstr "Flux des points"
+
+#: templates/dashboard/db_home.html:159
+msgid "Distribution of Income"
+msgstr "Répartition du revenu"
+
+#: templates/dashboard/db_home.html:172
+msgid "Inflow Vs. Outflow"
+msgstr "Entrées et Sorties"
+
+#: templates/dashboard/db_home.html:195
+msgid "Ratings received by answers"
+msgstr "Evaluations reçues"
+
+#: templates/dashboard/db_home.html:197
+msgid "Ratings"
+msgstr "Evaluations"
+
+#: templates/dashboard/db_home.html:207
+msgid "Thumbs received by answers"
+msgstr "Votes positifs reçus"
+
+#: templates/dashboard/db_home.html:218
+msgid "Awards received by answers"
+msgstr "Récompense reçue"
+
+#: templates/dashboard/db_social.html:5
+#, python-format
+msgid ""
+"\n"
+"\t\t%(egghead_name)s's knowledge network\n"
+"\t"
+msgstr ""
+"\n"
+"\t\tRéseau de connaissance de %(egghead_name)s\n"
+"\t"
+
+#: templates/dashboard/db_social.html:13
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t%(egghead_name)s's knowledge network\n"
+"\t\t\t"
+msgstr ""
+"\n"
+"\t\t\t\tRéseau de connaissance de %(egghead_name)s\n"
+"\t\t\t"
+
+#: templates/dashboard/db_tags.html:4 templates/dashboard/db_tags.html.py:8
+msgid "Popular Tags"
+msgstr "Etiquettes populaires"

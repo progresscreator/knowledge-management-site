@@ -1,0 +1,72 @@
+{% load i18n %}
+{% if freezecredits %}
+	<h4>{% trans "Frozen credits" %}</h4>
+	<ul class="credits">
+		{% for obj in freezecredits %}
+			<li> 
+				<span class="time"> {{ obj.time_string_l }}: </span>
+				<span class="content"> 
+					{% blocktrans count obj.amount as amount %}
+						{{ amount }} credit frozen for raising the question 
+					{% plural %}
+						{{ amount }} credits frozen for raising the question 
+					{% endblocktrans %}
+				</span>: 
+				<a href="{% url iknow_question obj.question.id %}">
+					{{ obj.question.question_title|truncatewords:8 }}
+				</a>
+			</li>
+		{% endfor %}
+	</ul>
+{% endif %}
+
+{% if transactions %}
+	<h4>Transactions</h4>
+	<table class="transactions">
+		{% for obj in transactions %}
+			{% ifequal obj.src.id duser.id %}
+				<tr class="outflow">
+					<td>
+						<img src="{{ STATIC_URL }}iknow/images/minus_13x13.png" />
+					</td>
+					<td>
+						<img src="{{ STATIC_URL }}iknow/images/coin_13x13.png" title="awards" />
+						{{ obj.amount }} 
+					</td>
+					<td>
+						{% blocktrans with obj.dst_name as dst_name %}
+							to {{ dst_name }}
+						{% endblocktrans %}
+					</td>
+					<td>
+						{{ obj.reason }}
+					</td>
+					<td>
+						<span class="time">{{ obj.time_string_l }}</span>
+					</td>
+				</tr>
+			{% else %}
+				<tr class="inflow">
+					<td>
+						<img src="{{ STATIC_URL }}iknow/images/plus_13x13.png" />
+					</td>
+					<td>
+						<img src="{{ STATIC_URL }}iknow/images/coin_13x13.png" title="awards" />
+						{{ obj.amount }} 
+					</td>
+					<td>
+						{% blocktrans with obj.src_name as src_name %}
+							from {{ src_name }}
+						{% endblocktrans %}
+					</td>
+					<td>
+						{{ obj.reason }}
+					</td>
+					<td>
+						<span class="time">{{ obj.time_string_l }}</span>
+					</td>
+				</tr>
+			{% endifequal %}
+		{% endfor %}
+	</table>
+{% endif %}

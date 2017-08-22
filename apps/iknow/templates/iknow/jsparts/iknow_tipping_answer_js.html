@@ -1,0 +1,86 @@
+var tip_id = -1;
+var tipping_comment_started = false;
+$("img.tip").click (function() {
+	tip_id = this.name;	
+	var answerer = $("#answerer_" + tip_id).text();
+	var msg = "Thank you for tipping ";
+	msg += "<span style='color:	#306EFF'>" + answerer + "</span> for his/her answer. ";
+	msg += "But don't tip more than your available credit ";
+	msg += "<img src='{{ STATIC_URL }}iknow/images/coin_13x13.png' />";
+	msg += "{{ user.egghead.available_credits }}.";
+	$("#tipping-msg").html(msg);
+	$("input#tip-amount").val("");
+	$("#tip-error").text("No input");
+	tipping_comment_started = false;
+	$("textarea#tipping-comment").text("Your answer is extremely helpful to me. Thank you!");
+	$("#tipping-dialog").dialog("open");
+	$("input#tip-amount").focus();
+});
+
+$("textarea#tipping-comment").focus(function(){
+	if (!tipping_comment_started) {
+		tipping_comment_started = true;
+	$("textarea#tipping-comment").text("");
+	}
+});
+$("input#tip-amount").keyup(function() {
+	if ($.trim($(this).val()) != "") {
+		if (isNaN($(this).val())) {
+			$("#tip-error").text("Not a valid number");
+		}
+		else {
+			var tip = parseInt($(this).val());
+			var max = {{ user.egghead.available_credits }};
+			if (tip <= 0) {
+				$("#tip-error").text("Must be a positive tip");
+			}
+			else if ( tip > max ) {
+				$("#tip-error").text("Sorry, you can't afford it");
+			}
+			else {
+				$("#tip-error").text("");
+			}
+		}
+	}
+	else {
+		$("#tip-error").text("No input");
+	}
+});
+
+$("#tipping-dialog").dialog({
+	autoOpen: false,
+	bgiframe: true,
+	resizable: false,
+	height: 425,
+	width: 428,
+	modal: true,
+	overlay: {
+		backgroundColor: '#000',
+		opacity: 0.5
+	},
+	buttons: {
+		"Tip": function() {
+			if ($("#tip-error").text() == "") {
+				var comment_text = $("textarea#tipping-comment").val();
+				$.post("{% url iknow_tipping %}", {
+					"id": tip_id,
+					"comment": comment_text,
+					"tip": $.trim($("input#tip-amount").val())
+				}, function(data, textStatus) {
+					if (data != "0" ) {
+						alert("Tipping error");
+					}
+					else {
+						alert("Tipping successfully");
+						location.reload(true);
+					}
+				});
+			}
+		},
+		Cancel: function() {
+			$(this).dialog("close");
+		}
+	}
+});
+$("textarea#tipping-comment").css({"height":"160px"});
+$("input#tip-amount").css({"font-weight":"bold"});

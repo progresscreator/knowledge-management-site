@@ -1,0 +1,17 @@
+{% load i18n %}
+
+{% blocktrans with answer.question.question_title|safe as question_title and current_site.name as site_name and answer.points_received as points_received and answer.question.display_name as display_name %}
+Congratulations! Your answer to the question
+
+	{{ question_title }}
+
+	on {{ site_name }} received {{ points_received }} points from {{ display_name }}.
+{% endblocktrans %}
+	
+{% trans "You could visit the link below to review the results of the question" %}. {% trans "Thank you for your participation" %}.
+
+	http://{{ current_site.domain }}/iknow/question/{{ answer.question.id }}/
+
+{% blocktrans with current_site.name as site_name %}
+- {{ site_name }} Team
+{% endblocktrans %}

@@ -1,0 +1,18 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+
+{% block body_class %}idea{% endblock %}
+
+{% block subnav %}
+	{% if user.is_authenticated %}
+		<ul>
+			<li><a href="{% url idea_home %}">{% trans "Home" %}</a></li> 
+			<li><a href="{% url idea_search %}">{% trans "Search" %}</a></li> 
+			<li><a href="{% url idea_coolidea_submit %}">{% trans "Submit an idea" %}</a></li> 
+			<li><a href="{% url idea_coolideas %}?order=time&page=1">{% trans "All ideas" %}</a></li> 
+            <li><a href="{% url idea_help %}">{% trans "Help" %}</a></li> 
+		</ul>
+	{% else %}
+		&nbsp;
+	{% endif %}
+{% endblock %}

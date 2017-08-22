@@ -1,0 +1,557 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-10-19 16:41-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: forms.py:7
+msgid "Midnight"
+msgstr "Midnight"
+
+#: forms.py:16
+msgid "Title"
+msgstr "Titre"
+
+#: forms.py:17
+msgid "The title of your cool idea is required"
+msgstr "Le titre de votre idée est requis"
+
+#: forms.py:18
+msgid "Provide a title of your cool idea"
+msgstr "Donner un titre de votre idée"
+
+#: forms.py:20
+msgid "Collaborators"
+msgstr "Collaborateurs"
+
+#: forms.py:21
+msgid ""
+"Who are collaborators of your idea inside Barter? Type their names or \t\t\t"
+"\t\t\tusernames and select from the dropdown menu. Don't change how it's "
+"formatted."
+msgstr ""
+"Qui sont les collaborateurs de votre idée à l'intérieur de troc? Type de "
+"leur nom ou \t\t\t\t\t\tusernames et sélectionnez dans le menu déroulant. Ne "
+"pas modifier la façon dont il est formaté."
+
+#: forms.py:24
+msgid "External collaborators"
+msgstr "Collaborateurs externes"
+
+#: forms.py:25
+msgid ""
+"Who are collaborators of your idea external to Barter?\t\t\t\t\t\tList their "
+"names separated by commas."
+msgstr ""
+"Qui sont les collaborateurs de votre idée à l'extérieur de troc?\t\t\t\t\t"
+"\tListe de leurs noms séparés par des virgules."
+
+#: forms.py:28
+msgid "Details"
+msgstr "Détails"
+
+#: forms.py:29
+msgid "More details about your cool idea"
+msgstr "Plus de détails au sujet de votre idée"
+
+#: forms.py:45 templates/idea/idea_coolidea.html:73
+msgid "Tags"
+msgstr "Tags"
+
+#: forms.py:46
+msgid ""
+"Index your idea with sufficient and accurate tags. Use a\t\t\t\t\t\tcomma-"
+"separated list of tags. Choose from the dropdown menu or type\t\t\t\t\t\ta "
+"new tag."
+msgstr ""
+"Index votre idée avec des balises suffisantes et précises. Utilisez \t\t\t\t"
+"\t\tune liste séparée par des virgules tags. Choisissez dans la liste "
+"déroulante ou\t\t\t\t\t\t tapez une nouvelle étiquette."
+
+#: forms.py:50
+msgid "File"
+msgstr "Fichier"
+
+#: forms.py:51
+msgid "You can upload a document together with your idea"
+msgstr "Vous pouvez télécharger un document avec votre idée"
+
+#: forms.py:53
+msgid "Picture"
+msgstr "Photo"
+
+#: forms.py:54
+msgid ""
+"You can upload an image associated with your idea (Optional)\t\t\t\t\t"
+"\twhich can be directly rendered and displayed on the idea interface."
+msgstr ""
+"Vous pouvez télécharger une image associée à votre idée \t\t\t\t\t(en "
+"option) qui peuvent être rendus directement, et affiché \t\t\t\t\tsur "
+"l'interface idée."
+
+#: models.py:15
+msgid "Active"
+msgstr "Active"
+
+#: models.py:16
+msgid "Extended"
+msgstr "Extended"
+
+#: models.py:17
+msgid "Closed"
+msgstr "Fermé"
+
+#: models.py:68
+msgid "N/A"
+msgstr "N/A"
+
+#: models.py:87
+#, python-format
+msgid "%(thumber_name)s thumbs up on %(idea_title)s"
+msgstr "%(thumber_name)s pouces en haut pour %(idea_title)s"
+
+#: models.py:92
+#, python-format
+msgid "%(thumber_name)s thumbs down on %(idea_title)s"
+msgstr "%(thumber_name)s pouces en bas pour %(idea_title)s"
+
+#: models.py:104
+#, python-format
+msgid "%(rater_name)s gives %(idea_title)s a rating of %(rating)d"
+msgstr "%(rater_name)s %(idea_title)s donne une cote de %(rating)d"
+
+#: models.py:123
+#, fuzzy, python-format
+msgid "%(commentor_name)s comments on the idea %(idea_title)s"
+msgstr "Commenting on the idea '%(idea_title)s'"
+
+#: models.py:145
+#, fuzzy, python-format
+msgid ""
+"%(thumber_name)s thumbs up on %(commentor_name)s's comment on %(idea_title)s"
+msgstr "%(thumber_name)s pouces en haut pour %(idea_title)s"
+
+#: models.py:151
+#, fuzzy, python-format
+msgid ""
+"%(thumber_name)s thumbs down on %(commentor_name)s's comment on "
+"%(idea_title)s"
+msgstr "%(thumber_name)s pouces en bas pour %(idea_title)s"
+
+#: models.py:164
+#, fuzzy
+msgid "Comment tip"
+msgstr "commentaires"
+
+#: models.py:179
+#, python-format
+msgid ""
+"[ iDea ] %(time)s: %(amount)d points frozen from %(user_name)s's account for "
+"rewarding contributors to the idea '%(idea_name)s'"
+msgstr ""
+
+#: models.py:186
+#, python-format
+msgid ""
+"[ iDea ] %(time)s: %(amount)d points unfrozen to %(user_name)s's account for "
+"rewarding contributors to the idea '%(idea_name)s'"
+msgstr ""
+
+#: models.py:205
+#, python-format
+msgid ""
+"[ iDea - S ] %(time)s: %(dst_name)s is awarded %(amount)d points for "
+"thumbing up/down on the idea '%(idea_title)s'"
+msgstr ""
+
+#: models.py:212
+#, python-format
+msgid ""
+"[ iDea - S ] %(time)s: %(dst_name)s is awarded %(amount)d points for rating "
+"the idea '%(idea_title)s'"
+msgstr ""
+
+#: models.py:219
+#, python-format
+msgid ""
+"[ iDea - S ] %(time)s: %(dst_name)s is awarded %(amount)d points for "
+"commenting on the idea '%(idea_title)s'"
+msgstr ""
+
+#: models.py:226
+#, python-format
+msgid ""
+"[ iDea - S ] %(time)s: %(dst_name)s is awarded %(amount)d points for "
+"thumbing up/down on %(commentor_name)s's comment to the idea '%(idea_title)s'"
+msgstr ""
+
+#: models.py:234
+#, python-format
+msgid ""
+"[ iDea - S ] %(time)s: %(tipper_name)s tips %(dst_name)s %(amount)d points "
+"for the comment to the idea '%(idea_title)s'"
+msgstr ""
+
+#: models.py:242
+msgid "Unknown iDea transaction"
+msgstr "Transaction iDea inconnu"
+
+#: models.py:247 models.py:258
+msgid "World Bank"
+msgstr "Banque mondiale"
+
+#: models.py:253 models.py:264
+msgid "Unknown"
+msgstr "Inconnu"
+
+#: models.py:268
+#, python-format
+msgid "Thumbing up/down on the idea '%(idea_title)s'"
+msgstr ""
+
+#: models.py:272
+#, python-format
+msgid "Rating the idea '%(idea_title)s'"
+msgstr "Note à l'idée '%(idea_title)s'"
+
+#: models.py:276
+#, python-format
+msgid "Commenting on the idea '%(idea_title)s'"
+msgstr "Commenting on the idea '%(idea_title)s'"
+
+#: models.py:280
+#, fuzzy, python-format
+msgid ""
+"Thumbing up/down on %(commentor_name)s's comment to the idea '%(idea_title)s'"
+msgstr "Commenting on the idea '%(idea_title)s'"
+
+#: models.py:285
+#, fuzzy, python-format
+msgid ""
+"Tipping for the %(commentor_name)s's comment to the idea '%(idea_title)s'"
+msgstr "Commenting on the idea '%(idea_title)s'"
+
+#: models.py:290
+#, fuzzy
+msgid "CoolIdea transactions"
+msgstr "transactions iDea"
+
+#: views.py:123
+msgid "You rated the idea with <strong>"
+msgstr "Vous nominale avec l'idée"
+
+#: views.py:127
+msgid "You have never rated this idea. Why not provide one?"
+msgstr ""
+"Vous n’avez jamais donné une note à ce idée. Pourquoi pas en fournir une?"
+
+#: views.py:354
+#, python-format
+msgid ""
+"Your comment received %(tip_amount)d points tipping from %(tipper_name)s"
+msgstr ""
+
+#: templates/idea/base.html:9
+msgid "Home"
+msgstr "Accueil"
+
+#: templates/idea/base.html:10
+msgid "Search"
+msgstr "Rechercher"
+
+#: templates/idea/base.html:11 templates/idea/idea_coolidea_submit.html:5
+#: templates/idea/idea_home.html:110
+msgid "Submit a cool idea"
+msgstr "Soumettre une idée"
+
+#: templates/idea/base.html:12 templates/idea/idea_coolideas.html:7
+msgid "All cool ideas"
+msgstr "Toutes les idées"
+
+#: templates/idea/coolidea_tag.html:26
+msgid "rating"
+msgstr "note"
+
+#: templates/idea/coolidea_tag.html:28
+msgid "comments"
+msgstr "commentaires"
+
+#: templates/idea/idea_coolidea.html:6
+msgid "Cool Idea"
+msgstr "Idée"
+
+#: templates/idea/idea_coolidea.html:17
+msgid "Tipping"
+msgstr "Pourboires"
+
+#: templates/idea/idea_coolidea.html:19
+msgid "Tips"
+msgstr "Conseils"
+
+#: templates/idea/idea_coolidea.html:55
+msgid "Team"
+msgstr "Team"
+
+#: templates/idea/idea_coolidea.html:67
+msgid "External Collaborators"
+msgstr "Collaborateurs extérieurs"
+
+#: templates/idea/idea_coolidea.html:90 templates/idea/idea_coolidea.html:102
+#: templates/idea/idea_coolidea.html:108
+msgid "Attachment"
+msgstr "Pièce jointe"
+
+#: templates/idea/idea_coolidea.html:95
+msgid "Download"
+msgstr "Télécharger"
+
+#: templates/idea/idea_coolidea.html:138
+msgid "Leave a comment"
+msgstr "Laissez un commentaire"
+
+#: templates/idea/idea_coolidea.html:156
+msgid "Recent voting History"
+msgstr "Histoire de vote récentes"
+
+#: templates/idea/idea_coolidea.html:161
+msgid "thumb(s)"
+msgstr "pouce (s)"
+
+#: templates/idea/idea_coolidea.html:169
+msgid "liked the idea"
+msgstr "a aimé l’idée"
+
+#: templates/idea/idea_coolidea.html:172
+msgid "disliked the idea"
+msgstr "n’a pas aimé l’idée"
+
+#: templates/idea/idea_coolidea.html:178
+msgid "No one has shown any opinions yet"
+msgstr "Personne n’a manifesté d’opinion pour l’instant."
+
+#: templates/idea/idea_coolidea.html:185
+msgid "Recent rating history"
+msgstr "L'histoire des avis récents"
+
+#: templates/idea/idea_coolidea.html:202
+msgid "No user has rated this cool idea"
+msgstr "Aucun utilisateur ont trouvé cette idée"
+
+#: templates/idea/idea_coolidea.html:288
+msgid "Thank you for rating the idea, 2 points were awarded to your account"
+msgstr "Merci d'avoir évalué l'idée, 2 points ont été attribués à votre compte"
+
+#: templates/idea/idea_coolidea.html:291
+msgid "Thank you for rating the idea!"
+msgstr "Merci d'avoir évalué l'idée!"
+
+#: templates/idea/idea_coolidea.html:294
+msgid "rating error!"
+msgstr "Erreur de notation!"
+
+#: templates/idea/idea_coolidea_comments.html:7
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t%(count)s comment\n"
+"\t\t\t"
+msgid_plural ""
+"\n"
+"\t\t\t\t%(count)s comments\n"
+"\t\t\t"
+msgstr[0] ""
+"\n"
+"\t\t\t\t%(count)s commentaire\n"
+"\t\t\t"
+msgstr[1] ""
+"\n"
+"\t\t\t\t%(count)s commentaires\n"
+"\t\t\t"
+
+#: templates/idea/idea_coolidea_comments.html:14
+#: templates/idea/idea_coolideas.html:19
+msgid "Sort by"
+msgstr "Trier par"
+
+#: templates/idea/idea_coolidea_comments.html:58
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t\t\t\t\t%(tipper_name)s tipped \n"
+"\t\t\t\t\t\t\t\t\t<img src=\"%(STATIC_URL)siknow/images/coin_13x13.png\" />\n"
+"\t\t\t\t\t\t\t\t%(amount)s on %(date)s\n"
+"\t\t\t\t\t\t\t\t"
+msgstr ""
+
+#: templates/idea/idea_coolideas.html:15
+msgid "Browse all cool ideas"
+msgstr "Voir toutes les idées"
+
+#: templates/idea/idea_coolideas.html:40
+msgid "I have no idea!"
+msgstr "Je n’ai pas d’idée!"
+
+#: templates/idea/idea_home.html:7
+msgid "iDea"
+msgstr "iDée"
+
+#: templates/idea/idea_home.html:18
+msgid "New cool ideas"
+msgstr "de nouvelles idées"
+
+#: templates/idea/idea_home.html:27
+msgid "Browse more"
+msgstr "Voir plus"
+
+#: templates/idea/idea_home.html:32
+msgid "No one has submitted any new cool ideas yet."
+msgstr "Personne n'a présenté de nouvelles idées encore."
+
+#: templates/idea/idea_home.html:40
+msgid "Top 5 ideas by thumbs"
+msgstr "Le top 5 des idées par votes positifs"
+
+#: templates/idea/idea_home.html:41
+msgid "Top 5 ideas by rating"
+msgstr "Le top 5 des idées par note"
+
+#: templates/idea/idea_home.html:50 templates/idea/idea_home.html.py:61
+msgid "Well, top 5 doesn't seem to be ready yet."
+msgstr "Eh bien, le top 5 ne semble pas encore prêt."
+
+#: templates/idea/idea_home.html:68
+msgid "Cool ideas that you have submitted"
+msgstr "Idées que vous avez soumis"
+
+#: templates/idea/idea_home.html:77
+msgid "You haven't submitted any new cool idea yet."
+msgstr "Vous n'avez pas présenté de nouvelles idées pour le moment. "
+
+#: templates/idea/idea_home.html:85
+msgid "Cool ideas that list you as a collaborator"
+msgstr "Idées que vous la liste en tant que collaborateur"
+
+#: templates/idea/idea_home.html:94
+msgid "No idea lists you as a collaborator."
+msgstr "Aucune idée vous listes en tant que collaborateur."
+
+#: templates/idea/idea_home.html:104
+msgid ""
+"\n"
+"\t\t\t\tiDea is a marketplace where innovative spirits get inspired and "
+"innovation gets created, evaluated and promoted.\n"
+"\t\t\t\t"
+msgstr ""
+"\n"
+"\t\t\t\tiDea est un marché où des esprits innovateurs trouvent de "
+"l’inspiration et l’innovation est créée, évaluée et promue.\n"
+"\t\t\t\t"
+
+#: templates/idea/idea_home.html:117
+msgid "Search ideas"
+msgstr "idées de recherche"
+
+#: templates/idea/idea_home.html:130
+msgid "Wealth"
+msgstr "De patrimoine"
+
+#: templates/idea/idea_home.html:131
+msgid "Available Credits"
+msgstr "Crédits disponibles"
+
+#: templates/idea/idea_home.html:132
+msgid "Level"
+msgstr "Niveau"
+
+#: templates/idea/idea_home.html:135
+msgid "My Dashboard"
+msgstr "Mon tableau de bord"
+
+#: templates/idea/idea_search.html:6
+msgid "iDea Search"
+msgstr "recherche iDée"
+
+#: templates/idea/idea_search.html:18
+msgid "Input keywords"
+msgstr "Mots-clés d'entrée"
+
+#: templates/idea/idea_search.html:22
+msgid "Search cool ideas"
+msgstr "idées de recherche"
+
+#: templates/idea/idea_search.html:27
+msgid "Results"
+msgstr "Résultats"
+
+#: templates/idea/idea_search.html:34
+msgid "No matched results"
+msgstr "Aucun résultat ne correspond"
+
+#: templates/idea/emails/comment_tips_received.txt:2
+#, python-format
+msgid ""
+"\n"
+"Your comment to the cool idea\n"
+"\n"
+"\t%(idea_title)s\n"
+"\n"
+"\tjust received %(amount)s points tipping from %(tipper_name)s.\n"
+msgstr ""
+
+#: templates/idea/emails/comment_tips_received.txt:10
+msgid "You could visit the link below to review the update"
+msgstr ""
+
+#: templates/idea/emails/comment_tips_received.txt:10
+#: templates/idea/emails/coolidea_new_comment.txt:15
+msgid "Thanks for your participation"
+msgstr ""
+
+#: templates/idea/emails/comment_tips_received.txt:12
+#: templates/idea/emails/coolidea_new_comment.txt:18
+#, python-format
+msgid ""
+"\n"
+"To change your settings on receiving notifications from %(site_name)s, "
+"visit\n"
+msgstr ""
+
+#: templates/idea/emails/comment_tips_received.txt:16
+#: templates/idea/emails/coolidea_new_comment.txt:22
+#, python-format
+msgid ""
+"\n"
+"- %(site_name)s Team\n"
+msgstr ""
+"\n"
+"- L’équipe de %(site_name)s \n"
+
+#: templates/idea/emails/coolidea_new_comment.txt:2
+#, python-format
+msgid ""
+"\n"
+"The idea\n"
+"\n"
+"\t%(coolidea_title)s\n"
+"\n"
+"\tcontributed by %(coolidea_contributor)s\n"
+"\n"
+"\tjust received a comment from %(commentor_name)s\n"
+msgstr ""
+
+#: templates/idea/emails/coolidea_new_comment.txt:15
+msgid "You could visit the link below to review the comment"
+msgstr ""

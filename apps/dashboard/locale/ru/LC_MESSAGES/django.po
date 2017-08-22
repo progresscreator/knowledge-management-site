@@ -1,0 +1,228 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-10-13 15:30-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: views.py:224
+msgid "iKnow"
+msgstr "iKnow"
+
+#: views.py:225
+msgid "iDoc"
+msgstr "iDoc"
+
+#: views.py:226
+msgid "Subsidy"
+msgstr "Поддержать и наградить баллами"
+
+#: views.py:245
+msgid "Inflow"
+msgstr "Входяший поток"
+
+#: views.py:246
+msgid "Outflow"
+msgstr "Исходящий поток"
+
+#: views.py:376
+msgid "Date"
+msgstr "Дата"
+
+#: views.py:377
+msgid "Average price of questions"
+msgstr "Средневзвешенная цена вопроса"
+
+#: views.py:378
+msgid "Average awards an answer receives"
+msgstr "Средневзвешенная награда за полученный ответ"
+
+#: views.py:418
+msgid "Number of transactions"
+msgstr "Количество тразакций"
+
+#: views.py:421
+msgid "Transaction amount (x10)"
+msgstr "Объем транзакций (x10)"
+
+#: views.py:459
+msgid "Rating"
+msgstr "Рейтинг"
+
+#: views.py:460 views.py:483 views.py:525 views.py:561
+msgid "Answers"
+msgstr "Ответы"
+
+#: views.py:482 templates/dashboard/db_home.html:209
+msgid "Thumbs"
+msgstr "Голосов за или против"
+
+#: views.py:524
+msgid "Award"
+msgstr "Награда"
+
+#: views.py:558
+msgid "Questions"
+msgstr "Вопросов"
+
+#: views.py:564
+msgid "Income"
+msgstr "Доход"
+
+#: views.py:567
+msgid "Spending"
+msgstr "Истрачено"
+
+#: templates/dashboard/base.html:16
+msgid "Overview"
+msgstr "Обзор"
+
+#: templates/dashboard/base.html:17
+msgid "Tags Cloud"
+msgstr "Облако тегов"
+
+#: templates/dashboard/base.html:18 templates/dashboard/db_global.html:5
+msgid "Global Economy"
+msgstr "Глобальная экономика"
+
+#: templates/dashboard/base.html:19
+msgid "Social Navigation"
+msgstr "Социальный навигатор"
+
+#: templates/dashboard/base.html:20 templates/dashboard/db_expertise.html:4
+#: templates/dashboard/db_expertise.html:10
+msgid "Expertise Cloud"
+msgstr "Экспертное облако"
+
+#: templates/dashboard/db_expertise.html:4
+#: templates/dashboard/db_global.html:5 templates/dashboard/db_social.html:4
+#: templates/dashboard/db_tags.html:4
+msgid "Dashboard"
+msgstr "Панель управления"
+
+#: templates/dashboard/db_global.html:14
+msgid "Questions and Answers"
+msgstr "Вопросы и ответы"
+
+#: templates/dashboard/db_global.html:27
+msgid "Price Index of Q&A"
+msgstr "Ценовой индекс вопросов и ответов"
+
+#: templates/dashboard/db_global.html:40
+msgid "Transactions"
+msgstr "Транзакции"
+
+#: templates/dashboard/db_home.html:5
+#, python-format
+msgid ""
+"\n"
+"\t\tDashboard of %(egghead_name)s\n"
+"\t"
+msgstr ""
+"\n"
+"\t\tпанель управления %(egghead_name)s\n"
+"\t"
+
+
+#: templates/dashboard/db_home.html:15
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t\tYour wealth gauge (Rank: %(ranking)s out of %(total_user)s)\n"
+"\t\t\t\t\t"
+msgstr ""
+"\n"
+"\t\t\t\t\tрейтинг вашего состояния (Rank: %(ranking)s из %(total_user)s)\n"
+"\t\t\t\t\t"
+
+
+#: templates/dashboard/db_home.html:27
+msgid "Overview of your income/expenses"
+msgstr "Обзор вашего дохода/расхода"
+
+#: templates/dashboard/db_home.html:39
+msgid "Performance review"
+msgstr "Эффективность работы"
+
+#: templates/dashboard/db_home.html:50
+msgid "Expertise tags"
+msgstr "Теги компетенций"
+
+#: templates/dashboard/db_home.html:63
+msgid "Time Series: Activities"
+msgstr "Bременной ряд: Активность"
+
+#: templates/dashboard/db_home.html:67
+msgid "Question"
+msgstr "Вопрос"
+
+#: templates/dashboard/db_home.html:67
+msgid "Answer"
+msgstr "Ответ"
+
+#: templates/dashboard/db_home.html:68
+msgid "Points flow"
+msgstr "Поток баллов"
+
+#: templates/dashboard/db_home.html:159
+msgid "Distribution of Income"
+msgstr "Распределение дохода"
+
+#: templates/dashboard/db_home.html:172
+msgid "Inflow Vs. Outflow"
+msgstr "Соотношение входящего пр. исходящего потока"
+
+#: templates/dashboard/db_home.html:195
+msgid "Ratings received by answers"
+msgstr "Рейтинг в результате ответов"
+
+#: templates/dashboard/db_home.html:197
+msgid "Ratings"
+msgstr "Рейтинг"
+
+#: templates/dashboard/db_home.html:207
+msgid "Thumbs received by answers"
+msgstr "Проголосовали за ответ"
+
+#: templates/dashboard/db_home.html:218
+msgid "Awards received by answers"
+msgstr "Наград полученных за ответ"
+
+#: templates/dashboard/db_social.html:5
+#, python-format
+msgid ""
+"\n"
+"\t\t%(egghead_name)s's knowledge network\n"
+"\t"
+msgstr ""
+"\n"
+"\t\t%(egghead_name)s спектр знаний \n"
+"\t"
+
+
+#: templates/dashboard/db_social.html:13
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t%(egghead_name)s's knowledge network\n"
+"\t\t\t"
+msgstr ""
+"\n"
+"\t\t\t\t%(egghead_name)s спектр знаний \n"
+"\t\t\t"
+
+#: templates/dashboard/db_tags.html:4 templates/dashboard/db_tags.html.py:8
+msgid "Popular Tags"
+msgstr "Популярные теги"
